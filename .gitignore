@@ -3,3 +3,8 @@
 .settings/
 .bin/
 .build/
+out/
+
+.classpath
+.project
+resolve
