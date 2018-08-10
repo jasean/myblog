@@ -3,12 +3,19 @@ package com.hbwh.xj.myblog.controller;
 import com.hbwh.xj.myblog.bean.User;
 import com.hbwh.xj.myblog.service.UserService;
 import com.hbwh.xj.myblog.util.result.Result;
+import com.hbwh.xj.myblog.util.result.ResultCode;
+import com.hbwh.xj.myblog.util.tool.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Api(tags = "用户操作相关API")
 @RestController
@@ -28,8 +35,32 @@ public class UserController {
 
     @ApiOperation(value = "用户登录", notes = "")
     @PostMapping("/sessions")
-    public ResponseEntity<Result> login(User user){
+    public ResponseEntity<Result> login(HttpServletRequest request, HttpServletResponse response,
+                                        User user){
         //取出存放在数据库的用户密码签名
+        User uInDb = userService.getUserByUserid(user.getUserid());
+        if(uInDb == null){
+            return new ResponseEntity<Result>(Result.failure(ResultCode.USER_NOT_EXIST),
+                    HttpStatus.OK);
+        }
+        String digestInDb = uInDb.getPassword();
+
+        //校验密码
+        boolean result = MD5Utils.verifyMD5(user.getPassword(), digestInDb);
+        if(false == result){
+            return new ResponseEntity<Result>(Result.failure(ResultCode.USER_LOGIN_ERROR), HttpStatus.OK);
+        }
+
+        //保存session
+        HttpSession session = request.getSession();
+        if (session.isNew()){
+            session.setAttribute("user", user);
+
+            //添加cookie
+            Cookie cookie = new Cookie("JSESSIONID", session.getId());
+            response.addCookie(cookie);
+        }
+
         return new ResponseEntity(Result.success(), HttpStatus.OK);
     }
 
