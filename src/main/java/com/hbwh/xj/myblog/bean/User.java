@@ -1,6 +1,13 @@
 package com.hbwh.xj.myblog.bean;
 
+import javax.persistence.Id;
+import java.math.BigInteger;
+
+/**
+ * 通用 Mapper 中，默认情况下是将实体类字段按照驼峰转下划线形式的表名列名进行转换
+ */
 public class User {
+    @Id
     private String userid;
     private String password;
 
@@ -8,7 +15,7 @@ public class User {
     private String signature;
     private String imagePath;
     private Integer level;
-    private Long pageView;
+    private BigInteger pageView;
     private Long score;
     private Long rank;
 
@@ -60,11 +67,11 @@ public class User {
         this.level = level;
     }
 
-    public Long getPageView() {
+    public BigInteger getPageView() {
         return pageView;
     }
 
-    public void setPageView(Long pageView) {
+    public void setPageView(BigInteger pageView) {
         this.pageView = pageView;
     }
 
