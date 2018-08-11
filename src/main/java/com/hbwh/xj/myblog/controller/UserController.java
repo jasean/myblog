@@ -95,25 +95,23 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "新增用户资料", notes = "")
-    @PostMapping("/data")
-    public ResponseEntity<Result> addUserData(User user){
-
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "获取用户资料", notes = "")
     @GetMapping("/data/{userid}")
     public ResponseEntity<Result> getUserData(@PathVariable("userid") String userid){
-
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
+        User user = userService.getUserByUserid(userid);
+        return ResponseResult.get().resultCode(ResultCode.SUCCESS).data(user).build();
     }
 
     @ApiOperation(value = "修改用户资料", notes = "")
     @PutMapping("/data")
     public ResponseEntity<Result> modifyUserData(User user){
+        boolean result = userService.modifyUser(user);
+        if(true == result){
+            return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
+        }
 
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
+        return ResponseResult.get().resultCode(ResultCode.SPECIFIED_QUESTIONED_USER_NOT_EXIST)
+                .build();
     }
 
 

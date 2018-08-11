@@ -32,4 +32,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public boolean modifyUser(User user){
+       int row = userMapper.updateByPrimaryKeySelective(user);
+       return row == 1;
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        return false;
+    }
 }
