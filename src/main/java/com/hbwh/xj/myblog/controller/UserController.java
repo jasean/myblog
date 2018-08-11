@@ -2,6 +2,7 @@ package com.hbwh.xj.myblog.controller;
 
 import com.hbwh.xj.myblog.bean.User;
 import com.hbwh.xj.myblog.service.UserService;
+import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;
 import com.hbwh.xj.myblog.util.result.ResultCode;
 import com.hbwh.xj.myblog.util.tool.MD5Utils;
@@ -54,7 +55,7 @@ public class UserController {
         //保存session
         HttpSession session = request.getSession();
         if (session.isNew()){
-            session.setAttribute("user", user);
+            session.setAttribute("user", uInDb);
 
             //添加cookie
             Cookie cookie = new Cookie("JSESSIONID", session.getId());
@@ -66,16 +67,31 @@ public class UserController {
 
     @ApiOperation(value = "用户注销", notes = "")
     @DeleteMapping("/sessions/{userid}")
-    public ResponseEntity<Result> logout(@PathVariable("userid") String userid){
+    public ResponseEntity<Result> logout(@PathVariable("userid") String userid,
+                                         HttpServletRequest request){
 
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
+        HttpSession session = request.getSession();
+        if(session != null && session.getAttribute("user") != null){
+            session.invalidate();
+        }
+        return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
+
 
     @ApiOperation(value = "用户注册", notes = "")
     @PostMapping
     public ResponseEntity<Result> register(User user){
 
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
+        String password = user.getPassword();
+        password = MD5Utils.md5BySalt(password);
+        user.setPassword(password);
+
+       boolean result = userService.addUser(user);
+       if(result == true){
+           return new ResponseEntity(Result.success(), HttpStatus.OK);
+       }
+
+       return ResponseResult.get().resultCode(ResultCode.USER_ERROR_REGISTER).build();
     }
 
 

@@ -24,4 +24,12 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(userid);
         return user;
     }
+
+    @Override
+    public boolean addUser(User user) {
+       int row = userMapper.insert(user);
+        return row == 1;
+    }
+
+
 }
