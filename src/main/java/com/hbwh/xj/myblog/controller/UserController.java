@@ -8,6 +8,8 @@ import com.hbwh.xj.myblog.util.result.ResultCode;
 import com.hbwh.xj.myblog.util.tool.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +19,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 
 @Api(tags = "用户操作相关API")
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService = null;
 
@@ -39,7 +44,7 @@ public class UserController {
     public ResponseEntity<Result> login(HttpServletRequest request, HttpServletResponse response,
                                         User user){
         //取出存放在数据库的用户密码签名
-        User uInDb = userService.getUserByUserid(user.getUserid());
+        /*User uInDb = userService.getUserByUserid(user.getUserid());
         if(uInDb == null){
             return new ResponseEntity<Result>(Result.failure(ResultCode.USER_NOT_EXIST),
                     HttpStatus.OK);
@@ -50,19 +55,22 @@ public class UserController {
         boolean result = MD5Utils.verifyMD5(user.getPassword(), digestInDb);
         if(false == result){
             return new ResponseEntity<Result>(Result.failure(ResultCode.USER_LOGIN_ERROR), HttpStatus.OK);
-        }
+        }*/
 
         //保存session
+        Cookie[] cookies = request.getCookies();
+        logger.info("cookies: {}", Arrays.toString(cookies));
         HttpSession session = request.getSession();
+        logger.info("/users/sessions sessionid: {}, new? {}", session.getId(), session.isNew());
         if (session.isNew()){
-            session.setAttribute("user", uInDb);
+            session.setAttribute("user", user);
 
             //添加cookie
             Cookie cookie = new Cookie("JSESSIONID", session.getId());
             response.addCookie(cookie);
         }
 
-        return new ResponseEntity(Result.success(), HttpStatus.OK);
+        return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
     @ApiOperation(value = "用户注销", notes = "")

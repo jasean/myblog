@@ -17,7 +17,7 @@ spring:
 
   devtools:
     restart:
-      trigger-file: .trigger
+      trigger-file: trigger
 
 pagehelper:
   helper-dialect: mysql
