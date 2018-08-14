@@ -44,7 +44,7 @@ public class UserController {
     public ResponseEntity<Result> login(HttpServletRequest request, HttpServletResponse response,
                                         User user){
         //取出存放在数据库的用户密码签名
-        /*User uInDb = userService.getUserByUserid(user.getUserid());
+        User uInDb = userService.getUserByUserid(user.getUserid());
         if(uInDb == null){
             return new ResponseEntity<Result>(Result.failure(ResultCode.USER_NOT_EXIST),
                     HttpStatus.OK);
@@ -55,7 +55,7 @@ public class UserController {
         boolean result = MD5Utils.verifyMD5(user.getPassword(), digestInDb);
         if(false == result){
             return new ResponseEntity<Result>(Result.failure(ResultCode.USER_LOGIN_ERROR), HttpStatus.OK);
-        }*/
+        }
 
         //保存session
         Cookie[] cookies = request.getCookies();
@@ -63,7 +63,7 @@ public class UserController {
         HttpSession session = request.getSession();
         logger.info("/users/sessions sessionid: {}, new? {}", session.getId(), session.isNew());
         if (session.isNew()){
-            session.setAttribute("user", user);
+            session.setAttribute("user", uInDb);
 
             //添加cookie
             Cookie cookie = new Cookie("JSESSIONID", session.getId());

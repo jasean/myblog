@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blogs")
 @Api(tags = "博客分类相关API")
 public class BlogCategoryController {
 
@@ -21,7 +21,7 @@ public class BlogCategoryController {
     }
 
     @ApiOperation(value = "获取个人文章分类", notes = "自定义分类")
-    @GetMapping("/private-categories/{userid}")
+    @GetMapping("/categories/{userid}")
     public ResponseEntity<Result> modifyUserData(@PathVariable("userid")String userid){
 
         return new ResponseEntity(Result.success(), HttpStatus.OK);
