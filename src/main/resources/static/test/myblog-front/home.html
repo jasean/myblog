@@ -14,13 +14,34 @@
         <title>个人主页</title>
         <script>
         $(function(){
-
+            var currentUser = null;
+            var $a = $("h1>a");
+            $a.on('click', function () {
+                if(currentUser == null) return;
+                httpRequest({
+                    type: 'POST',
+                    url: 'http://localhost:8080/users/sessions/' + currentUser.userid,
+                    data: '_method=delete',
+                    success: function (result) {
+                        console.info(result);
+                        window.location.href = 'login.html';
+                    }
+                })
+            })
+            httpRequest({
+                url: 'http://localhost:8080/users/data/cur',
+                success: function (result) {
+                    console.info(result);
+                    currentUser = result;
+                    $a.html(current.usernm);
+                }
+            })
         })
             
         </script>
     </head>
     <body>
-        <h1>欢迎来到我的首页</h1>
+        <h1>欢迎来到<a></a>的首页</h1>
 
     </body>
 </html>

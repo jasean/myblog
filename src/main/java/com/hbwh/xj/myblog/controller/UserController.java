@@ -107,6 +107,18 @@ public class UserController {
     @GetMapping("/data/{userid}")
     public ResponseEntity<Result> getUserData(@PathVariable("userid") String userid){
         User user = userService.getUserByUserid(userid);
+        user.setPassword("");
+        return ResponseResult.get().resultCode(ResultCode.SUCCESS).data(user).build();
+    }
+
+    @ApiOperation(value = "获取当前用户资料", notes = "")
+    @GetMapping("/data/cur")
+    public ResponseEntity<Result> getCurrentUserData(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            return ResponseResult.get().resultCode(ResultCode.USER_NOT_LOGGED_IN).build();
+        }
+        User user = (User) session.getAttribute("user");
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).data(user).build();
     }
 
