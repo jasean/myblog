@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
         logger.info("------------session:{}", session);
         if(null == session){
 //            response.setStatus(403);
-            return;
+//            return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
 
