@@ -36,6 +36,21 @@
                     $a.html(current.usernm);
                 }
             })
+            /*$.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/users/data/cur',
+                dataType: 'json',
+                xhrFields: {withCredentials: true},
+                success: function (result) {
+                    console.info(result);
+                    currentUser = result;
+                    $a.html(current.usernm);
+                },
+                error: function (jqXHR, textStatus, errorMsg) {
+                    console.error("jqxhr status:" + jqXHR.status + ',textStatus:' + textStatus + ',errorMsg:' + errorMsg);
+                }
+
+            })*/
         })
             
         </script>

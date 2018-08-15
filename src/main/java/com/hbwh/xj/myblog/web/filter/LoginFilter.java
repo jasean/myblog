@@ -47,7 +47,7 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession(false);
         logger.info("------------session:{}", session);
         if(null == session){
-            response.sendError(403);
+//            response.setStatus(403);
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);

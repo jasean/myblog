@@ -16,7 +16,7 @@
         <script>
         $(function(){
             $("#submit").on("click",function(){
-                $.ajax({
+                httpRequest({
                     type: 'POST',
                     url: 'http://localhost:8080/users/sessions',
                     data: $('#login_form').serialize(),

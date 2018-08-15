@@ -16,6 +16,7 @@ function httpRequest(settings){
 
             // 提示形如：发送AJAX请求到"/index.html"时出错[404]：Not Found
 
+            console.error("jqxhr status:" + jqXHR.status + ',textStatus:' + textStatus + ',errorMsg:' + errorMsg);
             if (jqXHR.status == 500) {
                 alert('出错[' + jqXHR.status + ']：' + errorMsg + ':::' + jqXHR.responseText);
             }
@@ -24,11 +25,13 @@ function httpRequest(settings){
             }
 
             if (jqXHR.status == 403) {
+                alert('403');
                 window.location.href = 'login.html';
             }
         }
     };
 
     requestParam = $.extend(requestParam, settings);
+    console.info(requestParam);
     $.ajax(requestParam);
 }
