@@ -64,6 +64,7 @@ public class UserController {
         logger.info("/users/sessions sessionid: {}, new? {}", session.getId(), session.isNew());
         if (session.isNew()){
             session.setAttribute("user", uInDb);
+            session.setMaxInactiveInterval(60);
 
             //添加cookie
             Cookie cookie = new Cookie("JSESSIONID", session.getId());
@@ -96,6 +97,7 @@ public class UserController {
 
        boolean result = userService.addUser(user);
        if(result == true){
+           // 更新登陆状态
            return new ResponseEntity(Result.success(), HttpStatus.OK);
        }
 

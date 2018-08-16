@@ -22,7 +22,11 @@
                     data: $('#login_form').serialize(),
                     success: function(result){
                         console.info(result);
-                        window.location.href='home.html';
+                        if(result.code == 0){
+                            window.location.href='home.html';
+                        }else{
+                            alert(result.msg);
+                        }
                     }
                 })
             })

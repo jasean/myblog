@@ -11,17 +11,17 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 
 @Configuration
-public class WebConfiguration {
+public class FilterConfiguration {
     /*************************************
      *
      * Filter
      *
      ************************************/
     /**
-     * 对请求API做过滤：若用户没有登录，要重定向到登录页面
+     * 对请求API做过滤：若用户没有登录，要重定向到登录页面(转移到拦截器中去实现)
      * @return
      */
-    @Bean
+    /*@Bean
     public FilterRegistrationBean loginFilterBean() {
         LoginFilter loginFilter = new LoginFilter();
 
@@ -31,7 +31,7 @@ public class WebConfiguration {
         registrationBean.setOrder(0);           //过滤器顺序
         registrationBean.setUrlPatterns(Arrays.asList("/*")); //拦截规则
         return registrationBean;
-    }
+    }*/
 
     /*************************************
      *

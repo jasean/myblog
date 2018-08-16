@@ -15,9 +15,9 @@ spring:
   thymeleaf:
     cache: false
 
-#  devtools:
-#    restart:
-#      trigger-file: trigger
+  devtools:
+    restart:
+      trigger-file: trigger
 
 pagehelper:
   helper-dialect: mysql
