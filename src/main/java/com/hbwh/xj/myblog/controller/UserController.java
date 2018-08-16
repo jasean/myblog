@@ -97,7 +97,7 @@ public class UserController {
 
        boolean result = userService.addUser(user);
        if(result == true){
-           // 更新登陆状态
+           // todo:更新登陆状态
            return new ResponseEntity(Result.success(), HttpStatus.OK);
        }
 
