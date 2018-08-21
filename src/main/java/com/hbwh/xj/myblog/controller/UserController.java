@@ -97,7 +97,7 @@ public class UserController {
 
        boolean result = userService.addUser(user);
        if(result == true){
-           // todo:更新登陆状态
+           // todo:更新登陆状态 or 重定向到登录页
            return new ResponseEntity(Result.success(), HttpStatus.OK);
        }
 
