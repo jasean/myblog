@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+
+        <link rel="stylesheet" type="text/css" href="./css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="./lib/bootstrap-3.3.7/css/bootstrap.css"/>
+
+        <script type="text/javascript" src="./lib/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="./js/common.js"></script>
+        <script type="text/javascript" src="./lib/bootstrap-3.3.7/js/bootstrap.js"></script>
+
+        <title>个人主页</title>
+        <script>
+        $(function(){
+            var currentUser = null;
+            var $a = $("h1>a");
+            $a.on('click', function () {
+                if(currentUser == null) return;
+                httpRequest({
+                    type: 'POST',
+                    url: 'http://localhost:8080/users/sessions/' + currentUser.userid,
+                    data: '_method=delete',
+                    success: function (result) {
+                        console.info(result);
+                        window.location.href = 'login.html';
+                    }
+                })
+            })
+            httpRequest({
+                url: 'http://localhost:8080/users/data/cur',
+                success: function (result) {
+                    console.info(result);
+                    currentUser = result;
+                    $a.html(currentUser.usernm);
+                }
+            })
+            /*$.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/users/data/cur',
+                dataType: 'json',
+                xhrFields: {withCredentials: true},
+                success: function (result) {
+                    console.info(result);
+                    currentUser = result;
+                    $a.html(current.usernm);
+                },
+                error: function (jqXHR, textStatus, errorMsg) {
+                    console.error("jqxhr status:" + jqXHR.status + ',textStatus:' + textStatus + ',errorMsg:' + errorMsg);
+                }
+
+            })*/
+        })
+            
+        </script>
+    </head>
+    <body>
+        <h1>欢迎来到<a></a>的首页</h1>
+
+    </body>
+</html>
