@@ -14,10 +14,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
+    //登陆校验排除路径
     public static final List<String> excludePaths = Arrays.asList(
             "/users/sessions","/users"
     );
 
+    //登陆校验排除请求方法类型
     public static final List<String> excludeMethod = Arrays.asList(
             "OPTIONS"
     );

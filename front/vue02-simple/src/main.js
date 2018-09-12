@@ -10,7 +10,7 @@ import components from './components/'
 Object.keys(components).forEach(key => {
   var name = key.replace(/(\w)/, (v) => v.toUpperCase()) //首字母大写
   Vue.component(`v${name}`, components[key]);
-})
+});
 
 Vue.use(VueRouter)
 
@@ -20,7 +20,8 @@ const router = new VueRouter({
 
 router.beforeEach(({meta, path}, from, next) => {
   let {auth = true} = meta;
-  let isLogin = Boolean(store.state.user.id);
+  // let isLogin = Boolean(store.state.user.id);
+  let isLogin = Boolean(store.state.user.token);
   if(auth && !isLogin && path !== '/login'){
     return next({path: '/login'});
   }

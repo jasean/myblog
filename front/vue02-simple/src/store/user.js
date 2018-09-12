@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import http from '../utils/http'
 
 export const USER_SIGNIN = 'USER_SIGNIN' //登录成功
 export const USER_SIGNOUT = 'USER_SIGNOUT' //退出登录
@@ -7,7 +8,12 @@ export default {
     state: JSON.parse(sessionStorage.getItem('user')) || {},
     mutations: {
         [USER_SIGNIN](state, user) {
-            sessionStorage.setItem('user', JSON.stringify(user))
+            // sessionStorage.setItem('user', JSON.stringify(user))
+
+            http.post('/users/sessions',user).then(res => {
+                
+            })
+
             Object.assign(state, user)
         },
         [USER_SIGNOUT](state) {

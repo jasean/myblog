@@ -23,12 +23,12 @@
 		</v-header>
 		<form class="login" v-on:submit.prevent="submit">
 			<div class="line">	
-				<div v-show="btn && !form.id">id不能为空</div>
-				<input type="text" placeholder="输入你的id" v-model="form.id">
+				<div v-show="btn && !form.userid">id不能为空</div>
+				<input type="text" placeholder="请输入用户号" v-model="form.userid">
 			</div>
 			<div class="line">
-				<div v-show="btn && !form.name">用户名不能为空</div>
-				<input type="text" placeholder="输入你的用户名" v-model="form.name">
+				<div v-show="btn && !form.password">用户名不能为空</div>
+				<input type="password" placeholder="请输入密码" v-model="form.password">
 			</div>
 			<button>登录</button>
 		</form>
@@ -43,16 +43,17 @@
 			return {
 				btn: false, //true 已经提交过， false没有提交过
 				form: {
-					id: '',
-					name: ''
-				}
+					userid: '',
+					password: '',
+				},
+				token: ''
 			}
 		},
 		methods: {
             ...mapActions([USER_SIGNIN]),
 			submit() {
 				this.btn = true
-				if(!this.form.id || !this.form.name) return
+				if(!this.form.userid || !this.form.password) return
 				this.USER_SIGNIN(this.form)
 				this.$router.replace({ path: '/home' })
 			}
