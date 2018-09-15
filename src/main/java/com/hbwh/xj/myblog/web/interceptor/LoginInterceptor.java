@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             //check session
             HttpSession session = request.getSession(false);
             if(session == null){
-                response.sendError(403);
+                response.sendError(401);
                 return false;
             }
         }

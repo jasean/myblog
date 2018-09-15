@@ -1,32 +1,40 @@
 import Vue from 'vue'
-import http from '../utils/http'
+import * as funcs from '../funcs/getData'
 
 export const USER_SIGNIN = 'USER_SIGNIN' //登录成功
 export const USER_SIGNOUT = 'USER_SIGNOUT' //退出登录
 
 export default {
-    state: JSON.parse(sessionStorage.getItem('user')) || {},
+    state: {},
     mutations: {
         [USER_SIGNIN](state, user) {
-            // sessionStorage.setItem('user', JSON.stringify(user))
-
-            http.post('/users/sessions',user).then(res => {
-                
-            })
-
             Object.assign(state, user)
         },
+        
         [USER_SIGNOUT](state) {
-            sessionStorage.removeItem('user')
             Object.keys(state).forEach(k => Vue.delete(state, k))
         }
     },
     actions: {
-        [USER_SIGNIN]({commit}, user) {
-            commit(USER_SIGNIN, user)
+        async [USER_SIGNIN]({commit}, user) {
+            let res = await funcs.login(user);
+            console.info(`user_signin response: ${JSON.stringify(res)}`);
+            if(res.data.code == 0){
+                commit(USER_SIGNIN, user);
+            }else{
+                throw new Error(res.data.msg);
+            }
         },
-        [USER_SIGNOUT]({commit}) {
-            commit(USER_SIGNOUT)
-        }
+        
+        async [USER_SIGNOUT]({commit, state}) {
+            let res = await funcs.logout(state.userid);
+            console.info(`user_signout response: ${JSON.stringify(res)}`);
+            if(res.data.code == 0){
+                commit(USER_SIGNOUT);
+            }else{
+                throw new Error(res.data.msg);
+            }
+        },
+
     }
 }

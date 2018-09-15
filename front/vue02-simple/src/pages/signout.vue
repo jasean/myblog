@@ -24,8 +24,9 @@
         methods: {
             ...mapActions([USER_SIGNOUT]),
             submit() {
-                this.USER_SIGNOUT()
-				this.$router.replace({ path: '/login' })
+                this.USER_SIGNOUT().then(() => {
+					this.$router.replace({ path: '/login' });
+				}).catch(e => alert(e))
             }
         }
     }

@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router'
 
-import routes from './config/routes'
+import router from './config/router'
 import store from './store/'
 import components from './components/'
 
@@ -12,21 +11,7 @@ Object.keys(components).forEach(key => {
   Vue.component(`v${name}`, components[key]);
 });
 
-Vue.use(VueRouter)
 
-const router = new VueRouter({
-  routes
-})
-
-router.beforeEach(({meta, path}, from, next) => {
-  let {auth = true} = meta;
-  // let isLogin = Boolean(store.state.user.id);
-  let isLogin = Boolean(store.state.user.token);
-  if(auth && !isLogin && path !== '/login'){
-    return next({path: '/login'});
-  }
-  next();
-})
 
 new Vue({
   el: '#app',

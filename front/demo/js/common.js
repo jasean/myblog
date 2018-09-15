@@ -24,7 +24,7 @@ function httpRequest(settings){
                 alert('出错[' + jqXHR.status + ']：' + errorMsg + ':::' + jqXHR.responseText);
             }
 
-            if (jqXHR.status == 403) {
+            if (jqXHR.status == 401) {
                 alert('403');
                 window.location.href = 'login.html';
             }

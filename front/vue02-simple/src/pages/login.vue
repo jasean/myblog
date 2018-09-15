@@ -45,8 +45,7 @@
 				form: {
 					userid: '',
 					password: '',
-				},
-				token: ''
+				}
 			}
 		},
 		methods: {
@@ -54,8 +53,9 @@
 			submit() {
 				this.btn = true
 				if(!this.form.userid || !this.form.password) return
-				this.USER_SIGNIN(this.form)
-				this.$router.replace({ path: '/home' })
+				this.USER_SIGNIN(this.form).then(() => {
+					this.$router.replace({ path: '/home' })
+				}).catch(e => alert(e))
 			}
 		}
     }

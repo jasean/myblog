@@ -1,8 +1,11 @@
 import App from '../app'
+import store from '../store'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 /**
  * auth true登录才能访问，false不需要登录，默认true
  */
-export default [
+const routes = [
     {
         path: '/',
         component: App,
@@ -32,3 +35,20 @@ export default [
         ]
     }
 ]
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes
+})
+
+router.beforeEach(({meta, path}, from, next) => {
+    let {auth = true} = meta;
+    let isLogin = Boolean(store.state.user.userid);
+    if(auth && !isLogin && path !== '/login'){
+      return next({path: '/login'});
+    }
+    next();
+  })
+
+export default router;

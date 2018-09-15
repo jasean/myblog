@@ -1,9 +1,26 @@
 import axios from 'axios'
+import router from '../config/router'
+import qs from 'qs'
 
 const inst = axios.create();
 inst.defaults.baseURL = 'http://localhost:9080/';
 inst.defaults.timeout = 5000;
-// axios.defaults.withCredentials = true;
+inst.defaults.withCredentials = true;
+
+inst.interceptors.response.use(
+    response => response,
+    error => {
+        if(error.response){
+            switch(error.response.status){
+                case 401:
+                    //TODO 跳转
+                    router.replace({path: '/login'})
+                    break;
+
+            }
+        }
+        return Promise.reject(error.response.data);
+    })
 
 class Http {
     constructor(){}
@@ -21,7 +38,7 @@ class Http {
 
     post(url, data = {}){
         return new Promise((resolve, reject) => {
-            inst.post(url, data).then(response => {
+            inst.post(url, qs.stringify(data)).then(response => {
                 resolve(response);
             }).catch(e => reject(e));
         })
@@ -29,7 +46,7 @@ class Http {
 
     put(url, data = {}){
         return new Promise((resolve, reject) => {
-            inst.put(url, data).then(response => {
+            inst.put(url, qs.stringify(data)).then(response => {
                 resolve(response);
             }).catch(e => reject(e));
         })
