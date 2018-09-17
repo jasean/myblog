@@ -25,7 +25,7 @@ function httpRequest(settings){
             }
 
             if (jqXHR.status == 401) {
-                alert('403');
+                alert('401');
                 window.location.href = 'login.html';
             }
         }

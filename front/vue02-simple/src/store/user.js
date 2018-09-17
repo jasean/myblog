@@ -1,19 +1,24 @@
 import Vue from 'vue'
 import * as funcs from '../funcs/getData'
 
-export const USER_SIGNIN = 'USER_SIGNIN' //登录成功
-export const USER_SIGNOUT = 'USER_SIGNOUT' //退出登录
+import {USER_SIGNIN, USER_SIGNOUT, USER_GET_CURRENT} from './types'
 
 export default {
+    //TODO 初始化如何做？
     state: {},
     mutations: {
         [USER_SIGNIN](state, user) {
             Object.assign(state, user)
         },
-        
+
         [USER_SIGNOUT](state) {
             Object.keys(state).forEach(k => Vue.delete(state, k))
+        },
+
+        [USER_GET_CURRENT](state, user){
+            state.userid = user.userid;
         }
+
     },
     actions: {
         async [USER_SIGNIN]({commit}, user) {
@@ -35,6 +40,16 @@ export default {
                 throw new Error(res.data.msg);
             }
         },
+
+        async [USER_GET_CURRENT]({commit}){
+            let res = await funcs.getCurrentUserInfo();
+            console.info(`user_signout response: ${JSON.stringify(res)}`);
+            if(res.data.code == 0){
+                commit(USER_SIGNOUT);
+            }else{
+                throw new Error(res.data.msg);
+            }
+        }
 
     }
 }

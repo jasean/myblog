@@ -36,7 +36,7 @@
 </template>
 <script>
     import { mapActions } from 'vuex'
-    import { USER_SIGNIN } from '../store/user'
+    import { USER_SIGNIN } from '../store/types'
 
     export default {
         data() {
@@ -48,6 +48,10 @@
 				}
 			}
 		},
+		mounted() {
+
+		},
+
 		methods: {
             ...mapActions([USER_SIGNIN]),
 			submit() {
