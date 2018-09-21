@@ -48,9 +48,6 @@
 				}
 			}
 		},
-		mounted() {
-
-		},
 
 		methods: {
             ...mapActions([USER_SIGNIN]),

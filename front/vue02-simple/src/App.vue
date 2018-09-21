@@ -28,6 +28,21 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created(){
+    console.info('```````created````````````')
+    localStorage.getItem("appState") && 
+      this.$store.replaceState(
+        Object.assign({}, this.$store.state,JSON.parse(localStorage.getItem("appState")))
+      );
+
+    console.info(this.$store.state)
+
+    window.addEventListener("beforeunload",()=>{
+      console.info('beforeunload.....')
+      localStorage.setItem("appState",JSON.stringify(this.$store.state))
+      console.info(localStorage.getItem("appState"))
+    })
   }
 }
 </script>

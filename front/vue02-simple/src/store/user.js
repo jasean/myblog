@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import * as funcs from '../funcs/getData'
+import { getLocalStore } from '../utils/lstore'
 
 import {USER_SIGNIN, USER_SIGNOUT, USER_GET_CURRENT} from './types'
 
 export default {
     //TODO 初始化如何做？
-    state: {},
+    state: getLocalStore('appState.user') || {},
     mutations: {
         [USER_SIGNIN](state, user) {
             Object.assign(state, user)

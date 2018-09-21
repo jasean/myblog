@@ -43,8 +43,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach(({meta, path}, from, next) => {
+    console.info('```````beforeEach````````````')
     let {auth = true} = meta;
     let isLogin = Boolean(store.state.user.userid);
+    console.info(`islogin:${isLogin}`)
     if(auth && !isLogin && path !== '/login'){
       return next({path: '/login'});
     }

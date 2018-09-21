@@ -10,6 +10,7 @@ inst.defaults.withCredentials = true;
 inst.interceptors.response.use(
     response => response,
     error => {
+        console.info(error)
         if(error.response){
             switch(error.response.status){
                 case 401:
@@ -19,7 +20,7 @@ inst.interceptors.response.use(
 
             }
         }
-        return Promise.reject(error.response.data);
+        return Promise.reject(error);
     })
 
 class Http {

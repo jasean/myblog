@@ -12,7 +12,6 @@ Object.keys(components).forEach(key => {
 });
 
 
-
 new Vue({
   el: '#app',
   store,
