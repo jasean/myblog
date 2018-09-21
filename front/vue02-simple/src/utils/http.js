@@ -10,7 +10,7 @@ inst.defaults.withCredentials = true;
 inst.interceptors.response.use(
     response => response,
     error => {
-        console.info(error)
+        console.info(JSON.stringify(error))
         if(error.response){
             switch(error.response.status){
                 case 401:
