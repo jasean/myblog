@@ -14,6 +14,11 @@
 			margin-top: 20px;
 			line-height: 28px;
 		}
+
+		.register {
+			text-align: right;
+			color: blue;
+		}
 	}
 </style>
 <template>
@@ -31,6 +36,7 @@
 				<input type="password" placeholder="请输入密码" v-model="form.password">
 			</div>
 			<button>登录</button>
+			<router-link to="/register" class="register">注册</router-link>
 		</form>
 	</div>
 </template>
@@ -56,7 +62,9 @@
 				if(!this.form.userid || !this.form.password) return
 				this.USER_SIGNIN(this.form).then(() => {
 					this.$router.replace({ path: '/home' })
-				}).catch(e => alert(e))
+				}).catch(e => {
+					alert(JSON.stringify(e))
+				})
 			}
 		}
     }

@@ -10,14 +10,14 @@ inst.defaults.withCredentials = true;
 inst.interceptors.response.use(
     response => response,
     error => {
-        console.info(JSON.stringify(error))
+        console.error('response error....')
+        console.error(JSON.stringify(error))
         if(error.response){
             switch(error.response.status){
                 case 401:
                     //TODO 跳转
                     router.replace({path: '/login'})
                     break;
-
             }
         }
         return Promise.reject(error);

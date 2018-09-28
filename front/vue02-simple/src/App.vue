@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import { USER_GET_CURRENT } from './store/types'
+import {mapActions} from 'vuex'
+
 export default {
   name: 'app',
   data () {
@@ -29,20 +32,48 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
+
+  methods:{
+    ...mapActions([USER_GET_CURRENT])
+  },
+
   created(){
     console.info('```````created````````````')
-    localStorage.getItem("appState") && 
-      this.$store.replaceState(
-        Object.assign({}, this.$store.state,JSON.parse(localStorage.getItem("appState")))
-      );
+    // localStorage.getItem("appState") && 
+    //   this.$store.replaceState(
+    //     Object.assign({}, this.$store.state,JSON.parse(localStorage.getItem("appState")))
+    //   );
 
     console.info(this.$store.state)
+    console.info(this.$router)
 
-    window.addEventListener("beforeunload",()=>{
-      console.info('beforeunload.....')
-      localStorage.setItem("appState",JSON.stringify(this.$store.state))
-      console.info(localStorage.getItem("appState"))
+    // window.addEventListener("beforeunload",()=>{
+    //   console.info('beforeunload.....')
+    //   localStorage.setItem("appState",JSON.stringify(this.$store.state))
+    //   console.info(localStorage.getItem("appState"))
+    // })
+
+  },
+
+  mounted() {
+
+  },
+
+  beforeRouteEnter(to, from, next){
+    console.info('...to:');
+    console.info(to);
+    console.info('...from...');
+    console.info(from);
+    next(vm => {
+      let {auth = true} = to.meta;
+      if(auth){
+        //TODO
+        vm[USER_GET_CURRENT]().then(() => {
+            console.info('USER_GET_CURRENT success....')
+        }).catch(e => alert(e));
+      }
     })
+    
   }
 }
 </script>

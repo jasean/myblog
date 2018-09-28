@@ -44,6 +44,7 @@ const router = new VueRouter({
 
 router.beforeEach(({meta, path}, from, next) => {
     console.info('```````beforeEach````````````')
+    console.info(store.state)
     let {auth = true} = meta;
     let isLogin = Boolean(store.state.user.userid);
     console.info(`islogin:${isLogin}`)

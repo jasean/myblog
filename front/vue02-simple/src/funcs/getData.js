@@ -10,4 +10,4 @@ export const logout = (userid) => http.delete('/users/sessions/' + userid);
 export const register = (user) => http.post('/users', user);
 
 //获取当前用户信息
-export const getCurrentUserInfo = () => http.get('/users/cur');
+export const getCurrentUserInfo = () => http.get('/users/data/cur');
