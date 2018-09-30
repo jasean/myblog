@@ -1,0 +1,1 @@
+export const REQ_RESULT_401 = 'Need Authorization';

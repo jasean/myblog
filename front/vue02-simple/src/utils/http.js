@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../config/router'
+import {REQ_RESULT_401} from '../constants/constants'
 import qs from 'qs'
 
 const inst = axios.create();
@@ -17,7 +18,7 @@ inst.interceptors.response.use(
                 case 401:
                     //TODO 跳转
                     router.replace({path: '/login'})
-                    break;
+                    return REQ_RESULT_401;
             }
         }
         return Promise.reject(error);

@@ -98,7 +98,7 @@ public class UserController {
        boolean result = userService.addUser(user);
        if(result == true){
            // todo:更新登陆状态 or 重定向到登录页
-           return ResponseResult.get().status(HttpStatus.FORBIDDEN)
+           return ResponseResult.get().status(HttpStatus.UNAUTHORIZED)
                     .resultCode(ResultCode.USER_NOT_LOGGED_IN).build();
        }
 

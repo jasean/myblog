@@ -11,21 +11,30 @@ const routes = [
         component: App,
         children: [
             {
-                path: '/login', //登录
+                name: 'login',
+                path: 'login', //登录
                 meta: { auth: false },
                 component: resolve => require(['../pages/login.vue'], resolve)//懒加载
             },
             {
-                path: '/signout', //退出
+                name: 'signout',
+                path: 'signout', //退出
                 component: resolve => require(['../pages/signout.vue'], resolve)
             },
             {
-                path: '/home', //个人主页
+                name: 'home',
+                path: 'home', //个人主页
                 component: resolve => require(['../pages/home.vue'], resolve)
             },
             {
-                path: '/', //首页
-                meta: { auth: false },
+                name: 'register',
+                path: 'register', //注册页面
+                component: resolve => require(['../pages/register.vue'], resolve)
+            },
+            {
+                name: 'index',
+                path: '', //首页
+                /* meta: { auth: false }, */
                 component: resolve => require(['../pages/index.vue'], resolve)
             },
             {
