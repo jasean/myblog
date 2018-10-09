@@ -1,10 +1,15 @@
 package com.hbwh.xj.myblog.bean;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-public class Article {
+@Table(name="t_article")
+public class Article implements Serializable, Cloneable{
+    @Id
     private BigInteger id;
     private String userid;
     private String articleTitle;
