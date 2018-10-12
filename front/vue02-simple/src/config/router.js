@@ -24,7 +24,16 @@ const routes = [
             {
                 name: 'home',
                 path: 'home', //个人主页
-                component: resolve => require(['../pages/home.vue'], resolve)
+                component: resolve => require(['../pages/home.vue'], resolve),
+                children: [
+                    {
+                        name: 'articles',
+                        path: 'articles',
+                        component: resolve => require(['../pages/blog/articles.vue'], resolve)
+                    }
+                    
+
+                ]
             },
             {
                 name: 'register',
@@ -36,6 +45,11 @@ const routes = [
                 path: '', //首页
                 /* meta: { auth: false }, */
                 component: resolve => require(['../pages/index.vue'], resolve)
+            },
+            {
+                name: 'articles',
+                path: 'articles',
+                component: resolve => require(['../pages/blog/articles.vue'], resolve)
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面
