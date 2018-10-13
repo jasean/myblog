@@ -25,15 +25,6 @@ const routes = [
                 name: 'home',
                 path: 'home', //个人主页
                 component: resolve => require(['../pages/home.vue'], resolve),
-                children: [
-                    {
-                        name: 'articles',
-                        path: 'articles',
-                        component: resolve => require(['../pages/blog/articles.vue'], resolve)
-                    }
-                    
-
-                ]
             },
             {
                 name: 'register',
