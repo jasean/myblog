@@ -19,7 +19,7 @@
 			simple: Boolean
 		},
 		components: {
-			article: this.simple?simpleArticle:article
+			article: /* this.simple?simpleArticle: */article
 		},
 		data(){
 			return {

@@ -8,6 +8,9 @@ import components from './components/'
 //element-ui
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+//mavon editor
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 //自定义组件
 Object.keys(components).forEach(key => {
@@ -16,6 +19,7 @@ Object.keys(components).forEach(key => {
 });
 
 Vue.use(ElementUI);
+Vue.use(mavonEditor)
 
 new Vue({
   el: '#app',
