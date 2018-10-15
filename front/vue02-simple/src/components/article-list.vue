@@ -11,16 +11,20 @@
 </template>
 <script>
 	import article from './article'
+	import simpleArticle from './simple-article'
     export default {
         props: {
-            listData: Array
+			listData: Array,
+			/** 是否为简单列表 */
+			simple: Boolean
 		},
 		components: {
-			article
+			article: this.simple?simpleArticle:article
 		},
 		data(){
 			return {
-				listData: this.listData
+				listData: this.listData,
+				simple: this.simple
 			}
 		}
     }
