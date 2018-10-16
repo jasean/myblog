@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 13/10/2018 17:30:26
+ Date: 16/10/2018 19:38:50
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,7 @@ CREATE TABLE `t_article`  (
   `last_modified` datetime(0) NULL,
   `create_time` datetime(0) NULL,
   `article_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `draft` tinyint(1) NULL DEFAULT 0 COMMENT '是否为草稿',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
