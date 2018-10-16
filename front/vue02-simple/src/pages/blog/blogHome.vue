@@ -25,6 +25,9 @@
 			<el-header class='header' style="height:100px;">
 				<div>{{user.usernm}}的博客</div>
 				<div>{{user.signature?user.signature:'这家伙很懒 ~.~'}}</div>
+				<div>
+					<el-button plain icon="el-icon-edit el-icon--right">写博客</el-button>
+				</div>
 			</el-header>
 			<el-container>
 				<el-aside class="aside">
