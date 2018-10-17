@@ -26,7 +26,7 @@
 				<div>{{user.usernm}}的博客</div>
 				<div>{{user.signature?user.signature:'这家伙很懒 ~.~'}}</div>
 				<div>
-					<el-button plain icon="el-icon-edit el-icon--right">写博客</el-button>
+					<el-button plain icon="el-icon-edit el-icon--right" @click="newArticle">写博客</el-button>
 				</div>
 			</el-header>
 			<el-container>
@@ -68,16 +68,39 @@
 						<div>...</div>
 					</el-card>
 				</el-aside>
-				<el-main class='main'>Main</el-main>
+				<el-main class='main'>
+					<v-article-list :list-data="articles"></v-article-list>
+				</el-main>
 			</el-container>
 		</el-container>
 	</div>
 </template>
 <script>
-    import { mapState } from 'vuex'
+	import { mapState } from 'vuex'
+	import * as funcs from '../../funcs/getData'
     export default {
+		created(){
+			funcs.getArticles(user.userid).then(res => {
+				if(res.data){
+					articles = res.data.data;
+				}
+			}).catch(e => alert(e))
+		},
+
         computed: mapState({ user: state => {
 			return state.user;
 		} }),
+
+		data(){
+			return {
+				articles: []
+			}
+		},
+
+		methods: {
+			newArticle(){
+				this.$router.push({name: 'newArticle'});
+			}
+		}
     }
 </script>

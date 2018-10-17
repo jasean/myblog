@@ -20,3 +20,6 @@ export const getBlogCategories = () => http.get("/blogs/categories");
 
 //发布文章
 export const publishArticle = (article) => http.post("/articles/" + article.userid, article);
+
+//获取文章列表
+export const getArticles = (userid) => http.get("/articles/" + userid);

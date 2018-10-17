@@ -38,9 +38,14 @@ const routes = [
                 component: resolve => require(['../pages/index.vue'], resolve)
             },
             {
-                name: 'articles',
-                path: 'articles',
-                component: resolve => require(['../pages/blog/articles.vue'], resolve)
+                name: 'blogHome',
+                path: 'blog-home',
+                component: resolve => require(['../pages/blog/blogHome.vue'], resolve)
+            },
+            {
+                name: "newArticle",
+                path: 'new-article',
+                component: resolve => require(['../pages/blog/newArticle.vue'], resolve)
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面

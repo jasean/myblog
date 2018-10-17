@@ -24,6 +24,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getArticles(String userid) {
         Example example = new Example(Article.class);
         example.createCriteria().andEqualTo("userid", userid);
+        example.orderBy("createTime").desc();
         return articleMapper.selectByExample(example);
     }
 

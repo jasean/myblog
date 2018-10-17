@@ -24,7 +24,7 @@ public class ArticleController {
     @ApiOperation(value = "获取个人文章列表", notes = "")
     @GetMapping("/{userid}")
     public ResponseEntity<Result> getArticles(@PathVariable("userid")String userid){
-        List<Article> articles =  articleService.getArticlesGrouped(userid);
+        List<Article> articles =  articleService.getArticles(userid);
         return ResponseResult.get().data(articles).resultCode(ResultCode.SUCCESS).build();
     }
 
