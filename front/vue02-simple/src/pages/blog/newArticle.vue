@@ -138,10 +138,44 @@
 			handleSaveDraft(){
 				dialogVisible = false;
 				//TODO 发布文章
+				let article = getArticleObj();
+				article.draft = 1;
+				funcs.publishArticle(article).then(() => {
+					//TODO 跳转
+				})
 			},
 			handlePublish(){
 				dialogVisible = false;
 				//TODO 发布文章
+				let article = getArticleObj();
+				article.draft = 0;
+				funcs.publishArticle(article).then(() => {
+					//TODO 跳转
+				})
+			},
+			getArticleObj(){
+				let time = new Date();
+				let articlePrivateCategory = this.$refs.dynamicCategories.value;
+				let newCategory = articlePrivateCategory.map(function(ele){
+					if(allPersonalCategories.indexOf(ele) < 0){
+						return true;
+					}else{
+						return false;
+					}
+				});
+				return {
+					articleType,
+					userid: user.userid,
+					articleTitle,
+					articleLabel: this.$refs.dynamicTags.value,
+					articleCategory: selectedBlogCategory,
+					articlePrivateCategory,
+					newArticlePrivateCategory: newCategory,
+					lastModified: time,
+					createTime: time,
+					articleContent,
+					privacy: this.privacy?1:0
+				}
 			}
 		},
 		computed: {

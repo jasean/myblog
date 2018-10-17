@@ -2,6 +2,7 @@ package com.hbwh.xj.myblog.bean;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -16,6 +17,8 @@ public class Article implements Serializable, Cloneable{
     private String articleLabel;
     private String articleCategory;
     private String articlePrivateCategory;
+    @Transient
+    private String newArticlePrivateCategory;
     private Timestamp lastModified;
     private Timestamp createTime;
     private String articleContent;
@@ -66,6 +69,14 @@ public class Article implements Serializable, Cloneable{
 
     public void setArticlePrivateCategory(String articlePrivateCategory) {
         this.articlePrivateCategory = articlePrivateCategory;
+    }
+
+    public String getNewArticlePrivateCategory() {
+        return newArticlePrivateCategory;
+    }
+
+    public void setNewArticlePrivateCategory(String newArticlePrivateCategory) {
+        this.newArticlePrivateCategory = newArticlePrivateCategory;
     }
 
     public Timestamp getLastModified() {
