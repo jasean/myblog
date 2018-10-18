@@ -47,13 +47,15 @@
 				width="40%">
 			<el-form label-width="100px">
 				<el-form-item label="文章标签">
-					<v-dynamic-tag title="添加标签"  ref="dynamicTags" :max="5"></v-dynamic-tag>
-					<div>最多添加5个标签</div>
+					<div>
+						<v-dynamic-tag title="添加标签"  ref="dynamicTags" :max="5"></v-dynamic-tag>
+						<div>最多添加5个标签</div>
+					</div>
 				</el-form-item>
 				<el-form-item label="个人分类">
 					<!-- 怎么处理手动输入个人分类的问题？ -->
 					<v-dynamic-tag title="添加新分类" ref="dynamicCategories" :tags="selectedPersonalCategories"></v-dynamic-tag>
-					<div>
+					<div v-if="allPersonalCategories.length > 0">
 						<el-checkbox-group v-model="selectedPersonalCategories">
 							<el-checkbox 
 								v-for="catetory in allPersonalCategories" 
@@ -66,7 +68,7 @@
 				<el-row>
 					<el-col :span="12">
 						<el-form-item label="文章分类" required>
-							<el-select v-model="articleType" placeholder="请选择">
+							<el-select v-model="articleType" placeholder="请选择" size>
 								<el-option label="原创" value="0"></el-option>
 								<el-option label="转载" value="1"></el-option>
 								<el-option label="翻译" value="2"></el-option>
@@ -77,10 +79,10 @@
 						<el-form-item label="博客分类" required>
 							<el-select v-model="selectedBlogCategory" placeholder="请选择">
 								<el-option 
-									:key="category" 
+									:key="category.id" 
 									v-for="category in allBlogCategories" 
-									:label="category" 
-									:value="category">
+									:label="category.category" 
+									:value="category.category">
 								</el-option>
 							</el-select>
 						</el-form-item>
@@ -105,19 +107,19 @@
 	import { mapState } from 'vuex';
 	import * as funcs from '../../funcs/getData';
 	import user from '../../store/user';
+	import DateUtils from '../../utils/dateUtils'
     export default {
 		created(){
-			console.error(user);
 			//FIXME 看是不是可以通过store来实现 动态获取个人分类和博客分类
-			funcs.getBlogPersonalCategories(user.userid).then(res => {
+			funcs.getBlogPersonalCategories(this.user.userid).then(res => {
 				if(res.data){
-					allPersonalCategories = res.data.data;
+					this.allPersonalCategories = res.data.data;
 				}
 			}).catch(e => alert(e));
 
 			funcs.getBlogCategories().then(res => {
 				if(res.data){
-					allBlogCategories = res.data.data;
+					this.allBlogCategories = res.data.data;
 				}
 			}).catch(e => alert(e));
 		},
@@ -136,44 +138,47 @@
 		},
 		methods: {
 			handleSaveDraft(){
-				dialogVisible = false;
+				this.dialogVisible = false;
 				//TODO 发布文章
-				let article = getArticleObj();
+				let article = this.getArticleObj();
 				article.draft = 1;
 				funcs.publishArticle(article).then(() => {
 					//TODO 跳转
+					this.$router.push({name: 'blogHome'});
 				})
 			},
 			handlePublish(){
-				dialogVisible = false;
+				this.dialogVisible = false;
 				//TODO 发布文章
-				let article = getArticleObj();
+				let article = this.getArticleObj();
 				article.draft = 0;
 				funcs.publishArticle(article).then(() => {
 					//TODO 跳转
+					this.$router.push({name: 'blogHome'});
 				})
 			},
 			getArticleObj(){
-				let time = new Date();
+				let time = DateUtils.getDate();
 				let articlePrivateCategory = this.$refs.dynamicCategories.value;
-				let newCategory = articlePrivateCategory.map(function(ele){
-					if(allPersonalCategories.indexOf(ele) < 0){
+				let newCategory = articlePrivateCategory.map(ele => {
+					if(this.allPersonalCategories.indexOf(ele) < 0){
 						return true;
 					}else{
 						return false;
 					}
 				});
+				let articleLabel = JSON.stringify(this.$refs.dynamicTags.value);
 				return {
-					articleType,
-					userid: user.userid,
-					articleTitle,
-					articleLabel: this.$refs.dynamicTags.value,
-					articleCategory: selectedBlogCategory,
-					articlePrivateCategory,
+					articleType: this.articleType,
+					userid: this.user.userid,
+					articleTitle: this.articleTitle,
+					articleLabel,
+					articleCategory: this.selectedBlogCategory,
+					articlePrivateCategory: JSON.stringify(articlePrivateCategory),
 					newArticlePrivateCategory: newCategory,
 					lastModified: time,
 					createTime: time,
-					articleContent,
+					articleContent: this.articleContent,
 					privacy: this.privacy?1:0
 				}
 			}
@@ -184,7 +189,6 @@
 			},
 			...mapState({
 				user: state => {
-					console.error('computed...');
 					return state.user;
 				}
 			})

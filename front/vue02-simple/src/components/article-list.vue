@@ -4,7 +4,7 @@
 	<div>
 		<el-row v-for="articleData in listData" :key="articleData.id">
 			<el-col>
-				<article v-bind="articleData"></article>
+				<my-article v-bind="articleData"></my-article>
 			</el-col>
 		</el-row>
 	</div>
@@ -16,16 +16,11 @@
         props: {
 			listData: Array,
 			/** 是否为简单列表 */
-			simple: Boolean
+			/* simple: Boolean */
 		},
 		components: {
-			article: /* this.simple?simpleArticle: */article
+			myArticle: /* this.simple?simpleArticle: */article
 		},
-		data(){
-			return {
-				listData: this.listData,
-				simple: this.simple
-			}
-		}
+		
     }
 </script>

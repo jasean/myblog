@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 @Table(name="t_article")
 public class Article implements Serializable, Cloneable{
@@ -18,7 +19,7 @@ public class Article implements Serializable, Cloneable{
     private String articleCategory;
     private String articlePrivateCategory;
     @Transient
-    private String newArticlePrivateCategory;
+    private List<String> newArticlePrivateCategory;
     private Timestamp lastModified;
     private Timestamp createTime;
     private String articleContent;
@@ -71,11 +72,11 @@ public class Article implements Serializable, Cloneable{
         this.articlePrivateCategory = articlePrivateCategory;
     }
 
-    public String getNewArticlePrivateCategory() {
+    public List<String> getNewArticlePrivateCategory() {
         return newArticlePrivateCategory;
     }
 
-    public void setNewArticlePrivateCategory(String newArticlePrivateCategory) {
+    public void setNewArticlePrivateCategory(List<String> newArticlePrivateCategory) {
         this.newArticlePrivateCategory = newArticlePrivateCategory;
     }
 

@@ -4,11 +4,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name="t_blog_catetory")
-public class BlogCatetory implements Serializable, Cloneable{
+@Table(name="t_blog_category")
+public class BlogCategory implements Serializable, Cloneable{
     @Id
     private String id;
     private String category;
+
+    public BlogCategory() {
+    }
+
+    public BlogCategory(String id, String category) {
+        this.id = id;
+        this.category = category;
+    }
 
     public String getId() {
         return id;
@@ -28,7 +36,7 @@ public class BlogCatetory implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "BlogCatetory{" +
+        return "BlogCategory{" +
                 "id='" + id + '\'' +
                 ", category='" + category + '\'' +
                 '}';

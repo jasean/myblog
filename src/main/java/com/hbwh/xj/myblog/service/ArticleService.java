@@ -1,8 +1,6 @@
 package com.hbwh.xj.myblog.service;
 
 import com.hbwh.xj.myblog.bean.Article;
-import com.hbwh.xj.myblog.bean.BlogCatetory;
-import com.hbwh.xj.myblog.bean.PersonalCatetory;
 
 import java.util.List;
 

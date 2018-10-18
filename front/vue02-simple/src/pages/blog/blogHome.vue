@@ -80,12 +80,13 @@
 	import * as funcs from '../../funcs/getData'
     export default {
 		created(){
-			funcs.getArticles(user.userid).then(res => {
-				if(res.data){
-					articles = res.data.data;
+			funcs.getArticles(this.user.userid).then(res => {
+				if(res.data && res.data.data){
+					this.articles = res.data.data ;
 				}
 			}).catch(e => alert(e))
 		},
+
 
         computed: mapState({ user: state => {
 			return state.user;
