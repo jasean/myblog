@@ -2,6 +2,7 @@ package com.hbwh.xj.myblog.service.impl;
 
 import com.hbwh.xj.myblog.bean.Article;
 import com.hbwh.xj.myblog.bean.BlogCategory;
+import com.hbwh.xj.myblog.bean.PersonalCategory;
 import com.hbwh.xj.myblog.dao.ArticleMapper;
 import com.hbwh.xj.myblog.dao.BlogCategoryMapper;
 import com.hbwh.xj.myblog.dao.PersonalCategoryMapper;
@@ -31,13 +32,13 @@ public class ArticleServiceImpl implements ArticleService {
         List<String> newCategories = article.getNewArticlePrivateCategory();
         if(newCategories != null || newCategories.size() > 0){
             String userid = article.getUserid();
-            BlogCategory blogCategory = null;
-            List<BlogCategory> blogCategories = new ArrayList<>(4);
+            PersonalCategory personalCategory = null;
+            List<PersonalCategory> personalCategories = new ArrayList<>(4);
             for(String category: newCategories){
-                blogCategory = new BlogCategory(userid, category);
-                blogCategories.add(blogCategory);
+                personalCategory = new PersonalCategory(userid, category);
+                personalCategories.add(personalCategory);
             }
-            result = personalCategoryMapper.insertCategories(blogCategories);
+            result = personalCategoryMapper.insertCategories(personalCategories);
             System.out.println("insertCategories result:" + result);
         }
 

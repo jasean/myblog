@@ -14,6 +14,7 @@ public class Article implements Serializable, Cloneable{
     @Id
     private BigInteger id;
     private String userid;
+    private String articleType;
     private String articleTitle;
     private String articleLabel;
     private String articleCategory;
@@ -23,6 +24,11 @@ public class Article implements Serializable, Cloneable{
     private Timestamp lastModified;
     private Timestamp createTime;
     private String articleContent;
+    private boolean draft;
+    private boolean privacy;
+
+    private Long readCount;
+    private Long commentCount;
 
     public BigInteger getId() {
         return id;
@@ -102,6 +108,46 @@ public class Article implements Serializable, Cloneable{
 
     public void setArticleContent(String articleContent) {
         this.articleContent = articleContent;
+    }
+
+    public String getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public void setDraft(boolean draft) {
+        this.draft = draft;
+    }
+
+    public boolean isPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
+    }
+
+    public Long getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Long readCount) {
+        this.readCount = readCount;
+    }
+
+    public Long getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
     }
 
     @Override

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PersonalCategoryMapper extends Mapper<PersonalCategory> {
-    int insertCategories(List<BlogCategory> blogCategories);
+    int insertCategories(List<PersonalCategory> personalCategories);
 }

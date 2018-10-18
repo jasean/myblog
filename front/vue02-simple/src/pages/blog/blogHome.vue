@@ -4,7 +4,7 @@
 		background-color: #bbbbbb; 
 	}
 	.main {
-		background-color: aqua;
+		background-color: #ffffff;
 	}
 	.aside {
 		background-color: pink;
@@ -81,6 +81,7 @@
     export default {
 		created(){
 			funcs.getArticles(this.user.userid).then(res => {
+				console.info('getArticles:'+JSON.stringify(res))
 				if(res.data && res.data.data){
 					this.articles = res.data.data ;
 				}

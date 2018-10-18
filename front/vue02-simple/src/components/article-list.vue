@@ -12,6 +12,7 @@
 <script>
 	import article from './article'
 	import simpleArticle from './simple-article'
+	
     export default {
         props: {
 			listData: Array,

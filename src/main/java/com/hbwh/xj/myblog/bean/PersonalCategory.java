@@ -11,6 +11,14 @@ public class PersonalCategory implements Serializable, Cloneable{
     @Id
     private String category;
 
+    public PersonalCategory() {
+    }
+
+    public PersonalCategory(String userid, String category) {
+        this.userid = userid;
+        this.category = category;
+    }
+
     public String getUserid() {
         return userid;
     }

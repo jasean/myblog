@@ -1,6 +1,11 @@
 <style lang="less" scoped>
-    div {
-        padding: 3px;
+
+    div.main {
+        padding: 5px;
+        text-align: left;
+        div{
+            margin:5px;
+        }
     }
     .original-flag {
         background-color: rgba(64,158,255,.1);
@@ -25,44 +30,43 @@
     }
 </style>
 <template>
-    <div>
+    <div class="main">
         <div>
-            <span class="original-flag">{{original?'原':'转'}}</span>
-            <span class="title">{{title}}</span>
+            <span class="original-flag">{{articleTypeDesc.slice(0,1)}}</span>
+            <span class="title">{{articleTitle}}</span>
         </div>
         <div class="content-intro">
             {{contentIntro}}
         </div>
         <div class="footer">
-            <span>{{createDate}}</span>
-            <span>阅读数：{{readCount}}}</span>
+            <span>{{formatDate}}</span>
+            <span>阅读数：{{readCount}}</span>
             <span>评论数：{{commentCount}}</span>
         </div>
     </div>
 </template>
 <script>
+    import { ARTICLE_TYPE } from '../constants/dict';
+    import DateUtils from '../utils/dateUtils'
     export default {
         props: {
-            title: String,
+            articleTitle: String,
             /** 是否原创 */
-            original: Boolean,
+            articleType: String,
             /** 内容简介 */
-            contentIntro: String,
-            createDate: Date,
+            articleContent: String,
+            createTime: Date,
             readCount: Number,
             commentCount: Number
         },
         data(){
             return {
-                title: this.title,
-                original: this.original,
-                contentIntro: this.contentIntro,
-                createDate: this.createDate,
-                readCount: this.readCount,
-                commentCount: this.commentCount
+                contentIntro: this.articleContent.slice(0, 64),
+                articleTypeDesc: ARTICLE_TYPE[this.articleType],
+                formatDate: DateUtils.getDate(this.createTime)
             }
         },
-
+        
 
     }
 </script>

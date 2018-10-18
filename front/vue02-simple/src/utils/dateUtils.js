@@ -22,9 +22,11 @@ Date.prototype.format = function(fmt)
 class DateUtils {
     constructor(){}
 
-    getDate(){
-        let date = new Date().format('yyyy-MM-dd HH:mm:ss');
-        return date;
+    getDate(date){
+        if(!date || !(data instanceof Date)){
+            date = new Date();
+        }
+        return date.format('yyyy-MM-dd hh:mm:ss');
     }
 }
 
