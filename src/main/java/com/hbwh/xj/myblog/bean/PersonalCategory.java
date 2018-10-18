@@ -4,8 +4,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name="t_private_catetory")
-public class PersonalCatetory implements Serializable, Cloneable{
+@Table(name="t_private_category")
+public class PersonalCategory implements Serializable, Cloneable{
     @Id
     private String userid;
     @Id
@@ -29,7 +29,7 @@ public class PersonalCatetory implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "PersonalCatetory{" +
+        return "PersonalCategory{" +
                 "userid='" + userid + '\'' +
                 ", category='" + category + '\'' +
                 '}';
