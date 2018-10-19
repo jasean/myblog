@@ -59,8 +59,8 @@
 						<el-checkbox-group v-model="selectedPersonalCategories">
 							<el-checkbox 
 								v-for="catetory in allPersonalCategories" 
-								:key="catetory" 
-								:label="catetory">
+								:key="catetory.category" 
+								:label="catetory.category">
 							</el-checkbox>
 						</el-checkbox-group>
 					</div>
@@ -112,12 +112,14 @@
 		created(){
 			//FIXME 看是不是可以通过store来实现 动态获取个人分类和博客分类
 			funcs.getBlogPersonalCategories(this.user.userid).then(res => {
+				console.info(res)
 				if(res.data){
 					this.allPersonalCategories = res.data.data;
 				}
 			}).catch(e => alert(e));
 
 			funcs.getBlogCategories().then(res => {
+				console.info(res)
 				if(res.data){
 					this.allBlogCategories = res.data.data;
 				}
@@ -128,7 +130,7 @@
 				articleTitle: '欢迎使用MyBlog-MarkDown编辑器',
 				articleContent: '',
 				dialogVisible: false,
-				allPersonalCategories: ['Java','Python','C++','DB','JavaScript'],
+				allPersonalCategories: [],
 				selectedPersonalCategories: [],
 				allBlogCategories: ['编程','读书','艺术','互联网','教育'],
 				selectedBlogCategory: '',
@@ -160,7 +162,7 @@
 			getArticleObj(){
 				let time = DateUtils.getDate();
 				let articlePrivateCategory = this.$refs.dynamicCategories.value;
-				let newCategory = articlePrivateCategory.map(ele => {
+				let newCategory = articlePrivateCategory.filter(ele => {
 					if(this.allPersonalCategories.indexOf(ele) < 0){
 						return true;
 					}else{

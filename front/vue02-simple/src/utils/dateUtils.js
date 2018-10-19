@@ -23,10 +23,16 @@ class DateUtils {
     constructor(){}
 
     getDate(date){
-        if(!date || !(data instanceof Date)){
+        if(!date || !(date instanceof Date)){
             date = new Date();
         }
         return date.format('yyyy-MM-dd hh:mm:ss');
+    }
+
+    getDateFromMilliseconds(milliseconds){
+        let date = new Date();
+        date.setTime(milliseconds);
+        return this.getDate(date);
     }
 }
 

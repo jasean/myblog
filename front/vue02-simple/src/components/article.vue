@@ -55,15 +55,16 @@
             articleType: String,
             /** 内容简介 */
             articleContent: String,
-            createTime: Date,
+            /** 毫秒数 */
+            createTime: Number,
             readCount: Number,
             commentCount: Number
         },
         data(){
             return {
-                contentIntro: this.articleContent.slice(0, 64),
+                contentIntro: this.articleContent.slice(0, 256),
                 articleTypeDesc: ARTICLE_TYPE[this.articleType],
-                formatDate: DateUtils.getDate(this.createTime)
+                formatDate: DateUtils.getDateFromMilliseconds(this.createTime)
             }
         },
         

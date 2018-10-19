@@ -1,5 +1,11 @@
-<style lang="less" scoped>
-
+<style lang="scss" scoped>
+	.all {
+		background-color: #F6F7F8;
+		text-align: left;
+	}
+	.text-align {
+		text-align: center;
+	}
 	.header {
 		background-color: #bbbbbb; 
 	}
@@ -7,9 +13,29 @@
 		background-color: #ffffff;
 	}
 	.aside {
-		background-color: pink;
 		width: 300px;
+		.profile {
+			padding: 16px 10px;
+		}
+		.grade {
+			@extend .profile;
+			dl {
+				width: 50%;
+				dt,dd {
+					display: inline;
+				}
+			}
+		}
 	}
+	.el-card__body {
+		padding: 2px;
+	}
+
+	dl {
+		float: left;
+	}
+	
+
 	.clearfix::before, 
 	.clearfix::after {
 		display: table;
@@ -20,7 +46,7 @@
 	}
 </style>
 <template>
-	<div>
+	<div class="all">
 		<el-container>
 			<el-header class='header' style="height:100px;">
 				<div>{{user.usernm}}的博客</div>
@@ -34,24 +60,82 @@
 					<el-card class="box-card">
 						<div>头像</div>
 					</el-card>
-					<el-card class="box-card">
-						<div>原创</div>
-						<div>粉丝</div>
-						<div>喜欢</div>
-						<div>评论</div>
+					<el-card class="box-card profile">
+						<dl class="text-align">
+							<dt>
+								<a href="#">原创</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">粉丝</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">喜欢</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">评论</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
 					</el-card>
-					<el-card class="box-card">
-						<div>等级</div>
-						<div>访问</div>
-						<div>积分排名</div>
-						<div>粉丝</div>
+					<el-card class="box-card grade">
+						<dl class="text-align">
+							<dt>
+								<a href="#">等级</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">访问</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">积分</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
+						<dl class="text-align">
+							<dt>
+								<a href="#">排名</a>
+							</dt>
+							<dd>
+								<a href="#"><span class="count">2</span></a>
+							</dd>
+						</dl>
 					</el-card>
 					<el-card class="box-card">
 						 <div slot="header" class="clearfix">
 							 <i class="el-icon-caret-right el-icon--right"></i>
 							<span>个人分类</span>
 						</div>
-						<div>...</div>
+						<div >
+
+						</div>
 					</el-card>
 					<el-card class="box-card">
 						 <div slot="header" class="clearfix">
