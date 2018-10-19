@@ -18,6 +18,10 @@
 			listData: Array,
 			/** 是否为简单列表 */
 			/* simple: Boolean */
+			itemOpen: Function,
+			itemTop: Function,
+			itemEdit: Function,
+			itemDelete: Function,
 		},
 		components: {
 			myArticle: /* this.simple?simpleArticle: */article
