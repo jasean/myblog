@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 13/10/2018 17:30:41
+ Date: 19/10/2018 17:02:08
 */
 
 SET NAMES utf8mb4;
@@ -26,5 +26,11 @@ CREATE TABLE `t_private_category`  (
   `category` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userid`, `category`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '博客个人分类' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_private_category
+-- ----------------------------
+INSERT INTO `t_private_category` VALUES ('xiaojian', 'true');
+INSERT INTO `t_private_category` VALUES ('xiaojian', '程序');
 
 SET FOREIGN_KEY_CHECKS = 1;
