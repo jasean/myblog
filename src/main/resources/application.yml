@@ -24,6 +24,9 @@ pagehelper:
 
 server:
   port: 9080
+  servlet:
+    session:
+      timeout: 1200s
 
   
     

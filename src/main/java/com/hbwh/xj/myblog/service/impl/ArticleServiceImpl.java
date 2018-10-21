@@ -46,10 +46,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticles(String userid) {
+    public List<Article> getArticles(String userid, String order) {
         Example example = new Example(Article.class);
         example.createCriteria().andEqualTo("userid", userid);
-        example.orderBy("createTime").desc();
+        example.orderBy(order).desc();
         return articleMapper.selectByExample(example);
     }
 
@@ -59,6 +59,11 @@ public class ArticleServiceImpl implements ArticleService {
         example.createCriteria().andEqualTo("userid", userid);
         example.orderBy("articlePrivateCategory").asc();
         return articleMapper.selectByExample(example);
+    }
+
+    @Override
+    public Article getArticle(String articleId) {
+        return articleMapper.selectByPrimaryKey(articleId);
     }
 
     @Override

@@ -39,8 +39,19 @@ const routes = [
             },
             {
                 name: 'blogHome',
-                path: 'blog-home',
-                component: resolve => require(['../pages/blog/blogHome.vue'], resolve)
+                path: 'articles',
+                component: resolve => require(['../pages/blog/blogHome.vue'], resolve),
+                children: [
+                    {
+                        path: '',
+                        component: resolve => require(['../pages/blog/articles.vue'], resolve),
+                    },
+                    {
+                        name: 'articleDetail',
+                        path: 'details/:id',
+                        component: resolve => require(['../pages/blog/articleDetail.vue'], resolve)
+                    }
+                ]
             },
             {
                 name: "newArticle",

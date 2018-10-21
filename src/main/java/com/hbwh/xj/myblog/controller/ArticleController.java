@@ -23,8 +23,10 @@ public class ArticleController {
     private ArticleService articleService;
     @ApiOperation(value = "获取个人文章列表", notes = "")
     @GetMapping("/{userid}")
-    public ResponseEntity<Result> getArticles(@PathVariable("userid")String userid){
-        List<Article> articles =  articleService.getArticles(userid);
+    public ResponseEntity<Result> getArticles(
+            @PathVariable("userid")String userid,
+            @RequestParam("orderBy")String order){
+        List<Article> articles =  articleService.getArticles(userid, order);
         return ResponseResult.get().data(articles).resultCode(ResultCode.SUCCESS).build();
     }
 
@@ -33,8 +35,8 @@ public class ArticleController {
     @GetMapping("/{userid}/{id}")
     public ResponseEntity<Result> getArticle(@PathVariable("userid")String userid,
                                              @PathVariable("id")String articleid){
-
-        return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
+        Article article = articleService.getArticle(articleid);
+        return ResponseResult.get().data(article).resultCode(ResultCode.SUCCESS).build();
     }
 
     @ApiOperation(value = "发布博客", notes = "")

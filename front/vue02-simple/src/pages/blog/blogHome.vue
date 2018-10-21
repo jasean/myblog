@@ -153,7 +153,7 @@
 					</el-card>
 				</el-aside>
 				<el-main class='main'>
-					<v-article-list :list-data="articles"></v-article-list>
+					<router-view></router-view>
 				</el-main>
 			</el-container>
 		</el-container>
@@ -163,25 +163,10 @@
 	import { mapState } from 'vuex'
 	import * as funcs from '../../funcs/getData'
     export default {
-		created(){
-			funcs.getArticles(this.user.userid).then(res => {
-				console.info('getArticles:'+JSON.stringify(res))
-				if(res.data && res.data.data){
-					this.articles = res.data.data ;
-				}
-			}).catch(e => alert(e))
-		},
-
-
         computed: mapState({ user: state => {
 			return state.user;
 		} }),
 
-		data(){
-			return {
-				articles: []
-			}
-		},
 
 		methods: {
 			newArticle(){

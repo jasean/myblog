@@ -22,4 +22,8 @@ export const getBlogCategories = () => http.get("/blogs/categories");
 export const publishArticle = (article) => http.post("/articles/" + article.userid, article);
 
 //获取文章列表
-export const getArticles = (userid) => http.get("/articles/" + userid);
+export const getArticles = (userid, orderby) => http.get(`/articles/${userid}?orderBy=${orderby}`);
+
+
+//获取文章详情
+export const getArticle = (userid, articleid) => http.get(`/articles/${userid}/${articleid}`);

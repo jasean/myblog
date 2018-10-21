@@ -38,7 +38,12 @@
 			</el-row>
 		</div>
 		<div class="edit-area">
-			<mavon-editor v-model="articleContent"/>
+			<mavon-editor 
+				v-model="articleContent" 
+				:subfield="false" 
+				:editable="false" 
+				defaultOpen="preview"
+				:toolbarsFlag="false"/>
 		</div>
 
 		<el-dialog
@@ -128,7 +133,7 @@
 		data(){
 			return {
 				articleTitle: '欢迎使用MyBlog-MarkDown编辑器',
-				articleContent: '',
+				articleContent: '测试文字',
 				dialogVisible: false,
 				allPersonalCategories: [],
 				selectedPersonalCategories: [],
@@ -181,7 +186,9 @@
 					lastModified: time,
 					createTime: time,
 					articleContent: this.articleContent,
-					privacy: this.privacy?1:0
+					privacy: this.privacy?1:0,
+					readCount:1,
+					
 				}
 			}
 		},

@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<el-row v-for="articleData in listData" :key="articleData.id">
-			<el-col>
+			<el-col @click.native="openArticle(articleData)">
 				<my-article v-bind="articleData"></my-article>
 			</el-col>
 		</el-row>
@@ -26,6 +26,12 @@
 		components: {
 			myArticle: /* this.simple?simpleArticle: */article
 		},
+		methods: {
+			openArticle(article){
+				console.info("...openArticle...");
+				this.$router.push({name: 'articleDetail', params: {id: article.id}})
+			}
+		}
 		
     }
 </script>
