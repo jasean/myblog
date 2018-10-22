@@ -53,7 +53,7 @@
 				<span>{{formatDate}}</span>
 				<span>{{user.userid}}</span>
 				<span>阅读数：{{readCount}}</span>
-				<el-button type="text" class="btn-edit">编辑</el-button>
+				<el-button type="text" class="btn-edit" @click="editClick">编辑</el-button>
 			</div>
 			<div class="separator"></div>
 		</div>
@@ -76,6 +76,7 @@
     export default {
 		mounted(){
 			let id = this.$route.params.id;
+			this.articleId = id;
 			funcs.getArticle(this.user.userid, id).then(res => {
 				console.info('...getArticle...')
 				console.info(res)
@@ -92,11 +93,18 @@
 		
 		data(){
 			return {
+				articleId: '',
 				articleTitle: '',
 				articleType: '',
 				createTime: 0,
 				readCount: 0,
 				articleContent: ''
+			}
+		},
+
+		methods: {
+			editClick(){
+				this.$router.push({name: 'editArticle', params: {id: articleId}});
 			}
 		},
 

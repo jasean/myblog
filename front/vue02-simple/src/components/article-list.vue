@@ -42,7 +42,7 @@
 					// TODO 触发置顶操作
 				}else if(type === 'edit'){
 					// TODO 跳转到编辑页面
-
+					this.$router.push({name: 'editArticle', params: {id: this.listData[listIndex].id}});
 				}
 			}
 		}

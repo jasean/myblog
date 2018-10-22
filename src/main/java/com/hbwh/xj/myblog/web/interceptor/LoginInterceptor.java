@@ -16,7 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     //登陆校验排除路径
     public static final List<String> excludePaths = Arrays.asList(
-            "/users/sessions","/users"
+            "/users/sessions","/users","/error"
     );
 
     //登陆校验排除请求方法类型

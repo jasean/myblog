@@ -39,11 +39,7 @@
 		</div>
 		<div class="edit-area">
 			<mavon-editor 
-				v-model="articleContent" 
-				:subfield="false" 
-				:editable="false" 
-				defaultOpen="preview"
-				:toolbarsFlag="false"/>
+				v-model="articleContent"/>
 		</div>
 
 		<el-dialog
@@ -53,7 +49,7 @@
 			<el-form label-width="100px">
 				<el-form-item label="文章标签">
 					<div>
-						<v-dynamic-tag title="添加标签"  ref="dynamicTags" :max="5"></v-dynamic-tag>
+						<v-dynamic-tag title="添加标签"  :tags="articleLabels" ref="dynamicTags" :max="5"></v-dynamic-tag>
 						<div>最多添加5个标签</div>
 					</div>
 				</el-form-item>
@@ -117,10 +113,21 @@
 		created(){
 			this.init();
 			let articleid = this.$route.params.id;
-			if(!articleid){//编辑模式
+			console.info('...articleid:' + articleid);
+			if(articleid){//编辑模式
 				funcs.getArticle(this.user.userid, articleid).then(res => {
 					if(res.data && res.data.data){
-						
+						let article = res.data.data;
+						this.articleTitle = article.articleTitle;
+						this.articleContent = article.articleContent;
+						this.articleType = article.articleType;
+						this.privacy = article.privacy == 1;
+						let labels = JSON.parse(article.articleLabel);
+						this.articleLabels = labels;
+						let privateCategories = JSON.parse(article.articlePrivateCategory);
+						this.selectedPersonalCategories = privateCategories;
+						let articleCategory = article.articleCategory;
+						this.selectedBlogCategory = articleCategory;
 					}
 				}).catch(e => alert(e))
 			}
@@ -130,6 +137,7 @@
 				articleTitle: '欢迎使用MyBlog-MarkDown编辑器',
 				articleContent: '测试文字',
 				dialogVisible: false,
+				articleLabels:[],
 				allPersonalCategories: [],
 				selectedPersonalCategories: [],
 				allBlogCategories: ['编程','读书','艺术','互联网','教育'],
