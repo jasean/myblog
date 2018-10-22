@@ -28,9 +28,28 @@
     div.footer span {
         margin-right: 10px;
     }
+
+    .opt-box {
+        position: absolute;
+        right: 24px;
+        bottom: 16px;
+    }
+    .btn-opt {
+        border: none;
+        text-decoration: none;
+        color: #79a5e5;
+        font-size: 14px;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn-opt[data-type="delete"] {
+        color: #ca0c16;
+    }
+
 </style>
 <template>
-    <div class="main">
+    <div class="main" @mouseover="displayOpt=true" @mouseout="displayOpt=false">
         <div>
             <span class="original-flag">{{articleTypeDesc.slice(0,1)}}</span>
             <span class="title">{{articleTitle}}</span>
@@ -42,6 +61,11 @@
             <span>{{formatDate}}</span>
             <span>阅读数：{{readCount}}</span>
             <span>评论数：{{commentCount}}</span>
+        </div>
+        <div class="opt-box" v-if="displayOpt">
+            <button class="btn-opt" data-type="top" @click="onOptClick('top')">置顶</button>
+            <a class="btn-opt" data-type="edit" href="javascript:void(0)" target="_blank" @click="onOptClick('edit')">编辑</a>
+            <button class="btn-opt" data-type="delete" @click="onOptClick('delete')">删除</button>
         </div>
     </div>
 </template>
@@ -58,15 +82,25 @@
             /** 毫秒数 */
             createTime: Number,
             readCount: Number,
-            commentCount: Number
+            commentCount: Number,
+
+            listIndex: Number
         },
         data(){
             return {
+                displayOpt: false,
                 contentIntro: this.articleContent.slice(0, 256),
                 articleTypeDesc: ARTICLE_TYPE[this.articleType],
                 formatDate: DateUtils.getDateFromMilliseconds(this.createTime)
             }
         },
+
+        methods: {
+            onOptClick(type){
+                console.info('..onOptClick:' + type)
+                this.$emit('opt-selected', {type, listIndex: this.listIndex})
+            }
+        }
         
 
     }

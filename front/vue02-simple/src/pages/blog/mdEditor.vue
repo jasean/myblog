@@ -115,20 +115,15 @@
 	import DateUtils from '../../utils/dateUtils'
     export default {
 		created(){
-			//FIXME 看是不是可以通过store来实现 动态获取个人分类和博客分类
-			funcs.getBlogPersonalCategories(this.user.userid).then(res => {
-				console.info(res)
-				if(res.data){
-					this.allPersonalCategories = res.data.data;
-				}
-			}).catch(e => alert(e));
-
-			funcs.getBlogCategories().then(res => {
-				console.info(res)
-				if(res.data){
-					this.allBlogCategories = res.data.data;
-				}
-			}).catch(e => alert(e));
+			this.init();
+			let articleid = this.$route.params.id;
+			if(!articleid){//编辑模式
+				funcs.getArticle(this.user.userid, articleid).then(res => {
+					if(res.data && res.data.data){
+						
+					}
+				}).catch(e => alert(e))
+			}
 		},
 		data(){
 			return {
@@ -144,6 +139,23 @@
 			}
 		},
 		methods: {
+			init(){
+				//FIXME 看是不是可以通过store来实现 动态获取个人分类和博客分类
+				funcs.getBlogPersonalCategories(this.user.userid).then(res => {
+					console.info(res)
+					if(res.data){
+						this.allPersonalCategories = res.data.data;
+					}
+				}).catch(e => alert(e));
+
+				funcs.getBlogCategories().then(res => {
+					console.info(res)
+					if(res.data){
+						this.allBlogCategories = res.data.data;
+					}
+				}).catch(e => alert(e));
+			},
+
 			handleSaveDraft(){
 				this.dialogVisible = false;
 				//TODO 发布文章

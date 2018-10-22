@@ -55,8 +55,13 @@ const routes = [
             },
             {
                 name: "newArticle",
-                path: 'new-article',
-                component: resolve => require(['../pages/blog/newArticle.vue'], resolve)
+                path: 'mdeditor',
+                component: resolve => require(['../pages/blog/mdEditor.vue'], resolve)
+            },
+            {
+                name: "editArticle",
+                path: 'mdeditor/:id',
+                component: resolve => require(['../pages/blog/mdEditor.vue'], resolve)
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面
