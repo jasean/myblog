@@ -3,6 +3,8 @@ package com.hbwh.xj.myblog.web.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -14,6 +16,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 
 @Configuration
@@ -58,5 +62,22 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         return template;
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "spring.redis")
+    public RedisBean redisConfig(){
+        return new RedisBean();
+    }
+
+    @Bean
+    public JedisPool redisPoolFactory() {
+        RedisBean redisBean = redisConfig();
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(redisBean.getPool().getMaxIdle());
+        jedisPoolConfig.setMaxWaitMillis(redisBean.getPool().getMaxWaitMillis());
+
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig,
+                redisBean.getHost(), redisBean.getPort(), redisBean.getTimeout(), redisBean.getPassword());
+        return jedisPool;
+    }
 
 }
