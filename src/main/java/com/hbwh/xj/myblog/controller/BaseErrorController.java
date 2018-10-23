@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -28,10 +29,15 @@ public class BaseErrorController  {
 
 
     @GetMapping
-    public ResponseEntity<Result> error(HttpServletRequest request, HttpServletResponse response){
+    public void error(HttpServletRequest request, HttpServletResponse response){
         WebRequest requestAttributes = new ServletWebRequest(request);
-        Map<String, Object> errors = errorAttributes.getErrorAttributes(requestAttributes, true);
-        return ResponseResult.get().data(errors).resultCode(ResultCode.SUCCESS).build();
+        Map<String, Object> errors = errorAttributes
+                .getErrorAttributes(requestAttributes, true);
+        try {
+            response.getWriter().print(errors);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -4,7 +4,7 @@
 <template>
 	<div >
 		<el-row v-for="(articleData, index) in listData" :key="articleData.id">
-			<el-col >
+			<el-col @click.native="openArticle(articleData)">
 				<my-article v-bind="articleData" :list-index="index" @opt-selected="handleOptClicked"></my-article>
 			</el-col>
 		</el-row>
@@ -15,7 +15,7 @@
 	import simpleArticle from './simple-article'
 	
     export default {
-		// @click.native="openArticle(articleData)"
+		// 
         props: {
 			listData: Array,
 			/** 是否为简单列表 */

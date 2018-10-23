@@ -37,12 +37,15 @@ const routes = [
                 /* meta: { auth: false }, */
                 component: resolve => require(['../pages/index.vue'], resolve)
             },
+
+
             {
-                name: 'blogHome',
+                // name: 'blogHome',
                 path: 'articles',
                 component: resolve => require(['../pages/blog/blogHome.vue'], resolve),
                 children: [
                     {
+                        name: 'blogHome',
                         path: '',
                         component: resolve => require(['../pages/blog/articles.vue'], resolve),
                     },
@@ -63,6 +66,8 @@ const routes = [
                 path: 'mdeditor/:id',
                 component: resolve => require(['../pages/blog/mdEditor.vue'], resolve)
             },
+
+            
             {
                 path: '*', //其他页面，强制跳转到登录页面
                 redirect: '/login'

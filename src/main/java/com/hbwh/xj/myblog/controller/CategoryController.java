@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/blogs")
@@ -33,6 +34,8 @@ public class CategoryController {
     @GetMapping("/personal-categories/{userid}")
     public ResponseEntity<Result> modifyUserData(@PathVariable("userid")String userid){
         List<PersonalCategory> categories = categoryService.getPersonalCatetories(userid);
-        return ResponseResult.get().data(categories).resultCode(ResultCode.SUCCESS).build();
+        List<String> cates = categories.stream().map(PersonalCategory::getCategory)
+                .collect(Collectors.toList());
+        return ResponseResult.get().data(cates).resultCode(ResultCode.SUCCESS).build();
     }
 }

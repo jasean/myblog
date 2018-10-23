@@ -66,4 +66,12 @@ public class ArticleController {
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
+    @ApiOperation(value = "增加博客阅读数", notes = "")
+    @PutMapping("/{userid}/{id}")
+    public ResponseEntity<Result> updateReadCount(@PathVariable("userid")String userid,
+                                                @PathVariable("id")Long id){
+        //TODO 如何高效的更新阅读量字段呢？如果直接在方法上加上锁，肯定低效！
+        return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
+    }
+
 }

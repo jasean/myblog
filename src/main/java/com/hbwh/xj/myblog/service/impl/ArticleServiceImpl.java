@@ -30,7 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
         int result = articleMapper.insert(article);
         //插入新的个人分类
         List<String> newCategories = article.getNewArticlePrivateCategory();
-        if(newCategories != null || newCategories.size() > 0){
+        System.out.println(newCategories);
+        if(newCategories != null && newCategories.size() > 0){
             String userid = article.getUserid();
             PersonalCategory personalCategory = null;
             List<PersonalCategory> personalCategories = new ArrayList<>(4);

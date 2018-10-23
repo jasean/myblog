@@ -60,8 +60,8 @@
 						<el-checkbox-group v-model="selectedPersonalCategories">
 							<el-checkbox 
 								v-for="catetory in allPersonalCategories" 
-								:key="catetory.category" 
-								:label="catetory.category">
+								:key="catetory" 
+								:label="catetory">
 							</el-checkbox>
 						</el-checkbox-group>
 					</div>
@@ -139,6 +139,7 @@
 				dialogVisible: false,
 				articleLabels:[],
 				allPersonalCategories: [],
+				initSelectedPersonalCategories:[],
 				selectedPersonalCategories: [],
 				allBlogCategories: ['编程','读书','艺术','互联网','教育'],
 				selectedBlogCategory: '',
@@ -178,6 +179,7 @@
 				this.dialogVisible = false;
 				//TODO 发布文章
 				let article = this.getArticleObj();
+				console.info(`...publish article: ${JSON.stringify(article)}`);
 				article.draft = 0;
 				funcs.publishArticle(article).then(() => {
 					//TODO 跳转
@@ -187,6 +189,8 @@
 			getArticleObj(){
 				let time = DateUtils.getDate();
 				let articlePrivateCategory = this.$refs.dynamicCategories.value;
+				console.info(`...articlePrivateCategory: ${JSON.stringify(articlePrivateCategory)}`);
+				console.info(`...allPersonalCategories: ${JSON.stringify(this.allPersonalCategories)}`);
 				let newCategory = articlePrivateCategory.filter(ele => {
 					if(this.allPersonalCategories.indexOf(ele) < 0){
 						return true;
@@ -194,6 +198,9 @@
 						return false;
 					}
 				});
+
+				console.info(`...newCategory: ${JSON.stringify(newCategory)}`);
+
 				let articleLabel = JSON.stringify(this.$refs.dynamicTags.value);
 				return {
 					articleType: this.articleType,
@@ -208,7 +215,7 @@
 					articleContent: this.articleContent,
 					privacy: this.privacy?1:0,
 					readCount:1,
-					
+					commentCount:0,
 				}
 			}
 		},

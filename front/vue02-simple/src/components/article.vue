@@ -63,9 +63,9 @@
             <span>评论数：{{commentCount}}</span>
         </div>
         <div class="opt-box" v-if="displayOpt">
-            <button class="btn-opt" data-type="top" @click="onOptClick('top')">置顶</button>
-            <a class="btn-opt" data-type="edit" href="javascript:void(0)" target="_blank" @click="onOptClick('edit')">编辑</a>
-            <button class="btn-opt" data-type="delete" @click="onOptClick('delete')">删除</button>
+            <button class="btn-opt" data-type="top" @click.stop="onOptClick('top')">置顶</button>
+            <button class="btn-opt" data-type="edit" @click.stop="onOptClick('edit')">编辑</button>
+            <button class="btn-opt" data-type="delete" @click.stop="onOptClick('delete')">删除</button>
         </div>
     </div>
 </template>
