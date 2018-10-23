@@ -80,6 +80,15 @@ dependencies {
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 
+    //spring session & redis
+    compile 'org.springframework.session:spring-session-data-redis'
+    compile 'org.springframework.boot:spring-boot-starter-redis'
+    //jedis客户端
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    // https://mvnrepository.com/artifact/io.lettuce/lettuce-core
+//    compile group: 'io.lettuce', name: 'lettuce-core', version: '5.1.1.RELEASE'
+
+
 
 
 }

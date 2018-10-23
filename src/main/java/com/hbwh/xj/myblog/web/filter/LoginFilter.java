@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+//no use
 public class LoginFilter implements Filter {
 
     public static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
