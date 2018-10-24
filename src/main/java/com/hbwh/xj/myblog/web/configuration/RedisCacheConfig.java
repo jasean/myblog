@@ -3,7 +3,9 @@ package com.hbwh.xj.myblog.web.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -23,6 +25,10 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisCacheConfig.class);
+    @Autowired
+    private RedisConfig redisConfig;
     //缓存管理器
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
@@ -62,21 +68,16 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         return template;
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.redis")
-    public RedisBean redisConfig(){
-        return new RedisBean();
-    }
 
     @Bean
     public JedisPool redisPoolFactory() {
-        RedisBean redisBean = redisConfig();
+        RedisConfig redisBean = this.redisConfig;
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(redisBean.getPool().getMaxIdle());
-        jedisPoolConfig.setMaxWaitMillis(redisBean.getPool().getMaxWaitMillis());
+        jedisPoolConfig.setMaxWaitMillis(redisBean.getPool().getMaxWait().toMillis());
 
         JedisPool jedisPool = new JedisPool(jedisPoolConfig,
-                redisBean.getHost(), redisBean.getPort(), redisBean.getTimeout(), redisBean.getPassword());
+                redisBean.getHost(), redisBean.getPort(), /*redisBean.getTimeout()*/2000, redisBean.getPassword());
         return jedisPool;
     }
 
