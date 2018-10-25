@@ -71,6 +71,12 @@ public class ArticleController {
     public ResponseEntity<Result> updateReadCount(@PathVariable("userid")String userid,
                                                 @PathVariable("id")Long id){
         //TODO 如何高效的更新阅读量字段呢？如果直接在方法上加上锁，肯定低效！
+        /**
+         *  可以通过redis缓存计数
+         *  1）为缓存设置过期时间，监听过期事件，在事件里更新到数据表，但过期事件里无法获得key对应的值；
+         *  2）周期性的更新到数据库或缓存达到一个阈值后更新；
+         *  3）通过分析日志，周期性的更新到数据库；
+         * */
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
