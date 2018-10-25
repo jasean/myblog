@@ -1,8 +1,6 @@
 package com.hbwh.xj.myblog.bean;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -12,6 +10,7 @@ import java.util.List;
 @Table(name="t_article")
 public class Article implements Serializable, Cloneable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
     private String userid;
     private String articleType;
@@ -27,7 +26,6 @@ public class Article implements Serializable, Cloneable{
     private boolean draft;
     private boolean privacy;
 
-    private Long readCount;
     private Long commentCount;
 
     public BigInteger getId() {
@@ -132,14 +130,6 @@ public class Article implements Serializable, Cloneable{
 
     public void setPrivacy(boolean privacy) {
         this.privacy = privacy;
-    }
-
-    public Long getReadCount() {
-        return readCount;
-    }
-
-    public void setReadCount(Long readCount) {
-        this.readCount = readCount;
     }
 
     public Long getCommentCount() {

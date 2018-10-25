@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.configuration;
+package com.hbwh.xj.myblog.util;
 
 import com.hbwh.xj.myblog.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisUtils {
+
+    public static final String REDIS_PREFIX = "ARTICLE_";
+
+
     @Autowired
     private static RedisService<String, String> redisService;
 
@@ -14,7 +18,29 @@ public class RedisUtils {
         RedisUtils.redisService = redisService;
     }
 
+    /**
+     * redis get
+     * @param key
+     * @return
+     */
     public static String get(String key){
         return redisService.get(key);
+    }
+
+    /**
+     * redis incr
+     * @param key
+     * @return
+     */
+    public static Long incr(String key){
+        return redisService.incr(key);
+    }
+
+    /**
+     * redis remove
+     * @param key
+     */
+    public static void remove(String key){
+        redisService.remove(key);
     }
 }

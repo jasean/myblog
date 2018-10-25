@@ -30,7 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Cacheable
     public List<PersonalCategory> getPersonalCatetories(String userid) {
         Example example = new Example(PersonalCategory.class);
         example.createCriteria().andEqualTo("userid", userid);

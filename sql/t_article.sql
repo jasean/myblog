@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 19/10/2018 17:01:58
+ Date: 25/10/2018 20:48:42
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,6 @@ CREATE TABLE `t_article`  (
   `article_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `draft` tinyint(1) NULL DEFAULT 0 COMMENT '是否为草稿',
   `privacy` tinyint(1) NULL DEFAULT 0 COMMENT '是否为私密文章',
-  `read_count` int(11) NULL DEFAULT NULL,
   `comment_count` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
@@ -42,7 +41,7 @@ CREATE TABLE `t_article`  (
 -- ----------------------------
 -- Records of t_article
 -- ----------------------------
-INSERT INTO `t_article` VALUES (3, '0', 'xiaojian', '我的文章1', '[\"test\"]', '程序人生', '[\"程序\"]', '2018-10-19 07:20:12', '2018-10-19 07:20:12', '我的文章是发送到发送到', 0, 0, NULL, NULL);
-INSERT INTO `t_article` VALUES (4, '0', 'xiaojian', '我的文章2', '[\"test\"]', '程序人生', '[\"程序\"]', '2018-10-19 07:48:40', '2018-10-19 07:48:40', 'property 对应的是实体类中的属性字段 2、实际条件查询案例 /** * 根据名称...1. 继承通用的Mapper,必须指定泛型 例如下面的例子: public interface UserInfoMap', 0, 0, NULL, NULL);
+INSERT INTO `t_article` VALUES (3, '0', 'xiaojian', '我的文章1', '[\"test\"]', '程序人生', '[\"程序\"]', '2018-10-19 07:20:12', '2018-10-19 07:20:12', '我的文章是发送到发送到', 0, 0, NULL);
+INSERT INTO `t_article` VALUES (4, '0', 'xiaojian', '我的文章2', '[\"test\"]', '程序人生', '[\"程序\"]', '2018-10-19 07:48:40', '2018-10-19 07:48:40', 'property 对应的是实体类中的属性字段 2、实际条件查询案例 /** * 根据名称...1. 继承通用的Mapper,必须指定泛型 例如下面的例子: public interface UserInfoMap', 0, 0, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -1,13 +1,17 @@
 package com.hbwh.xj.myblog.service.impl;
 
 import com.hbwh.xj.myblog.bean.Article;
+import com.hbwh.xj.myblog.bean.ArticleStat;
 import com.hbwh.xj.myblog.bean.BlogCategory;
 import com.hbwh.xj.myblog.bean.PersonalCategory;
 import com.hbwh.xj.myblog.dao.ArticleMapper;
+import com.hbwh.xj.myblog.dao.ArticleStatMapper;
 import com.hbwh.xj.myblog.dao.BlogCategoryMapper;
 import com.hbwh.xj.myblog.dao.PersonalCategoryMapper;
 import com.hbwh.xj.myblog.service.ArticleService;
 import com.hbwh.xj.myblog.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +22,13 @@ import java.util.List;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
+    private static final Logger log = LoggerFactory.getLogger(ArticleServiceImpl.class);
+
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private ArticleStatMapper articleStatMapper;
 
     @Autowired
     private PersonalCategoryMapper personalCategoryMapper;
@@ -27,7 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public boolean publishArticle(Article article) {
-        int result = articleMapper.insert(article);
+        articleMapper.insert(article);
+        log.info("----insert return key:", article);
+        articleStatMapper.insertSelective(new ArticleStat(article.getId().longValue(), 0L));
         //插入新的个人分类
         List<String> newCategories = article.getNewArticlePrivateCategory();
         System.out.println(newCategories);
@@ -39,11 +50,10 @@ public class ArticleServiceImpl implements ArticleService {
                 personalCategory = new PersonalCategory(userid, category);
                 personalCategories.add(personalCategory);
             }
-            result = personalCategoryMapper.insertCategories(personalCategories);
-            System.out.println("insertCategories result:" + result);
+            personalCategoryMapper.insertCategories(personalCategories);
         }
 
-        return result >= 1;
+        return true;
     }
 
     @Override

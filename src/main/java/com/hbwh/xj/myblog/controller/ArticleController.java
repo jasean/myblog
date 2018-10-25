@@ -2,14 +2,20 @@ package com.hbwh.xj.myblog.controller;
 
 import com.hbwh.xj.myblog.bean.Article;
 import com.hbwh.xj.myblog.service.ArticleService;
+import com.hbwh.xj.myblog.service.ArticleStatService;
+import com.hbwh.xj.myblog.service.RedisService;
+import com.hbwh.xj.myblog.util.RedisUtils;
 import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;
 import com.hbwh.xj.myblog.util.result.ResultCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +25,18 @@ import java.util.List;
 @Api(tags = "博客文章相关API")
 public class ArticleController {
 
+    private static final long THRESHOLD = 5;
+    private static Logger log = LoggerFactory.getLogger(ArticleController.class);
+
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private RedisService<String, String> redisService;
+
+    @Autowired
+    private ArticleStatService articleStatService;
+
     @ApiOperation(value = "获取个人文章列表", notes = "")
     @GetMapping("/{userid}")
     public ResponseEntity<Result> getArticles(
@@ -36,6 +52,17 @@ public class ArticleController {
     public ResponseEntity<Result> getArticle(@PathVariable("userid")String userid,
                                              @PathVariable("id")String articleid){
         Article article = articleService.getArticle(articleid);
+
+        String redisKey = RedisUtils.REDIS_PREFIX + articleid;
+        long count = RedisUtils.incr(redisKey);
+        log.info("----" + count);
+        if(count == THRESHOLD){
+            synchronized (this){
+                articleStatService.incrementReadCount(articleid, count);
+            }
+            RedisUtils.remove(redisKey);
+        }
+
         return ResponseResult.get().data(article).resultCode(ResultCode.SUCCESS).build();
     }
 
@@ -45,6 +72,7 @@ public class ArticleController {
                                                  Article article){
 
         articleService.publishArticle(article);
+
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
@@ -77,6 +105,7 @@ public class ArticleController {
          *  2）周期性的更新到数据库或缓存达到一个阈值后更新；
          *  3）通过分析日志，周期性的更新到数据库；
          * */
+
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
