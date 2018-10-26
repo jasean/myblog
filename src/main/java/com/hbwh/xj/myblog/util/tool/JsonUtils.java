@@ -17,6 +17,10 @@ public class JsonUtils {
         return OBJECT_MAPPER.writeValueAsString(obj);
     }
 
+    public static Object parse(String json) throws IOException {
+        return OBJECT_MAPPER.readValue(json, Object.class);
+    }
+
     public static <T> T parseBean(String json, Class<T> cls) throws IOException {
         return (T) OBJECT_MAPPER.readValue(json, cls);
     }
@@ -34,7 +38,7 @@ public class JsonUtils {
     }
 
     public static void main(String[] args) throws Throwable{
-        User user = new User();
+        /*User user = new User();
         System.out.println(stringify(user));
 
         Map<String, User> map = new HashMap<>();
@@ -43,7 +47,7 @@ public class JsonUtils {
 
         List<User> list = new ArrayList<>();
         list.add(user);
-        System.out.println(stringify(list));
+        System.out.println(stringify(list));*/
 
         String json = "{\"userid\":\"001\"}";
         System.out.println(parseBean(json, User.class));
@@ -51,8 +55,10 @@ public class JsonUtils {
 //        String mapJson = "{\"key\":" + json + "}";
         String mapJson = "{\"key\": \"value\"}";
         System.out.println(parseMap(mapJson, String.class, String.class));
+        System.out.println(parseBean(mapJson, Object.class));
 
         String listJson = "[\"001\"]";
         System.out.println(parseList(listJson, String.class));
+        System.out.println(parseBean(listJson, Object.class));
     }
 }
