@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+		body {
+			background-color: #F6F7F8;
+		}
+		*{
+			margin:0;
+			padding:0;
+		}
+		a {
+			text-decoration: none;
+		}
+		.aside{
+			width: 300px;
+			background-color:white;
+		}
+		.aside-box{
+			margin-bottom: 8px;
+			background-color: #fff;
+			-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+			box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+		}
+		.intro {
+			padding:16px;
+			border-bottom: 1px solid #e3e3e3;
+		}
+		.d-flex {
+			display: flex !important;
+		}
+		.justify-content-center{
+			justify-content: center !important;
+		}
+		.flex-column{
+			flex-direction: column !important;
+		}
+		.avatar{
+			display: block;
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+		}
+		.usernm {
+			margin-left:8px;
+		}
+		
+		.stat {
+			padding: 16px 10px;
+			border-bottom: 1px solid #e3e3e3;
+		}
+		.item-tiling>* {
+			width: 100%;
+		}
+		.text-center {
+			text-align: center;
+		}
+		dl {
+			display:block;
+		}
+		.count {
+			font-weight: 700;
+		}
+		
+		.grade {
+			margin-top: -8px;
+			padding: 16px;
+		}
+		.grade dl {
+			margin-top: 8px;
+			float: left;
+			width: 50%;
+		}
+		.grade dl dt {
+			display: inline;
+			width: 42px;
+		}
+		.grade dl dd {
+			display: inline;
+		}
+		.clearfix::after {
+			content: " ";
+			display: block;
+			height: 0;
+			visibility: hidden;
+			clear: both;
+		}
+		
+		
+		div.aside-box {
+			margin-bottom: 8px;
+			background-color: #fff;
+			-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+			box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+		}
+		.aside-title {
+			padding: 16px 16px 0;
+			font-size: 14px;
+			color: #333;
+		}
+		.aside-title::before {
+			display: inline-block;
+			margin-right: 8px;
+			content: '';
+			width: 4px;
+			height: 22px;
+			vertical-align: -6px;
+			background-color: #ca0c16;
+		}
+		div.aside-content {
+			padding: 16px;
+			overflow: hidden;
+		}
+		ul {
+			margin-top: -8px;
+			list-style: none;
+		}
+		ul li {
+			margin-top: 8px;
+		}
+		ul li a {
+			display:block;
+			cursor: pointer;
+			text-decoration: none;
+		}
+		ul li a .title {
+			width: 84%;
+			float: left;
+		}
+		ul li a span.count {
+			font-size: 12px;
+			color: #858585;
+		}
+		.oneline {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap !important;
+		}
+		.float-right {
+			float: right !important;
+		}
+		
+	</style>
+</head>
+<body> 
+    <div class="aside">
+		<div class="aside-box">
+			<div class="intro d-flex" >
+				<div class="d-flex justify-content-center flex-column">
+					<a href="">
+						<img src="img.jpg" alt="jann" class="avatar"/>
+					</a>
+				</div>
+				<div class="usernm d-flex justify-content-center flex-column">
+					<p><a href="">jann</a></p>
+				</div>
+				
+			</div>
+			<div class="stat d-flex item-tiling">
+				<dl class="text-center" title="3">
+                    <dt><a href="https://blog.csdn.net/jan8705_?t=1">原创</a></dt>
+					<dd><a href="https://blog.csdn.net/jan8705_?t=1"><span class="count">3</span></a></dd>
+                </dl>
+				<dl class="text-center" title="3">
+                    <dt><a href="https://blog.csdn.net/jan8705_?t=1">粉丝</a></dt>
+					<dd><a href="https://blog.csdn.net/jan8705_?t=1"><span class="count">3</span></a></dd>
+                </dl>
+				<dl class="text-center" title="3">
+                    <dt><a href="https://blog.csdn.net/jan8705_?t=1">喜欢</a></dt>
+					<dd><a href="https://blog.csdn.net/jan8705_?t=1"><span class="count">3</span></a></dd>
+                </dl>
+				<dl class="text-center" title="3">
+                    <dt><a href="https://blog.csdn.net/jan8705_?t=1">评论</a></dt>
+					<dd><a href="https://blog.csdn.net/jan8705_?t=1"><span class="count">3</span></a></dd>
+                </dl>
+			</div>
+			<div class="grade clearfix">
+				<dl>
+					<dt>等级：</dt>
+					<dd>
+						<a href="#" title="1级,点击查看等级说明" target="_blank">
+							<img src="blog1.png" alt="" class=""/>
+						</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>访问：</dt>
+					<dd title="4606">
+						4606            </dd>
+				</dl>
+				<dl>
+					<dt>积分：</dt>
+					<dd title="79">
+						79            </dd>
+				</dl>
+				<dl title="1562182">
+					<dt>排名：</dt>
+					<dd>156万+</dd>
+				</dl>
+			</div>
+		</div>
+		
+		
+		
+		<div id="asideCategory" class="aside-box">
+			<h3 class="aside-title">个人分类</h3>
+			<div class="aside-content">
+				<ul>
+								<li>
+						<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/5942769">
+							<span class="title oneline">Java</span>
+							<span class="count float-right">2篇</span>
+						</a>
+					</li>
+								<li>
+						<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/6379301">
+							<span class="title oneline">react native</span>
+							<span class="count float-right">1篇</span>
+						</a>
+					</li>
+							</ul>
+			</div>
+		</div>
+		<div id="asideCategory" class="aside-box">
+			<h3 class="aside-title">归档</h3>
+			<div class="aside-content">
+				<ul>
+					<li>
+						<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/5942769">
+							<span class="title oneline">2018年11月</span>
+							<span class="count float-right">2篇</span>
+						</a>
+					</li>
+								<li>
+						<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/6379301">
+							<span class="title oneline">2018年10月</span>
+							<span class="count float-right">1篇</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
