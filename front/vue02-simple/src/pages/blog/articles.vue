@@ -1,14 +1,19 @@
 <style lang="scss" scoped>
 	.filter-sort-box {
-		margin-left: 10px;
+		padding: 0 24px;
+		border-bottom: 1px solid #e3e3e3;
 		dl {
 			margin-left: auto;
+			font-size: 14px;
 			a {
 				text-decoration:none;
 				color: #000;
 			}
 			.active {
 				color: red;
+			}
+			dt {
+				color: #999;
 			}
 		}
 	}
@@ -27,12 +32,15 @@
 			<el-checkbox v-model="filterOriginal">只看原创</el-checkbox>
 			<dl class="d-flex inline">
 				<dt>排序：</dt>
-				<dd><a href="javascript:void(0);" class="orderBy==='createTime'?'active':''" target="_self" @click="orderSelected('createTime')">默认</a></dd>
-				<dd><a href="javascript:void(0);" class="orderBy==='updateTime'?'active':''" target="_self" @click="orderSelected('updateTime')">按更新时间</a></dd>
-				<dd><a href="javascript:void(0);" class="orderBy==='readCount'?'active':'' " target="_self" @click="orderSelected('readCount')">按访问量</a></dd>
+				<dd><a href="javascript:void(0);" :class="orderBy==='createTime'?'active':''" target="_self" @click="orderSelected('createTime')">默认</a></dd>
+				<dd><a href="javascript:void(0);" :class="orderBy==='updateTime'?'active':''" target="_self" @click="orderSelected('updateTime')">按更新时间</a></dd>
+				<dd><a href="javascript:void(0);" :class="orderBy==='readCount'?'active':'' " target="_self" @click="orderSelected('readCount')">按访问量</a></dd>
 			</dl>
 		</div>
-		<v-article-list :list-data="articles"></v-article-list>
+		<div>
+			<v-article-list :list-data="articles"></v-article-list>
+		</div>
+		
 	</div>
 </template>
 <script>

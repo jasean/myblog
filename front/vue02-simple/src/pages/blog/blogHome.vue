@@ -31,6 +31,11 @@
 		padding: 2px;
 	}
 
+	.el-main {
+		padding: 0;
+		margin-left: 8px;
+	}
+
 	dl {
 		float: left;
 	}
