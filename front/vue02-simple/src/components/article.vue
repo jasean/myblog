@@ -1,5 +1,9 @@
 <style lang="less" scoped>
 
+    .title-box, .content-intro {
+        cursor: pointer;
+    }
+
     div.main {
         padding: 5px;
         text-align: left;
@@ -27,6 +31,8 @@
     
     div.footer span {
         margin-right: 10px;
+        font-size: 14px;
+        color: #6b6b6b;
     }
 
     .opt-box {
@@ -47,16 +53,69 @@
         color: #ca0c16;
     }
 
+    h4 {
+        margin: 0;
+        margin-bottom: 6px;
+        font-size: 18px;
+        line-height: 24px;
+        color: #3d3d3d;
+        display: inline-block;
+        font-weight: bold;
+    }
+    h4 a {
+        display: block;
+        padding-left: 36px;
+        word-break: break-all;
+    }
+    span.article-type {
+        color: #ca0c16;
+        border: 1px solid #f4ced0;
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+        font-size: 12px;
+        border-radius: 50%;
+        margin-left: -36px;
+        margin-top: 0;
+        vertical-align: 2px;
+    }
+
+    p.content {
+        font-size: 14px;
+        line-height: 22px;
+        white-space: normal;
+        color: #999;
+        margin: 0;
+
+        a {
+            font-size: 14px;
+            color: #999;
+        }
+    }
+
 </style>
 <template>
     <div class="main" @mouseover="displayOpt=true" @mouseout="displayOpt=false">
-        <div>
+        <h4>
+            <a href="#" @click="onOpenClick">
+                <span class="article-type">{{articleTypeDesc.slice(0,1)}}</span>
+                {{articleTitle}}
+            </a>
+        </h4>
+        <p class="content">
+            <a href="#" @click="onOpenClick">
+                {{contentIntro}}
+            </a>
+        </p>
+        <!-- <div class="title-box">
             <span class="original-flag">{{articleTypeDesc.slice(0,1)}}</span>
             <span class="title">{{articleTitle}}</span>
         </div>
         <div class="content-intro">
             {{contentIntro}}
-        </div>
+        </div> -->
         <div class="footer">
             <span>{{formatDate}}</span>
             <span>阅读数：{{readCount}}</span>
@@ -99,6 +158,10 @@
             onOptClick(type){
                 console.info('..onOptClick:' + type)
                 this.$emit('opt-selected', {type, listIndex: this.listIndex})
+            },
+
+            onOpenClick(){
+                this.$emit('click');
             }
         }
         

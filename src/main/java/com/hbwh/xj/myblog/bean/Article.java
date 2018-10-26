@@ -1,5 +1,9 @@
 package com.hbwh.xj.myblog.bean;
 
+import com.hbwh.xj.myblog.web.typehandler.JsonTypeHandler;
+import org.apache.ibatis.type.StringTypeHandler;
+import tk.mybatis.mapper.annotation.ColumnType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -17,7 +21,10 @@ public class Article implements Serializable, Cloneable{
     private String articleTitle;
     private String articleLabel;
     private String articleCategory;
-    private String articlePrivateCategory;
+
+    @ColumnType(typeHandler = JsonTypeHandler.class)
+    private Object articlePrivateCategory;
+
     @Transient
     private List<String> newArticlePrivateCategory;
     private Timestamp lastModified;
@@ -68,11 +75,11 @@ public class Article implements Serializable, Cloneable{
         this.articleCategory = articleCategory;
     }
 
-    public String getArticlePrivateCategory() {
+    public Object getArticlePrivateCategory() {
         return articlePrivateCategory;
     }
 
-    public void setArticlePrivateCategory(String articlePrivateCategory) {
+    public void setArticlePrivateCategory(Object articlePrivateCategory) {
         this.articlePrivateCategory = articlePrivateCategory;
     }
 

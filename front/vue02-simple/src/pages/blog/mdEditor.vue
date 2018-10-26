@@ -208,7 +208,7 @@
 					articleTitle: this.articleTitle,
 					articleLabel,
 					articleCategory: this.selectedBlogCategory,
-					articlePrivateCategory: JSON.stringify(articlePrivateCategory),
+					articlePrivateCategory,
 					newArticlePrivateCategory: newCategory,
 					lastModified: time,
 					createTime: time,

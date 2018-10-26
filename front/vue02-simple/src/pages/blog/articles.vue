@@ -1,4 +1,6 @@
 <style lang="scss" scoped>
+	
+
 	.filter-sort-box {
 		padding: 0 24px;
 		border-bottom: 1px solid #e3e3e3;
@@ -16,6 +18,10 @@
 				color: #999;
 			}
 		}
+	}
+
+	.content-box {
+		padding: 0 8px;
 	}
 
 	.d-flex {
@@ -37,10 +43,9 @@
 				<dd><a href="javascript:void(0);" :class="orderBy==='readCount'?'active':'' " target="_self" @click="orderSelected('readCount')">按访问量</a></dd>
 			</dl>
 		</div>
-		<div>
+		<div class="content-box">
 			<v-article-list :list-data="articles"></v-article-list>
 		</div>
-		
 	</div>
 </template>
 <script>

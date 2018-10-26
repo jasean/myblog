@@ -1,11 +1,19 @@
 <style lang="scss" scoped>
-
+	.article-list{
+		margin-bottom: 1px;
+    	padding: 12px 18px;
+	}
 </style>
 <template>
-	<div >
+	<div class="article-list">
 		<el-row v-for="(articleData, index) in listData" :key="articleData.id">
-			<el-col @click.native="openArticle(articleData)">
-				<my-article v-bind="articleData" :list-index="index" @opt-selected="handleOptClicked"></my-article>
+			<el-col >
+				<my-article 
+					v-bind="articleData" 
+					:list-index="index" 
+					@click="openArticle(articleData)"
+					@opt-selected="handleOptClicked">
+				</my-article>
 			</el-col>
 		</el-row>
 	</div>
@@ -13,7 +21,7 @@
 <script>
 	import article from './article'
 	import simpleArticle from './simple-article'
-	
+	// @click.native="openArticle(articleData)"
     export default {
 		// 
         props: {

@@ -9,6 +9,7 @@ import org.apache.ibatis.type.MappedTypes;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 
 @MappedJdbcTypes(value={JdbcType.VARCHAR})
 @MappedTypes(value={Object.class})

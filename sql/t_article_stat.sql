@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 25/10/2018 20:25:37
+ Date: 26/10/2018 23:02:55
 */
 
 SET NAMES utf8mb4;
@@ -26,5 +26,13 @@ CREATE TABLE `t_article_stat`  (
   `read_count` bigint(20) NOT NULL,
   PRIMARY KEY (`article_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章阅读量统计' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_article_stat
+-- ----------------------------
+INSERT INTO `t_article_stat` VALUES (1, 0);
+INSERT INTO `t_article_stat` VALUES (3, 6);
+INSERT INTO `t_article_stat` VALUES (4, 1);
+INSERT INTO `t_article_stat` VALUES (6, 10);
 
 SET FOREIGN_KEY_CHECKS = 1;
