@@ -3,6 +3,7 @@ mybatis:
   mapper-locations:
     - classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
+  type-handlers-package: com.hbwh.xj.myblog.web.typehandler
  
 spring:
   datasource:
