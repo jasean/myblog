@@ -6,7 +6,7 @@
 </style>
 <template>
 	<div class="article-list">
-		<el-row v-for="(articleData, index) in listData" :key="articleData.id">
+		<el-row v-for="(articleData, index) in listData" :key="articleData.articleId">
 			<el-col >
 				<my-article 
 					v-bind="articleData" 
@@ -38,7 +38,7 @@
 		methods: {
 			openArticle(article){
 				console.info("...openArticle...");
-				this.$router.push({name: 'articleDetail', params: {id: article.id}})
+				this.$router.push({name: 'articleDetail', params: {articleId: article.articleId}})
 			},
 
 			handleOptClicked(data){
@@ -50,7 +50,7 @@
 					// TODO 触发置顶操作
 				}else if(type === 'edit'){
 					// TODO 跳转到编辑页面
-					this.$router.push({name: 'editArticle', params: {id: this.listData[listIndex].id}});
+					this.$router.push({name: 'editArticle', params: {articleId: this.listData[listIndex].articleId}});
 				}
 			}
 		}

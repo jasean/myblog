@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.service.impl;
 
-import com.hbwh.xj.myblog.bean.User;
+import com.hbwh.xj.myblog.po.User;
 import com.hbwh.xj.myblog.dao.UserMapper;
 import com.hbwh.xj.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

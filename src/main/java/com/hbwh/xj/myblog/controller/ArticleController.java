@@ -1,9 +1,8 @@
 package com.hbwh.xj.myblog.controller;
 
-import com.hbwh.xj.myblog.bean.Article;
+import com.hbwh.xj.myblog.po.Article;
 import com.hbwh.xj.myblog.service.ArticleService;
 import com.hbwh.xj.myblog.service.ArticleStatService;
-import com.hbwh.xj.myblog.service.RedisService;
 import com.hbwh.xj.myblog.util.RedisUtils;
 import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;
@@ -13,18 +12,18 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/articles")
 @Api(tags = "博客文章相关API")
 public class ArticleController {
 
+    /** 缓存的文章访问量阈值 */
     private static final long THRESHOLD = 5;
     private static Logger log = LoggerFactory.getLogger(ArticleController.class);
 
@@ -32,10 +31,21 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Autowired
-    private RedisService<String, String> redisService;
-
-    @Autowired
     private ArticleStatService articleStatService;
+
+    @ApiOperation(value = "获取个人分类维度的统计信息", notes = "")
+    @GetMapping("/stats/category/{userid}")
+    public ResponseEntity<Result> getStatsByCategory(@PathVariable("userid")String userid){
+        List<Map> stats = articleService.getStatsByCategory(userid);
+        return ResponseResult.get().data(stats).resultCode(ResultCode.SUCCESS).build();
+    }
+
+    @ApiOperation(value = "获取年月维度的统计信息", notes = "")
+    @GetMapping("/stats/date/{userid}")
+    public ResponseEntity<Result> getStatsByDate(@PathVariable("userid")String userid){
+        List<Map> stats = articleService.getStatsByDate(userid);
+        return ResponseResult.get().data(stats).resultCode(ResultCode.SUCCESS).build();
+    }
 
     @ApiOperation(value = "获取个人文章列表", notes = "")
     @GetMapping("/{userid}")
@@ -46,7 +56,6 @@ public class ArticleController {
         return ResponseResult.get().data(articles).resultCode(ResultCode.SUCCESS).build();
     }
 
-    //TODO 是否需要这个接口？
     @ApiOperation(value = "获取指定博客信息", notes = "")
     @GetMapping("/{userid}/{id}")
     public ResponseEntity<Result> getArticle(@PathVariable("userid")String userid,
@@ -54,13 +63,14 @@ public class ArticleController {
         Article article = articleService.getArticle(articleid);
 
         String redisKey = RedisUtils.REDIS_PREFIX + articleid;
-        long count = RedisUtils.incr(redisKey);
-        log.info("----" + count);
-        if(count == THRESHOLD){
-            synchronized (this){
+        synchronized (this){
+            long count = RedisUtils.incr(redisKey);
+            log.info("----" + count);
+            if(count == THRESHOLD){
+                RedisUtils.remove(redisKey);
+                //TODO FIXME 可以异步执行，尽量减少锁的占用
                 articleStatService.incrementReadCount(articleid, count);
             }
-            RedisUtils.remove(redisKey);
         }
 
         return ResponseResult.get().data(article).resultCode(ResultCode.SUCCESS).build();
@@ -90,10 +100,11 @@ public class ArticleController {
     public ResponseEntity<Result> deleteArticle(@PathVariable("userid")String userid,
                                                 @PathVariable("id")Long id){
 
-        articleService.deleteArticle(id.toString());
+        articleService.deleteArticle(id);
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
+    @Deprecated
     @ApiOperation(value = "增加博客阅读数", notes = "")
     @PutMapping("/{userid}/{id}")
     public ResponseEntity<Result> updateReadCount(@PathVariable("userid")String userid,

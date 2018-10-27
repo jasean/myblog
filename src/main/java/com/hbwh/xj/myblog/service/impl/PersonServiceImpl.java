@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-import com.hbwh.xj.myblog.bean.Person;
+import com.hbwh.xj.myblog.po.Person;
 import com.hbwh.xj.myblog.dao.PersonMapper;
 import com.hbwh.xj.myblog.service.PersonService;
 

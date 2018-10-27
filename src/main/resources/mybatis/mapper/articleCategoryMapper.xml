@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hbwh.xj.myblog.dao.PersonalCategoryMapper" >
+<mapper namespace="com.hbwh.xj.myblog.dao.ArticleCategoryMapper" >
     <!-- <resultMap articleId="BaseResultMap" type="com.hbwh.xj.myblog.poerson" >
         <articleId column="articleId" property="articleId" jdbcType="BIGINT" />
         <result column="name" property="name" jdbcType="VARCHAR" />
@@ -11,17 +11,23 @@
     </resultMap> -->
     
     <sql id="Base_Column_List" >
-        userid, category
+        article_id, category
     </sql>
 
     <insert id="insertCategories" parameterType="java.util.List" >
-        insert into t_private_category (
+        insert into t_article_category (
             <include refid="Base_Column_List" />
         ) values
         <foreach collection="list" item="item" separator=",">
-            ( #{item.userid}, #{item.category} )
+            ( #{item.articleId}, #{item.category} )
         </foreach>
     </insert>
+    
+    <select id="selectStatsByCategory" resultType="map" >
+        select category, count(*) as count from t_article_category
+            where userid = #{userid}
+            group by category
+    </select>
 
     <!-- <select articleId="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
         SELECT 

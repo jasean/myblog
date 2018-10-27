@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.bean;
+package com.hbwh.xj.myblog.po;
 
 import javax.persistence.Id;
 import javax.persistence.Table;

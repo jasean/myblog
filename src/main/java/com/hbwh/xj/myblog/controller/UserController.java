@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.controller;
 
-import com.hbwh.xj.myblog.bean.User;
+import com.hbwh.xj.myblog.po.User;
 import com.hbwh.xj.myblog.service.UserService;
 import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;

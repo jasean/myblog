@@ -1,7 +1,7 @@
 package com.hbwh.xj.myblog.service;
 
-import com.hbwh.xj.myblog.bean.BlogCategory;
-import com.hbwh.xj.myblog.bean.PersonalCategory;
+import com.hbwh.xj.myblog.po.BlogCategory;
+import com.hbwh.xj.myblog.po.PersonalCategory;
 
 import java.util.List;
 

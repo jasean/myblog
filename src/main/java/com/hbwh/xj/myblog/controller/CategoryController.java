@@ -1,7 +1,7 @@
 package com.hbwh.xj.myblog.controller;
 
-import com.hbwh.xj.myblog.bean.BlogCategory;
-import com.hbwh.xj.myblog.bean.PersonalCategory;
+import com.hbwh.xj.myblog.po.BlogCategory;
+import com.hbwh.xj.myblog.po.PersonalCategory;
 import com.hbwh.xj.myblog.service.CategoryService;
 import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;

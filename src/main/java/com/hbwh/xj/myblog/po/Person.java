@@ -1,8 +1,7 @@
-package com.hbwh.xj.myblog.bean;
+package com.hbwh.xj.myblog.po;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import tk.mybatis.mapper.annotation.KeySql;
 

@@ -75,9 +75,9 @@
 	import * as funcs from '../../funcs/getData' 
     export default {
 		mounted(){
-			let id = this.$route.params.id;
-			this.articleId = id;
-			funcs.getArticle(this.user.userid, id).then(res => {
+			let articleId = this.$route.params.articleId;
+			this.articleId = articleId;
+			funcs.getArticle(this.user.userid, articleId).then(res => {
 				console.info('...getArticle...')
 				console.info(res)
 				if(res.data && res.data.data){
@@ -104,7 +104,7 @@
 
 		methods: {
 			editClick(){
-				this.$router.push({name: 'editArticle', params: {id: articleId}});
+				this.$router.push({name: 'editArticle', params: {articleId: articleId}});
 			}
 		},
 

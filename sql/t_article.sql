@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_article`;
 CREATE TABLE `t_article`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `articleId` bigint(20) NOT NULL AUTO_INCREMENT,
   `article_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '文章分类(0-原创,1-转载,2-翻译)',
   `userid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `article_title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `t_article`  (
   `draft` tinyint(1) NULL DEFAULT 0 COMMENT '是否为草稿',
   `privacy` tinyint(1) NULL DEFAULT 0 COMMENT '是否为私密文章',
   `comment_count` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`articleId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------

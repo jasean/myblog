@@ -80,7 +80,7 @@
 						<el-form-item label="博客分类" required>
 							<el-select v-model="selectedBlogCategory" placeholder="请选择">
 								<el-option 
-									:key="category.id" 
+									:key="category.articleId"
 									v-for="category in allBlogCategories" 
 									:label="category.category" 
 									:value="category.category">
@@ -112,7 +112,7 @@
     export default {
 		created(){
 			this.init();
-			let articleid = this.$route.params.id;
+			let articleid = this.$route.params.articleId;
 			console.info('...articleid:' + articleid);
 			if(articleid){//编辑模式
 				funcs.getArticle(this.user.userid, articleid).then(res => {

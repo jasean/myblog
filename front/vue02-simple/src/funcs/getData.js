@@ -26,3 +26,9 @@ export const getArticles = (userid, orderBy) => http.get(`/articles/${userid}`,{
 
 //获取文章详情
 export const getArticle = (userid, articleid) => http.get(`/articles/${userid}/${articleid}`);
+
+//获取按个人分类维度的统计信息
+export const getStatsByCategory = (userid) => http.get(`/articles/stats/category/${userid}`);
+
+//获取按创建年月维度的统计信息
+export const getStatsByDate = (userid) => http.get(`/articles/stats/date/${userid}`);

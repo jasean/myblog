@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.hbwh.xj.myblog.bean.Person;
+import com.hbwh.xj.myblog.po.Person;
 
 import tk.mybatis.mapper.common.Mapper;
 

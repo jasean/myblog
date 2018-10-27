@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hbwh.xj.myblog.dao.ArticleCategoryMapper" >
+<mapper namespace="com.hbwh.xj.myblog.dao.ArticleMapper" >
     <!-- <resultMap articleId="BaseResultMap" type="com.hbwh.xj.myblog.poerson" >
         <articleId column="articleId" property="articleId" jdbcType="BIGINT" />
         <result column="name" property="name" jdbcType="VARCHAR" />
@@ -10,23 +10,13 @@
         <result column="desc" property="desc" jdbcType="VARCHAR" />
     </resultMap> -->
     
-    <sql id="Base_Column_List" >
-        article_id, category
-    </sql>
 
-    <insert id="insertCategories" parameterType="java.util.List" >
-        insert into t_article_category (
-            <include refid="Base_Column_List" />
-        ) values
-        <foreach collection="list" item="item" separator=",">
-            ( #{item.articleId}, #{item.category} )
-        </foreach>
-    </insert>
-    
-    <select id="selectGroupByCategory" resultType="map" >
-        select category, count(*) as count from t_article_category
-            where article_id = #{articleId}
-            group by category
+
+    <select id="selectStatsByCreateDate" resultType="map" >
+        select create_date, count(*) as count from (
+            select articleId, DATE_FORMAT(create_time,'%Y-%m') as create_date
+                from t_article where userid = #{userid}
+        ) result group by create_date
     </select>
 
     <!-- <select articleId="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >

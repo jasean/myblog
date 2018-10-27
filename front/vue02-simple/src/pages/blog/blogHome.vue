@@ -271,35 +271,23 @@
 							<h3 class="aside-title">个人分类</h3>
 							<div class="aside-content">
 								<ul>
-												<li>
-										<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/5942769">
-											<span class="title oneline">Java</span>
-											<span class="count float-right">2篇</span>
+									<li v-for="stats in categoryStats" :key="stats.category">
+										<a class="clearfix" href="#">
+											<span class="title oneline">{{stats.category}}</span>
+											<span class="count float-right">{{stats.count}}}篇</span>
 										</a>
 									</li>
-												<li>
-										<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/6379301">
-											<span class="title oneline">react native</span>
-											<span class="count float-right">1篇</span>
-										</a>
-									</li>
-											</ul>
+								</ul>
 							</div>
 						</div>
 						<div class="aside-box">
 							<h3 class="aside-title">归档</h3>
 							<div class="aside-content">
 								<ul>
-									<li>
-										<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/5942769">
-											<span class="title oneline">2018年11月</span>
-											<span class="count float-right">2篇</span>
-										</a>
-									</li>
-												<li>
-										<a class="clearfix" href="https://blog.csdn.net/jan8705_/article/category/6379301">
-											<span class="title oneline">2018年10月</span>
-											<span class="count float-right">1篇</span>
+									<li v-for="stats in dateStats" :key="stats.create_date">
+										<a class="clearfix" href="#">
+											<span class="title oneline">{{stats.create_date}}}</span>
+											<span class="count float-right">{{stats.count}}}篇</span>
 										</a>
 									</li>
 								</ul>
@@ -319,6 +307,35 @@
 	import { mapState } from 'vuex'
 	import * as funcs from '../../funcs/getData'
     export default {
+		created(){
+			Promise.all([
+				funcs.getStatsByCategory(this.user.userid),
+				funcs.getStatsByDate(this.user.userid)
+			]).then(([res1, res2]) => {
+				console.info(res1)
+				console.info(res2)
+				if(res1.data && res1.data.data){
+					this.categoryStats = res1.data.data;
+				}
+				if(res2.data && res2.data.data){
+					this.dateStats = res2.data.data;
+				}
+			}).catch(e => alert(e));
+
+			/* funcs.getStatsByCategory(this.user.userid).then(res => {
+				if(res.data && res.data.data){
+					this.categoryStats = res.data.data;
+				}
+			}).catch(e => alert(e)) */
+		},
+
+		data(){
+			return {
+				categoryStats: [],
+				dateStats: []
+			}
+		},
+
         computed: mapState({ user: state => {
 			return state.user;
 		} }),

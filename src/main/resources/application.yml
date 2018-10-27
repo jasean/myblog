@@ -1,5 +1,5 @@
 mybatis:
-  type-aliases-package: com.hbwh.xj.myblog.bean
+  type-aliases-package: com.hbwh.xj.myblog.po
   mapper-locations:
     - classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml

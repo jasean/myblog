@@ -3,11 +3,9 @@ package com.hbwh.xj.myblog.util.tool;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hbwh.xj.myblog.bean.User;
+import com.hbwh.xj.myblog.po.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

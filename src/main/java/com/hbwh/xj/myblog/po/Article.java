@@ -1,14 +1,12 @@
-package com.hbwh.xj.myblog.bean;
+package com.hbwh.xj.myblog.po;
 
 import com.hbwh.xj.myblog.web.typehandler.JsonTypeHandler;
-import org.apache.ibatis.type.StringTypeHandler;
 import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 @Table(name="t_article")

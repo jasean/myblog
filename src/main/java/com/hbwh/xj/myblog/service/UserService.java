@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.service;
 
-import com.hbwh.xj.myblog.bean.User;
+import com.hbwh.xj.myblog.po.User;
 
 public interface UserService {
     public User getUserByUserid(String userid);

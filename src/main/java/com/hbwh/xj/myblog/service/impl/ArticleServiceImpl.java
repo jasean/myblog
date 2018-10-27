@@ -1,15 +1,14 @@
 package com.hbwh.xj.myblog.service.impl;
 
-import com.hbwh.xj.myblog.bean.Article;
-import com.hbwh.xj.myblog.bean.ArticleStat;
-import com.hbwh.xj.myblog.bean.BlogCategory;
-import com.hbwh.xj.myblog.bean.PersonalCategory;
+import com.hbwh.xj.myblog.dao.ArticleCategoryMapper;
+import com.hbwh.xj.myblog.po.Article;
+import com.hbwh.xj.myblog.po.ArticleCategory;
+import com.hbwh.xj.myblog.po.ArticleStat;
+import com.hbwh.xj.myblog.po.PersonalCategory;
 import com.hbwh.xj.myblog.dao.ArticleMapper;
 import com.hbwh.xj.myblog.dao.ArticleStatMapper;
-import com.hbwh.xj.myblog.dao.BlogCategoryMapper;
 import com.hbwh.xj.myblog.dao.PersonalCategoryMapper;
 import com.hbwh.xj.myblog.service.ArticleService;
-import com.hbwh.xj.myblog.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
@@ -33,15 +34,25 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private PersonalCategoryMapper personalCategoryMapper;
 
+    @Autowired
+    private ArticleCategoryMapper articleCategoryMapper;
+
     @Override
     @Transactional
     public boolean publishArticle(Article article) {
+        // 1、插入文章表
         articleMapper.insert(article);
-        log.info("----insert return key:", article);
+
+        //2、插入访问量表
         articleStatMapper.insertSelective(new ArticleStat(article.getId().longValue(), 0L));
-        //插入新的个人分类
+
+        //3、插入文章分类表
+        List<ArticleCategory> categories = getArticleCategories(article);
+        articleCategoryMapper.insertCategories(categories);
+
+        //4、插入新的个人分类
         List<String> newCategories = article.getNewArticlePrivateCategory();
-        System.out.println(newCategories);
+        log.info("insert new category: {}",newCategories);
         if(newCategories != null && newCategories.size() > 0){
             String userid = article.getUserid();
             PersonalCategory personalCategory = null;
@@ -78,14 +89,50 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public boolean deleteArticle(String id) {
-        int result = articleMapper.deleteByPrimaryKey(id);
-        return result == 1;
+    @Transactional
+    public boolean deleteArticle(Long id) {
+        articleMapper.deleteByPrimaryKey(id);
+        articleCategoryMapper.delete(new ArticleCategory(BigInteger.valueOf(id), null, null));
+        return true;
     }
 
     @Override
+    @Transactional
     public boolean modifyArticle(Article article) {
-        int result = articleMapper.updateByPrimaryKeySelective(article);
-        return result == 1;
+        //1、更新文章表
+        articleMapper.updateByPrimaryKeySelective(article);
+
+        //2、更新文章分类表,首先删除文章所有分类，再插入
+        articleCategoryMapper.delete(new ArticleCategory(article.getId(), null, null));
+        articleCategoryMapper.insertCategories(getArticleCategories(article));
+
+        return true;
+    }
+
+    @Override
+    public List<Map> getStatsByCategory(String userid) {
+        return articleCategoryMapper.selectStatsByCategory(userid);
+    }
+
+    @Override
+    public List<Map> getStatsByDate(String userid) {
+        return articleMapper.selectStatsByCreateDate(userid);
+    }
+
+    /**
+     * 获取持久层对象
+     * @param article
+     * @return
+     */
+    private List<ArticleCategory> getArticleCategories(Article article){
+        List<ArticleCategory> cates = new ArrayList<>(8);
+        List<String> categories = (List<String>) article.getArticlePrivateCategory();
+        ArticleCategory articleCategory = null;
+        for(String category: categories){
+            articleCategory = new ArticleCategory(article.getId(), category, article.getUserid());
+            cates.add(articleCategory);
+        }
+
+        return cates;
     }
 }

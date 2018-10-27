@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.service.impl;
 
-import com.hbwh.xj.myblog.bean.ArticleStat;
+import com.hbwh.xj.myblog.po.ArticleStat;
 import com.hbwh.xj.myblog.dao.ArticleStatMapper;
 import com.hbwh.xj.myblog.service.ArticleStatService;
 import org.springframework.beans.factory.annotation.Autowired;

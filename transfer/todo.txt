@@ -1,7 +1,7 @@
-1、文章个人分类分表以做文章的归类查询
+1、文章个人分类分表以做文章的归类查询 (finish)
     1）日期归类
         select create_date, count(*) from (
-            select id, DATE_FORMAT(create_time,'%Y-%m') as create_date
+            select articleId, DATE_FORMAT(create_time,'%Y-%m') as create_date
                 from t_article where userid = #{userid}
         ) result group by create_date
     2）个人分类归类

@@ -1,14 +1,13 @@
 package com.hbwh.xj.myblog.service.impl;
 
-import com.hbwh.xj.myblog.bean.BlogCategory;
-import com.hbwh.xj.myblog.bean.PersonalCategory;
+import com.hbwh.xj.myblog.po.BlogCategory;
+import com.hbwh.xj.myblog.po.PersonalCategory;
 import com.hbwh.xj.myblog.dao.BlogCategoryMapper;
 import com.hbwh.xj.myblog.dao.PersonalCategoryMapper;
 import com.hbwh.xj.myblog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 

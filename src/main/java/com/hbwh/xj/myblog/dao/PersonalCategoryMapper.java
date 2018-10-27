@@ -1,7 +1,6 @@
 package com.hbwh.xj.myblog.dao;
 
-import com.hbwh.xj.myblog.bean.BlogCategory;
-import com.hbwh.xj.myblog.bean.PersonalCategory;
+import com.hbwh.xj.myblog.po.PersonalCategory;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
