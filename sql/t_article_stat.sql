@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 26/10/2018 23:02:55
+ Date: 28/10/2018 21:46:37
 */
 
 SET NAMES utf8mb4;
@@ -30,9 +30,9 @@ CREATE TABLE `t_article_stat`  (
 -- ----------------------------
 -- Records of t_article_stat
 -- ----------------------------
-INSERT INTO `t_article_stat` VALUES (1, 0);
 INSERT INTO `t_article_stat` VALUES (3, 6);
 INSERT INTO `t_article_stat` VALUES (4, 1);
+INSERT INTO `t_article_stat` VALUES (5, 12);
 INSERT INTO `t_article_stat` VALUES (6, 10);
 
 SET FOREIGN_KEY_CHECKS = 1;
