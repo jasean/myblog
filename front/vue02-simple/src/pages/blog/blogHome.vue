@@ -40,6 +40,10 @@
 	.tool-box {
 		float: right;
 		margin-right: 50px;
+
+		button {
+			padding: 8px;
+		}
 	}
 
 	.aside{
@@ -203,7 +207,10 @@
 					<p class="description">{{user.signature?user.signature:'这家伙很懒 ~.~'}}</p>
 				</div>
 				<div class="tool-box">
-					<el-button plain icon="el-icon-edit el-icon--right" @click="newArticle">写博客</el-button>
+					<el-button plain icon="el-icon-edit el-icon--right" 
+						@click="newArticle">写博客</el-button>
+					<el-button plain icon="el-icon-setting el-icon--right" 
+						@click="newArticle">管理博客</el-button>
 				</div>
 			</el-header>
 			<el-container>
@@ -274,7 +281,7 @@
 									<li v-for="stats in categoryStats" :key="stats.category">
 										<a class="clearfix" href="#">
 											<span class="title oneline">{{stats.category}}</span>
-											<span class="count float-right">{{stats.count}}}篇</span>
+											<span class="count float-right">{{stats.count}}篇</span>
 										</a>
 									</li>
 								</ul>
@@ -286,8 +293,8 @@
 								<ul>
 									<li v-for="stats in dateStats" :key="stats.create_date">
 										<a class="clearfix" href="#">
-											<span class="title oneline">{{stats.create_date}}}</span>
-											<span class="count float-right">{{stats.count}}}篇</span>
+											<span class="title oneline">{{stats.create_date}}</span>
+											<span class="count float-right">{{stats.count}}篇</span>
 										</a>
 									</li>
 								</ul>

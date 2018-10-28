@@ -69,10 +69,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> getArticles(String userid, String order) {
-        Example example = new Example(Article.class);
-        example.createCriteria().andEqualTo("userid", userid);
-        example.orderBy(order).desc();
-        return articleMapper.selectByExample(example);
+        if(!"readCount".equals(order)){
+            Example example = new Example(Article.class);
+            example.createCriteria().andEqualTo("userid", userid);
+            example.orderBy(order).desc();
+            return articleMapper.selectByExample(example);
+        }else{
+            return articleMapper.selectArticlesByReadCount(userid);
+        }
     }
 
     @Override

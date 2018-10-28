@@ -66,6 +66,11 @@ const routes = [
                 path: 'mdeditor/:id',
                 component: resolve => require(['../pages/blog/mdEditor.vue'], resolve)
             },
+            {
+                name: 'manageArticle',
+                path: 'postlist',
+                component: resolve => require(['../pages/blog/articlesManagement.vue'], resolve)
+            }
 
             
             {

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hbwh.xj.myblog.dao.ArticleMapper" >
-    <!-- <resultMap articleId="BaseResultMap" type="com.hbwh.xj.myblog.poerson" >
-        <articleId column="articleId" property="articleId" jdbcType="BIGINT" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="age" property="age" jdbcType="INTEGER" />
-        <result column="job" property="job" jdbcType="VARCHAR" />
-        <result column="city" property="city" jdbcType="VARCHAR"/>
-        <result column="desc" property="desc" jdbcType="VARCHAR" />
-    </resultMap> -->
-    
+     <resultMap id="ResultStats" type="java.util.Map" >
+        <result column="create_date" property="create_date" jdbcType="VARCHAR" javaType="String"/>
+        <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
+    </resultMap>
 
+    <sql id="Base_Column_List" >
+        id, article_title, userid, article_type, article_label
+    </sql>
 
-    <select id="selectStatsByCreateDate" resultType="map" >
-        select create_date, count(*) as count from (
-            select articleId, DATE_FORMAT(create_time,'%Y-%m') as create_date
+    <select id="selectStatsByCreateDate" resultMap="ResultStats" >
+        select create_date, count(*) as `count` from (
+            select id, DATE_FORMAT(create_time,'%Y年%m月') as create_date
                 from t_article where userid = #{userid}
         ) result group by create_date
+    </select>
+
+    <select id="selectArticlesByReadCount" resultType="article">
+        select a.*
+          from t_article a, t_article_stat b
+	      where a.userid = #{userid} and a.id = b.article_id
+	      order by b.read_count desc
     </select>
 
     <!-- <select articleId="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >

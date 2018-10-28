@@ -2,7 +2,7 @@
 	
 
 	.filter-sort-box {
-		padding: 0 24px;
+		padding: 0 40px;
 		border-bottom: 1px solid #e3e3e3;
 		dl {
 			margin-left: auto;
@@ -39,7 +39,7 @@
 			<dl class="d-flex inline">
 				<dt>排序：</dt>
 				<dd><a href="javascript:void(0);" :class="orderBy==='createTime'?'active':''" target="_self" @click="orderSelected('createTime')">默认</a></dd>
-				<dd><a href="javascript:void(0);" :class="orderBy==='updateTime'?'active':''" target="_self" @click="orderSelected('updateTime')">按更新时间</a></dd>
+				<dd><a href="javascript:void(0);" :class="orderBy==='lastModified'?'active':''" target="_self" @click="orderSelected('lastModified')">按更新时间</a></dd>
 				<dd><a href="javascript:void(0);" :class="orderBy==='readCount'?'active':'' " target="_self" @click="orderSelected('readCount')">按访问量</a></dd>
 			</dl>
 		</div>
@@ -68,7 +68,7 @@
 
 			orderSelected(orderBy){
 				this.orderBy = orderBy;
-				this.$router.push({name: blogHome, query: {orderBy}})
+				this.$router.push({name: 'blogHome', query: {orderBy}})
 			}
 		},
         computed: mapState({ user: state => {
@@ -84,8 +84,8 @@
 		},
 
 		beforeRouteUpdate(to, from, next){
-			this.orderBy = to.$route.query.orderBy;
-			this.fetchArticles(to.orderBy);
+			this.orderBy = to.query.orderBy;
+			this.fetchArticles(this.orderBy);
 		}
     }
 </script>

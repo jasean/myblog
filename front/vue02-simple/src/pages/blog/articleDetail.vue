@@ -104,7 +104,7 @@
 
 		methods: {
 			editClick(){
-				this.$router.push({name: 'editArticle', params: {articleId: articleId}});
+				this.$router.push({name: 'editArticle', params: {articleId: this.articleId}});
 			}
 		},
 

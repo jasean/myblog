@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hbwh.xj.myblog.dao.ArticleCategoryMapper" >
-    <!-- <resultMap articleId="BaseResultMap" type="com.hbwh.xj.myblog.poerson" >
-        <articleId column="articleId" property="articleId" jdbcType="BIGINT" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="age" property="age" jdbcType="INTEGER" />
-        <result column="job" property="job" jdbcType="VARCHAR" />
-        <result column="city" property="city" jdbcType="VARCHAR"/>
-        <result column="desc" property="desc" jdbcType="VARCHAR" />
-    </resultMap> -->
+     <resultMap id="ResultStats" type="java.util.Map" >
+        <result column="category" property="category" jdbcType="VARCHAR" javaType="String"/>
+        <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
+    </resultMap>
     
     <sql id="Base_Column_List" >
         article_id, category
@@ -23,8 +19,8 @@
         </foreach>
     </insert>
     
-    <select id="selectStatsByCategory" resultType="map" >
-        select category, count(*) as count from t_article_category
+    <select id="selectStatsByCategory" resultMap="ResultStats" >
+        select category, count(*) as `count` from t_article_category
             where userid = #{userid}
             group by category
     </select>

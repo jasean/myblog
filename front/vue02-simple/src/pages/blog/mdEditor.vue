@@ -80,7 +80,7 @@
 						<el-form-item label="博客分类" required>
 							<el-select v-model="selectedBlogCategory" placeholder="请选择">
 								<el-option 
-									:key="category.articleId"
+									:key="category.id"
 									v-for="category in allBlogCategories" 
 									:label="category.category" 
 									:value="category.category">
