@@ -19,7 +19,7 @@
 	</div>
 </template>
 <script>
-	import article from './article'
+	import article from './post-list-item'
 	// @click.native="openArticle(articleData)"
     export default {
 		// 
