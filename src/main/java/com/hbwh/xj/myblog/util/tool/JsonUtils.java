@@ -51,7 +51,7 @@ public class JsonUtils {
         System.out.println(parseBean(json, User.class));
 
 //        String mapJson = "{\"key\":" + json + "}";
-        String mapJson = "{\"key\": \"value\"}";
+        String mapJson = "{\"key-我\": \"va-我lue\"}";
         System.out.println(parseMap(mapJson, String.class, String.class));
         System.out.println(parseBean(mapJson, Object.class));
 

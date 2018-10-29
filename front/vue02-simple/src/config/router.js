@@ -67,11 +67,17 @@ const routes = [
                 component: resolve => require(['../pages/blog/mdEditor.vue'], resolve)
             },
             {
-                name: 'manageArticle',
-                path: 'postlist',
-                component: resolve => require(['../pages/blog/articlesManagement.vue'], resolve)
-            }
-
+                // name: 'manageArticle',
+                path: 'manage',
+                component: resolve => require(['../pages/blog/manage.vue'], resolve),
+                children: [
+                    {
+                        name: 'manageArticle',
+                        path: '',
+                        component: resolve => require(['../pages/blog/articleManagement.vue'], resolve)
+                    }
+                ]
+            },
             
             {
                 path: '*', //其他页面，强制跳转到登录页面

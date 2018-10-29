@@ -79,8 +79,10 @@ export default {
 </script>
 
 <style>
+  body {
+    background-color: #F6F7F8;
+  }
   #app {
-      background-color: #F6F7F8;
       margin:0;
       padding:0;
       font-family: "SF Pro Display",Roboto,Noto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;

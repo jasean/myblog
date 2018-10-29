@@ -6,9 +6,6 @@
         <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
     </resultMap>
 
-    <sql id="Base_Column_List" >
-        id, article_title, userid, article_type, article_label
-    </sql>
 
     <select id="selectStatsByCreateDate" resultMap="ResultStats" >
         select create_date, count(*) as `count` from (

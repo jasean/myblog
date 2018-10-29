@@ -210,7 +210,7 @@
 					<el-button plain icon="el-icon-edit el-icon--right" 
 						@click="newArticle">写博客</el-button>
 					<el-button plain icon="el-icon-setting el-icon--right" 
-						@click="newArticle">管理博客</el-button>
+						@click="manageArticle">管理博客</el-button>
 				</div>
 			</el-header>
 			<el-container>
@@ -351,6 +351,10 @@
 		methods: {
 			newArticle(){
 				this.$router.push({name: 'newArticle'});
+			},
+
+			manageArticle(){
+				this.$router.push({name: 'manageArticle'});
 			}
 		}
     }

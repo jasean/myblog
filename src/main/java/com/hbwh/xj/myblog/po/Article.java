@@ -28,7 +28,8 @@ public class Article implements Serializable, Cloneable{
     private Timestamp lastModified;
     private Timestamp createTime;
     private String articleContent;
-    private boolean draft;
+    /** 0已发布，1草稿，2回收站 */
+    private Byte draft;
     private boolean privacy;
 
     private Long commentCount;
@@ -121,11 +122,11 @@ public class Article implements Serializable, Cloneable{
         this.articleType = articleType;
     }
 
-    public boolean isDraft() {
+    public Byte getDraft() {
         return draft;
     }
 
-    public void setDraft(boolean draft) {
+    public void setDraft(Byte draft) {
         this.draft = draft;
     }
 
