@@ -110,9 +110,9 @@
             <span>评论数：{{commentCount}}</span>
         </div>
         <div class="opt-box">
-            <button class="btn-opt" data-type="top" @click.stop="onOptClick('top')">查看</button>
-            <button class="btn-opt" data-type="edit" @click.stop="onOptClick('edit')">禁止评论</button>
-            <button class="btn-opt" data-type="top" @click.stop="onOptClick('edit')">置顶</button>
+            <button class="btn-opt" data-type="top" @click.stop="onOptClick('view')">查看</button>
+            <button class="btn-opt" data-type="edit" @click.stop="onOptClick('forbid')">禁止评论</button>
+            <button class="btn-opt" data-type="top" @click.stop="onOptClick('top')">置顶</button>
             <button class="btn-opt" data-type="delete" @click.stop="onOptClick('delete')">删除</button>
         </div>
     </div>

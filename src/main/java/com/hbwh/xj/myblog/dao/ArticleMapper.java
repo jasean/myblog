@@ -12,4 +12,5 @@ public interface ArticleMapper extends Mapper<Article> {
     /** 根据创建年月，查询统计计数*/
     List<Map> selectStatsByCreateDate(String userid);
     List<Article> selectArticlesByReadCount(String userid);
+    List<Map> selectStatsByStatus(String userid);
 }

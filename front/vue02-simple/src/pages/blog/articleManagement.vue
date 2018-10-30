@@ -16,8 +16,6 @@
 		}
 	}
 
-	
-
 </style>
 <template>
 	<div class="container ">
@@ -30,23 +28,23 @@
 				
 				<el-menu-item index="1">
 					<!-- <i class="el-icon-menu"></i> -->
-					<span slot="title">全部</span>
+					<span slot="title">全部({{postNum+privateNum+draftNum}})</span>
 				</el-menu-item>
 				<el-menu-item index="2">
 					<!-- <i class="el-icon-document"></i> -->
-					<span slot="title">已发表</span>
+					<span slot="title">已发表({{postNum}})</span>
 				</el-menu-item>
 				<el-menu-item index="3">
 					<!-- <i class="el-icon-setting"></i> -->
-					<span slot="title">私密</span>
+					<span slot="title">私密({{privateNum}})</span>
 				</el-menu-item>
 				<el-menu-item index="4">
 					<!-- <i class="el-icon-setting"></i> -->
-					<span slot="title">草稿箱</span>
+					<span slot="title">草稿箱({{draftNum}})</span>
 				</el-menu-item>
 				<el-menu-item index="5">
 					<i class="el-icon-delete"></i>
-					<span slot="title">回收站</span>
+					<span slot="title">回收站({{trashNum}})</span>
 				</el-menu-item>
 			</el-menu>
 		</div>
@@ -85,6 +83,9 @@
 				</el-form-item>
 			</el-form>
 		</div>
+		<div class="post-list">
+			<v-post-list :list-data="articles"></v-post-list>
+		</div>
 	</div>
 </template>
 <script>
@@ -92,10 +93,16 @@
 	import * as funcs from '../../funcs/getData'
     export default {
 		created(){
+			
 		},
 
 		data(){
 			return {
+				articles: [],
+				postNum: 0,
+				privateNum: 0,
+				draftNum: 0,
+				trashNum: 0
 			}
 		},
 
@@ -112,6 +119,9 @@
 			onSearch(){
 
 			}
+		},
+
+		beforeRouteUpdate(to, from, next){
 		}
     }
 </script>

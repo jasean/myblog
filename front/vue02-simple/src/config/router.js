@@ -73,7 +73,7 @@ const routes = [
                 children: [
                     {
                         name: 'manageArticle',
-                        path: '',
+                        path: 'postlist',
                         component: resolve => require(['../pages/blog/articleManagement.vue'], resolve)
                     }
                 ]

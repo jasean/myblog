@@ -8,4 +8,6 @@
         select category, count(*) from t_article_category
             where userid = #{userid}
             group by category
-2、
+
+2、文章管理中，针对“已发布，私密，草稿”等标题进行数据库查询
+3、针对创建时间、分类、标题进行搜索：Lucene

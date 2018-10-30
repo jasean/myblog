@@ -32,3 +32,6 @@ export const getStatsByCategory = (userid) => http.get(`/articles/stats/category
 
 //获取按创建年月维度的统计信息
 export const getStatsByDate = (userid) => http.get(`/articles/stats/date/${userid}`);
+
+//获取按文章状态维度的统计信息
+export const getStatsByStatus = (userid) => http.get(`/articles/stats/status/${userid}`);

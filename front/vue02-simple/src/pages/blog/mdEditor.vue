@@ -169,7 +169,7 @@
 				this.dialogVisible = false;
 				//TODO 发布文章
 				let article = this.getArticleObj();
-				article.draft = 1;
+				article.status = 2;
 				funcs.publishArticle(article).then(() => {
 					//TODO 跳转
 					this.$router.push({name: 'blogHome'});
@@ -180,7 +180,9 @@
 				//TODO 发布文章
 				let article = this.getArticleObj();
 				console.info(`...publish article: ${JSON.stringify(article)}`);
-				article.draft = 0;
+				if(this.privacy){
+					article.status = 1;
+				}
 				funcs.publishArticle(article).then(() => {
 					//TODO 跳转
 					this.$router.push({name: 'blogHome'});
@@ -213,7 +215,7 @@
 					lastModified: time,
 					createTime: time,
 					articleContent: this.articleContent,
-					privacy: this.privacy?1:0,
+					status: 0,
 					readCount:1,
 					commentCount:0,
 				}

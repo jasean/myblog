@@ -47,6 +47,13 @@ public class ArticleController {
         return ResponseResult.get().data(stats).resultCode(ResultCode.SUCCESS).build();
     }
 
+    @ApiOperation(value = "获取文章状态维度的统计信息", notes = "")
+    @GetMapping("/stats/status/{userid}")
+    public ResponseEntity<Result> getStatsByStatus(@PathVariable("userid")String userid){
+        List<Map> stats = articleService.getStatsByStatus(userid);
+        return ResponseResult.get().data(stats).resultCode(ResultCode.SUCCESS).build();
+    }
+
     @ApiOperation(value = "获取个人文章列表", notes = "")
     @GetMapping("/{userid}")
     public ResponseEntity<Result> getArticles(

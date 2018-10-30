@@ -18,4 +18,6 @@ public interface ArticleService {
     List<Map> getStatsByCategory(String userid);
     /** 查询统计信息，按年月*/
     List<Map> getStatsByDate(String userid);
+    /** 查询统计各个状态的文章数量*/
+    List<Map> getStatsByStatus(String userid);
 }

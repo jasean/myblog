@@ -123,6 +123,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.selectStatsByCreateDate(userid);
     }
 
+    @Override
+    public List<Map> getStatsByStatus(String userid) {
+        return articleMapper.selectStatsByStatus(userid);
+    }
+
     /**
      * 获取持久层对象
      * @param article

@@ -75,7 +75,7 @@
 	import * as funcs from '../../funcs/getData' 
     export default {
 		mounted(){
-			let articleId = this.$route.params.articleId;
+			let articleId = this.$route.params.id;
 			this.articleId = articleId;
 			funcs.getArticle(this.user.userid, articleId).then(res => {
 				console.info('...getArticle...')
