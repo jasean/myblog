@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.configuration;
+package com.hbwh.xj.myblog.web.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;

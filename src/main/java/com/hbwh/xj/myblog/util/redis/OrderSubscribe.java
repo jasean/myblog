@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.configuration;
+package com.hbwh.xj.myblog.web.redis;
 
 import com.hbwh.xj.myblog.util.RedisUtils;
 import org.apache.commons.logging.Log;
