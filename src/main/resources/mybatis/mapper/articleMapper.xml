@@ -10,6 +10,9 @@
         <result column="status" property="status" jdbcType="VARCHAR" javaType="String"/>
         <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
     </resultMap>
+    
+    <resultMap id="mapResult" type="map">
+    </resultMap>
 
 
     <select id="selectStatsByCreateDate" resultMap="ResultStats" >
@@ -22,7 +25,7 @@
     <select id="selectArticlesByReadCount" resultType="article">
         select a.*
           from t_article a, t_article_stat b
-	      where a.userid = #{userid} and a.id = b.article_id
+	      where a.userid = #{userid} and a.status = 0 and a.id = b.article_id
 	      order by b.read_count desc
     </select>
 

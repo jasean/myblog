@@ -1,4 +1,6 @@
 package com.hbwh.xj.myblog.web.filter;
 
-public class PutFilter {
+import org.springframework.web.filter.HttpPutFormContentFilter;
+
+public class PutFilter extends HttpPutFormContentFilter {
 }

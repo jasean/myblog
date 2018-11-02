@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="scss" scoped>
 
     .title-box, .content-intro {
         cursor: pointer;
@@ -64,8 +64,11 @@
     }
     h4 a {
         display: block;
-        padding-left: 36px;
+        padding-left: 5px;
         word-break: break-all;
+        &:hover {
+            color: #ca0c16;
+        }
     }
     span.article-type {
         color: #ca0c16;

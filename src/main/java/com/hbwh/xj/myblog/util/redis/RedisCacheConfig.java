@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.redis;
+package com.hbwh.xj.myblog.util.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

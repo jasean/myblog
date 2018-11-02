@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.redis;
+package com.hbwh.xj.myblog.util.redis;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

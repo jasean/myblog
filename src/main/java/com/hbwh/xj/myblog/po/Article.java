@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.po;
 
-import com.hbwh.xj.myblog.web.typehandler.JsonTypeHandler;
+import com.hbwh.xj.myblog.util.typehandler.JsonTypeHandler;
 import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Article implements Serializable, Cloneable{
     private String articleCategory;
 
     @ColumnType(typeHandler = JsonTypeHandler.class)
-    private Object articlePrivateCategory;
+    private List<String> articlePrivateCategory;
 
     @Transient
     private List<String> newArticlePrivateCategory;
@@ -73,11 +73,11 @@ public class Article implements Serializable, Cloneable{
         this.articleCategory = articleCategory;
     }
 
-    public Object getArticlePrivateCategory() {
+    public List<String> getArticlePrivateCategory() {
         return articlePrivateCategory;
     }
 
-    public void setArticlePrivateCategory(Object articlePrivateCategory) {
+    public void setArticlePrivateCategory(List<String> articlePrivateCategory) {
         this.articlePrivateCategory = articlePrivateCategory;
     }
 

@@ -7,7 +7,7 @@
     </resultMap>
     
     <sql id="Base_Column_List" >
-        article_id, category
+        article_id, category, userid
     </sql>
 
     <insert id="insertCategories" parameterType="java.util.List" >
@@ -15,7 +15,7 @@
             <include refid="Base_Column_List" />
         ) values
         <foreach collection="list" item="item" separator=",">
-            ( #{item.articleId}, #{item.category} )
+            ( #{item.articleId}, #{item.category}, #{item.userid} )
         </foreach>
     </insert>
     

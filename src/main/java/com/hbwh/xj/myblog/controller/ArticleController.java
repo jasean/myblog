@@ -3,7 +3,7 @@ package com.hbwh.xj.myblog.controller;
 import com.hbwh.xj.myblog.po.Article;
 import com.hbwh.xj.myblog.service.ArticleService;
 import com.hbwh.xj.myblog.service.ArticleStatService;
-import com.hbwh.xj.myblog.util.RedisUtils;
+import com.hbwh.xj.myblog.util.tool.RedisUtils;
 import com.hbwh.xj.myblog.util.result.ResponseResult;
 import com.hbwh.xj.myblog.util.result.Result;
 import com.hbwh.xj.myblog.util.result.ResultCode;
@@ -54,12 +54,21 @@ public class ArticleController {
         return ResponseResult.get().data(stats).resultCode(ResultCode.SUCCESS).build();
     }
 
-    @ApiOperation(value = "获取个人文章列表", notes = "")
+    @ApiOperation(value = "获取个人已发布文章列表", notes = "")
     @GetMapping("/{userid}")
     public ResponseEntity<Result> getArticles(
             @PathVariable("userid")String userid,
             @RequestParam("orderBy")String order){
         List<Article> articles =  articleService.getArticles(userid, order);
+        return ResponseResult.get().data(articles).resultCode(ResultCode.SUCCESS).build();
+    }
+
+    @ApiOperation(value = "获取个人所有文章列表", notes = "包括已发布、私密、草稿、垃圾箱里的文章")
+    @GetMapping("/{userid}/all")
+    public ResponseEntity<Result> getAllArticles(
+            @PathVariable("userid")String userid,
+            @RequestParam("trash")Boolean containTrash){
+        List<Article> articles =  articleService.getAllArticles(userid, containTrash);
         return ResponseResult.get().data(articles).resultCode(ResultCode.SUCCESS).build();
     }
 
@@ -93,6 +102,12 @@ public class ArticleController {
         return ResponseResult.get().resultCode(ResultCode.SUCCESS).build();
     }
 
+    /**
+     * 处理 put 请求需要配置 HttpPutFormContentFilter过滤器
+     * @param userid
+     * @param article
+     * @return
+     */
     @ApiOperation(value = "修改博客", notes = "")
     @PutMapping("/{userid}")
     public ResponseEntity<Result> modifyArticle(@PathVariable("userid")String userid,

@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web.typehandler;
+package com.hbwh.xj.myblog.util.typehandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hbwh.xj.myblog.util.tool.JsonUtils;
@@ -9,7 +9,6 @@ import org.apache.ibatis.type.MappedTypes;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.List;
 
 @MappedJdbcTypes(value={JdbcType.VARCHAR})
 @MappedTypes(value={Object.class})

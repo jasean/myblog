@@ -66,6 +66,9 @@
         display: block;
         padding-left: 36px;
         word-break: break-all;
+        &:hover {
+            color: #ca0c16;
+        }
     }
     span.article-type {
         color: #ca0c16;
