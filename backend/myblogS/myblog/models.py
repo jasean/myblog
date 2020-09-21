@@ -1,3 +1,11 @@
+'''
+Description: 
+Version: 1.0
+Autor: Jann
+Date: 2020-09-21 19:23:53
+LastEditors: Jann
+LastEditTime: 2020-09-21 21:42:38
+'''
 from django.db import models
 
 # Create your models here.
@@ -12,10 +20,11 @@ from django.db import models
 from django.db import models
 
 
-class TArticle(models.Model):
+class Article(models.Model):
     id = models.BigAutoField(primary_key=True)
     article_type = models.CharField(max_length=1, blank=True, null=True)
-    userid = models.CharField(max_length=32)
+    owner = models.ForeignKey('models.User', related_name='articles', on_delete=models.CASCADE)
+    # userid = models.CharField(max_length=32)
     article_title = models.CharField(max_length=64)
     article_label = models.CharField(max_length=64, blank=True, null=True)
     article_category = models.CharField(max_length=32, blank=True, null=True)
@@ -26,12 +35,13 @@ class TArticle(models.Model):
     status = models.IntegerField(blank=True, null=True)
     comment_count = models.IntegerField(blank=True, null=True)
 
+
     class Meta:
         managed = True
         db_table = 't_article'
 
 
-class TArticleCategory(models.Model):
+class ArticleCategory(models.Model):
     article_id = models.BigIntegerField(primary_key=True)
     category = models.CharField(max_length=32)
     userid = models.CharField(max_length=32, blank=True, null=True)
@@ -42,7 +52,7 @@ class TArticleCategory(models.Model):
         unique_together = (('article_id', 'category'),)
 
 
-class TArticleStat(models.Model):
+class ArticleStat(models.Model):
     article_id = models.BigIntegerField(primary_key=True)
     read_count = models.BigIntegerField()
 
@@ -51,7 +61,7 @@ class TArticleStat(models.Model):
         db_table = 't_article_stat'
 
 
-class TBlogCategory(models.Model):
+class BlogCategory(models.Model):
     id = models.IntegerField(primary_key=True)
     category = models.CharField(max_length=64)
 
@@ -60,8 +70,9 @@ class TBlogCategory(models.Model):
         db_table = 't_blog_category'
 
 
-class TPrivateCategory(models.Model):
-    userid = models.CharField(primary_key=True, max_length=32)
+class PrivateCategory(models.Model):
+    # userid = models.CharField(primary_key=True, max_length=32)
+    owner = models.ForeignKey('models.User', related_name='privateCategories', on_delete=models.CASCADE)
     category = models.CharField(max_length=64)
 
     class Meta:
@@ -70,7 +81,7 @@ class TPrivateCategory(models.Model):
         unique_together = (('userid', 'category'),)
 
 
-class TUser(models.Model):
+class User(models.Model):
     userid = models.CharField(primary_key=True, max_length=32)
     password = models.CharField(max_length=64)
     usernm = models.CharField(max_length=128, blank=True, null=True)
