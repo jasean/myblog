@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-09-21 21:42:38
+LastEditTime: 2020-09-22 19:44:17
 '''
 from django.db import models
 
@@ -40,7 +40,7 @@ class User(models.Model):
 class Article(models.Model):
     id = models.BigAutoField(primary_key=True)
     article_type = models.CharField(max_length=1, blank=True, null=True)
-    owner = models.ForeignKey('models.User', related_name='articles', on_delete=models.CASCADE)
+    owner = models.ForeignKey('User', related_name='articles', on_delete=models.CASCADE)
     # userid = models.CharField(max_length=32)
     article_title = models.CharField(max_length=64)
     article_label = models.CharField(max_length=64, blank=True, null=True)
@@ -61,7 +61,8 @@ class Article(models.Model):
 class ArticleCategory(models.Model):
     article_id = models.BigIntegerField(primary_key=True)
     category = models.CharField(max_length=32)
-    userid = models.CharField(max_length=32, blank=True, null=True)
+    # userid = models.CharField(max_length=32, blank=True, null=True)
+    owner = models.ForeignKey('User', related_name='articleCategory', on_delete=models.CASCADE)
 
     class Meta:
         managed = True
@@ -89,12 +90,12 @@ class BlogCategory(models.Model):
 
 class PrivateCategory(models.Model):
     # userid = models.CharField(primary_key=True, max_length=32)
-    owner = models.ForeignKey('models.User', related_name='privateCategories', on_delete=models.CASCADE)
+    owner = models.ForeignKey('User', related_name='privateCategories', on_delete=models.CASCADE)
     category = models.CharField(max_length=64)
 
     class Meta:
         managed = True
         db_table = 't_private_category'
-        unique_together = (('userid', 'category'),)
+        unique_together = (('owner', 'category'),)
 
 

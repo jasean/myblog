@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-09-21 20:27:54
+LastEditTime: 2020-09-22 20:45:59
 '''
 from django.shortcuts import render
 
@@ -36,7 +36,7 @@ class UserViewSet(viewsets.GenericViewSet,
 # def get_blog_categories():
 #     pass
 
-class BlogCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+class BlogCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
     queryset = BlogCategory.objects.all()
     serializer_class = BlogCategorySerializer
 
@@ -44,11 +44,14 @@ class BlogCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 # def get_persional_categories():
 #     pass
 
-class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
-    queryset = PrivateCategory.objects.all()
+class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    # queryset = PrivateCategory.objects.all()
     serializer_class = PrivateCategorySerializer
 
+    def get_queryset(self):
+        userid = self.request.userid
+        return PrivateCategory.objects.filter(userid=userid)
 
-class ArticalViewSet(viewsets.ModelViewSet):
+class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer

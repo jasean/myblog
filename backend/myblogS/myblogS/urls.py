@@ -1,3 +1,11 @@
+'''
+Description: 
+Version: 1.0
+Autor: Jann
+Date: 2020-09-21 19:23:53
+LastEditors: Jann
+LastEditTime: 2020-09-22 19:34:39
+'''
 """myblogS URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -35,27 +43,26 @@ user_detail = views.UserViewSet.as_view({
     'delete':'logout'
 })
 
-router.register(r'^users/', views.UserViewSet)
+router.register(r'users', views.UserViewSet)
 # router.register(r'^users/(?P<userid>[0-9A-Za-z_]{5,30})/', user_detail)
 
 
 #article路由
-router.register(r'^articles/', views.ArticleViewSet)
+router.register(r'articles', views.ArticleViewSet)
 
 #博客分类
 # router.register(r'^categories/', 
 #     views.BlogCategoryViewSet.as_view({'get':'list'}))
-router.register(r'^categories/', views.BlogCategoryViewSet)
+router.register(r'blogCategories', views.BlogCategoryViewSet)
 
 #个人分类
 # router.register(r'^categories/(?P<userid>[0-9A-Za-z_]{5,30})/', 
 #     views.PrivateCategoryViewSet.as_view({'get':'retrieve'}))
-router.register(r'^categories/(?P<userid>[0-9A-Za-z_]{5,30})/', 
-    views.PrivateCategoryViewSet.as_view({'get':'retrieve'}))
+router.register(r'privateCategories', views.PrivateCategoryViewSet, basename='privateCategory')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+# urlpatterns = format_suffix_patterns(urlpatterns)
