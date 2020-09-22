@@ -10,21 +10,45 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets, mixins
-from rest_framework.decorators import api_view
-
+from rest_framework.decorators import api_view, action
+from rest_framework.response import Response
+from .models import User, Article, BlogCategory, PrivateCategory
+from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
 
 class UserViewSet(viewsets.GenericViewSet, 
     mixins.CreateModelMixin, mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
-    pass
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
+    # TODO 登录处理逻辑
+    @action(methods=["post"], detail=True)
+    def login(self, request, pk):
+        user = User.objects.get(pk=pk)
+        return Response(user.userid)
 
-@api_view(["GET"])
-def get_blog_categories():
-    pass
+    # TODO 登出处理逻辑
+    @action(methods=["delete"], detail=True)
+    def logout(self, request, pk):
+        user = User.objects.get(pk=pk)
+        return Response(user.userid)
 
-@api_view(["GET"])
-def get_persional_categories():
-    pass
+# @api_view(["GET"])
+# def get_blog_categories():
+#     pass
+
+class BlogCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = BlogCategory.objects.all()
+    serializer_class = BlogCategorySerializer
+
+# @api_view(["GET"])
+# def get_persional_categories():
+#     pass
+
+class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    queryset = PrivateCategory.objects.all()
+    serializer_class = PrivateCategorySerializer
+
 
 class ArticalViewSet(viewsets.ModelViewSet):
-    pass
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer

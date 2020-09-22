@@ -20,6 +20,23 @@ from django.db import models
 from django.db import models
 
 
+class User(models.Model):
+    userid = models.CharField(primary_key=True, max_length=32)
+    password = models.CharField(max_length=64)
+    usernm = models.CharField(max_length=128, blank=True, null=True)
+    signature = models.CharField(max_length=128, blank=True, null=True)
+    image_path = models.CharField(max_length=255, blank=True, null=True)
+    level = models.IntegerField(blank=True, null=True)
+    page_view = models.BigIntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 't_user'
+
+
+        
 class Article(models.Model):
     id = models.BigAutoField(primary_key=True)
     article_type = models.CharField(max_length=1, blank=True, null=True)
@@ -81,17 +98,3 @@ class PrivateCategory(models.Model):
         unique_together = (('userid', 'category'),)
 
 
-class User(models.Model):
-    userid = models.CharField(primary_key=True, max_length=32)
-    password = models.CharField(max_length=64)
-    usernm = models.CharField(max_length=128, blank=True, null=True)
-    signature = models.CharField(max_length=128, blank=True, null=True)
-    image_path = models.CharField(max_length=255, blank=True, null=True)
-    level = models.IntegerField(blank=True, null=True)
-    page_view = models.BigIntegerField(blank=True, null=True)
-    score = models.IntegerField(blank=True, null=True)
-    rank = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 't_user'
