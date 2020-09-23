@@ -55,3 +55,19 @@ class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mix
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+    # 按个人分类统计
+    @action(methods=["get"], detail=False)
+    def statsByPrivateCategory(self, request):
+        userid = request.query_params.userid
+        ArticleCategory.objects.filter(userid=userid).values('category').annotate(total=Count('article_id'))
+
+    # 按创建日期统计
+    @action(methods=["get"], detail=False)
+    def statsByCreateDate(self, request):
+        pass
+
+    # 按文章状态统计
+    @action(methods=["get"], detail=False)
+    def statsByStatus(self, request):
+        pass
