@@ -60,14 +60,20 @@ class ArticleViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def statsByPrivateCategory(self, request):
         userid = request.query_params.userid
-        ArticleCategory.objects.filter(userid=userid).values('category').annotate(total=Count('article_id'))
+        return Response(ArticleCategory.objects.filter(userid=userid)
+                        .values('category').annotate(total=Count('article_id')))
 
     # 按创建日期统计
     @action(methods=["get"], detail=False)
     def statsByCreateDate(self, request):
-        pass
+        userid = request.query_params.userid
+        return Response(Article.objects.filter(userid=userid)
+                        .values('create_time__year').annotate(total=Count('id')))
+       
 
     # 按文章状态统计
     @action(methods=["get"], detail=False)
     def statsByStatus(self, request):
-        pass
+       userid = request.query_params.userid
+        return Response(Article.objects.filter(userid=userid)
+                        .values('status').annotate(total=Count('id')))
