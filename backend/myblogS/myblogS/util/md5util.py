@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-24 21:07:34
 LastEditors: Jann
-LastEditTime: 2020-09-25 06:43:44
+LastEditTime: 2020-09-27 06:44:28
 '''
 
 from random import Random
@@ -28,7 +28,7 @@ class MD5Utils:
             salt += chars[random.randint(0,len_chars)]
         return salt
 
-    def md5_salt(self, key):
+    def md5sum_by_salt(self, key):
         '''
             将随机生成的盐值拼接在加盐md5值的前面保存在数据库中，
            验证时可以根据数据库中的值取出salt，然后对密码做校验；
@@ -60,7 +60,7 @@ class MD5Utils:
 if __name__ == "__main__":
     md5 = MD5Utils()
     pwd='123456'
-    md5_indb = md5.md5_salt(pwd)
+    md5_indb = md5.md5sum_by_salt(pwd)
     print('salt:',md5_indb[0:16])
     print('md5 indb:',md5_indb[16:])
     print(md5.verify_md5('123454', md5_indb))
