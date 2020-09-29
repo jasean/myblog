@@ -28,6 +28,7 @@
 		</v-header>
 		<form class="login" v-on:submit.prevent="submit">
 			<div class="line">	
+				<!-- 可以使用el-form的rules属性来代替校验 -->
 				<div v-show="btn && !form.userid">id不能为空</div>
 				<input type="text" placeholder="请输入用户号" v-model="form.userid">
 			</div>

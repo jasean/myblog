@@ -15,12 +15,14 @@ export const getLocalStore = (key) => {
             if(index == 0){
                 value = JSON.parse(localStorage.getItem(keys[0]));
             }else{
-                value = value[keys[index]];
-            }
-            if(index == length - 1 || !value){
-                return value;
-            }else if(typeof value !== 'object'){    //数组或对象
-                return null;
+                if(index == length - 1 || !value){
+                    return value;
+                }else if(typeof value !== 'object'){    //数组或对象
+                    return null;
+                }else{
+                    value = value[keys[index]];
+                }
+                
             }
 
         }
@@ -35,27 +37,44 @@ export const getLocalStore = (key) => {
  */
 export const setLocalStore = (key, value, created = false) => {
     var keys = key.split('.');
-	var rValue = curValue = pValue = JSON.parse(localStorage.getItem(keys[0])) || {};
+    var l = keys.length;
+    var rValue = curValue = pValue = JSON.parse(localStorage.getItem(keys[0]));
+    if(l == 1){
+        localStorage.setItem(keys[0],value);
+    }else{
+        if(!pValue || typeof pValue !== 'object'){
+            pValue = {};
+            localStorage.setItem(keys[0],pValue);
+        }
+    }
+
 	var index = 1;
-	for(;index < keys.length;index++){
-		if(typeof curValue !== 'object'){
-			if(created){
-				curValue = {};
-				curValue[keys[index]] = keys[index];
-				pValue[keys[index-1]] = curValue;
-			}else{
-				return false;
-			}
-		}
-		
-		pValue = curValue;
-		curValue = curValue[keys[index]];
+	for(;index < l;index++){
+        //已经存在非object值
+        if(typeof pValue !== 'object'){
+            return false;
+        }
+        if(index != l - 1 ){
+            if(!curValue){
+                if(!created) return false;
+                else{
+                    //递归设值空值
+                    for(;index < l - 1;index++){
+                        curValue = {};
+                        pValue[keys[index]] = curValue;
+                        pValue = curValue;
+                    }
+                }
+            }else{
+                pValue[keys[index]] = curValue
+                pValue = curValue;
+                curValue = curValue[index+1];
+            }
+
+        }else {
+            pValue[keys[index]] = value;
+        }
 	}
 	
-	pValue[keys[index-1]] = value;
-	
-	console.info(rValue);
-	localStorage.setItem(keys[0], JSON.stringify(rValue));
-
 	return true;
 }
