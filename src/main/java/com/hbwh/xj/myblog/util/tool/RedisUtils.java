@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.util;
+package com.hbwh.xj.myblog.util.tool;
 
 import com.hbwh.xj.myblog.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;

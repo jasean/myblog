@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web;
+package com.hbwh.xj.myblog.config;
 
 import com.hbwh.xj.myblog.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;

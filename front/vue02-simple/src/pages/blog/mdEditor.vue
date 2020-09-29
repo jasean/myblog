@@ -115,7 +115,10 @@
 			let articleid = this.$route.params.articleId;
 			console.info('...articleid:' + articleid);
 			if(articleid){//编辑模式
+				this.editMode = true;
+				this.articleId = articleid;
 				funcs.getArticle(this.user.userid, articleid).then(res => {
+					console.info('mdEditor res:' + JSON.stringify(res))
 					if(res.data && res.data.data){
 						let article = res.data.data;
 						this.articleTitle = article.articleTitle;
@@ -124,7 +127,7 @@
 						this.privacy = article.privacy == 1;
 						let labels = JSON.parse(article.articleLabel);
 						this.articleLabels = labels;
-						let privateCategories = JSON.parse(article.articlePrivateCategory);
+						let privateCategories = article.articlePrivateCategory;
 						this.selectedPersonalCategories = privateCategories;
 						let articleCategory = article.articleCategory;
 						this.selectedBlogCategory = articleCategory;
@@ -134,6 +137,8 @@
 		},
 		data(){
 			return {
+				editMode: false,
+				articleId: '',
 				articleTitle: '欢迎使用MyBlog-MarkDown编辑器',
 				articleContent: '测试文字',
 				dialogVisible: false,
@@ -169,22 +174,20 @@
 				this.dialogVisible = false;
 				//TODO 发布文章
 				let article = this.getArticleObj();
-				article.draft = 1;
-				funcs.publishArticle(article).then(() => {
-					//TODO 跳转
-					this.$router.push({name: 'blogHome'});
-				})
+				article.status = 2;
+
+				this.submit(article);
 			},
 			handlePublish(){
 				this.dialogVisible = false;
 				//TODO 发布文章
 				let article = this.getArticleObj();
 				console.info(`...publish article: ${JSON.stringify(article)}`);
-				article.draft = 0;
-				funcs.publishArticle(article).then(() => {
-					//TODO 跳转
-					this.$router.push({name: 'blogHome'});
-				})
+				if(this.privacy){
+					article.status = 1;
+				}
+
+				this.submit(article);
 			},
 			getArticleObj(){
 				let time = DateUtils.getDate();
@@ -203,6 +206,7 @@
 
 				let articleLabel = JSON.stringify(this.$refs.dynamicTags.value);
 				return {
+					id: this.articleId,
 					articleType: this.articleType,
 					userid: this.user.userid,
 					articleTitle: this.articleTitle,
@@ -213,10 +217,23 @@
 					lastModified: time,
 					createTime: time,
 					articleContent: this.articleContent,
-					privacy: this.privacy?1:0,
+					status: 0,
 					readCount:1,
 					commentCount:0,
 				}
+			},
+
+			submit(article){
+				let methodName = this.editMode?'modifyArticle':'publishArticle';
+				if(this.editMode){
+					delete article.createTime;
+					delete article.commentCount;
+				}
+				console.info(`-----mdEditor submit:${methodName}, article: ${JSON.stringify(article)}`)
+				funcs[methodName](article).then(() => {
+					//TODO 跳转
+					this.$router.push({name: 'blogHome'});
+				})
 			}
 		},
 		computed: {

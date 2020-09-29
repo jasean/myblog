@@ -71,7 +71,8 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getArticles(String userid, String order) {
         if(!"readCount".equals(order)){
             Example example = new Example(Article.class);
-            example.createCriteria().andEqualTo("userid", userid);
+            example.createCriteria().andEqualTo("userid", userid)
+                .andEqualTo("status", 0);
             example.orderBy(order).desc();
             return articleMapper.selectByExample(example);
         }else{
@@ -80,10 +81,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticlesGrouped(String userid) {
+    public List<Article> getAllArticles(String userid, boolean containTrash) {
         Example example = new Example(Article.class);
-        example.createCriteria().andEqualTo("userid", userid);
-        example.orderBy("articlePrivateCategory").asc();
+        Example.Criteria criteria =  example.createCriteria().andEqualTo("userid", userid);
+        if(!containTrash){
+            criteria.andNotEqualTo("status", 3);
+        }
+        example.orderBy("createTime").desc();
         return articleMapper.selectByExample(example);
     }
 
@@ -121,6 +125,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Map> getStatsByDate(String userid) {
         return articleMapper.selectStatsByCreateDate(userid);
+    }
+
+    @Override
+    public List<Map> getStatsByStatus(String userid) {
+        return articleMapper.selectStatsByStatus(userid);
     }
 
     /**

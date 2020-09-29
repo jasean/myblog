@@ -1,6 +1,6 @@
 package com.hbwh.xj.myblog.po;
 
-import com.hbwh.xj.myblog.web.typehandler.JsonTypeHandler;
+import com.hbwh.xj.myblog.util.typehandler.JsonTypeHandler;
 import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.*;
@@ -21,16 +21,15 @@ public class Article implements Serializable, Cloneable{
     private String articleCategory;
 
     @ColumnType(typeHandler = JsonTypeHandler.class)
-    private Object articlePrivateCategory;
+    private List<String> articlePrivateCategory;
 
     @Transient
     private List<String> newArticlePrivateCategory;
     private Timestamp lastModified;
     private Timestamp createTime;
     private String articleContent;
-    /** 0已发布，1草稿，2回收站 */
-    private Byte draft;
-    private boolean privacy;
+    /** 0已发布，1私密，2草稿，3回收站 */
+    private Byte status;
 
     private Long commentCount;
 
@@ -74,11 +73,11 @@ public class Article implements Serializable, Cloneable{
         this.articleCategory = articleCategory;
     }
 
-    public Object getArticlePrivateCategory() {
+    public List<String> getArticlePrivateCategory() {
         return articlePrivateCategory;
     }
 
-    public void setArticlePrivateCategory(Object articlePrivateCategory) {
+    public void setArticlePrivateCategory(List<String> articlePrivateCategory) {
         this.articlePrivateCategory = articlePrivateCategory;
     }
 
@@ -122,21 +121,14 @@ public class Article implements Serializable, Cloneable{
         this.articleType = articleType;
     }
 
-    public Byte getDraft() {
-        return draft;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setDraft(Byte draft) {
-        this.draft = draft;
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
-    public boolean isPrivacy() {
-        return privacy;
-    }
-
-    public void setPrivacy(boolean privacy) {
-        this.privacy = privacy;
-    }
 
     public Long getCommentCount() {
         return commentCount;

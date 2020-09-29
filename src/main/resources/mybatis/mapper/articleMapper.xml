@@ -5,6 +5,14 @@
         <result column="create_date" property="create_date" jdbcType="VARCHAR" javaType="String"/>
         <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
     </resultMap>
+    
+    <resultMap id="ResultStatsOfStatus" type="map">
+        <result column="status" property="status" jdbcType="VARCHAR" javaType="String"/>
+        <result column="count" property="count" jdbcType="INTEGER" javaType="Integer"/>
+    </resultMap>
+    
+    <resultMap id="mapResult" type="map">
+    </resultMap>
 
 
     <select id="selectStatsByCreateDate" resultMap="ResultStats" >
@@ -17,8 +25,16 @@
     <select id="selectArticlesByReadCount" resultType="article">
         select a.*
           from t_article a, t_article_stat b
-	      where a.userid = #{userid} and a.id = b.article_id
+	      where a.userid = #{userid} and a.status = 0 and a.id = b.article_id
 	      order by b.read_count desc
+    </select>
+
+    <select id="selectStatsByStatus" resultMap="ResultStatsOfStatus">
+        select status, count(*) as `count`
+            from t_article a
+            where a.userid = #{userid}
+            group by status
+            order by status asc
     </select>
 
     <!-- <select articleId="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >

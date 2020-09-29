@@ -1,4 +1,4 @@
-package com.hbwh.xj.myblog.web;
+package com.hbwh.xj.myblog.config;
 
 import com.hbwh.xj.myblog.web.filter.LoginFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 
 import java.util.Arrays;
 
@@ -17,6 +18,14 @@ public class FilterConfiguration {
      * Filter
      *
      ************************************/
+
+    @Bean
+    public  FilterRegistrationBean filters(){
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new HttpPutFormContentFilter());
+        return registrationBean;
+    }
+
     /**
      * 对请求API做过滤：若用户没有登录，要重定向到登录页面(转移到拦截器中去实现)
      * @return

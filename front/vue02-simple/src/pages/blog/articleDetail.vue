@@ -74,8 +74,8 @@
 	import { ARTICLE_TYPE } from '../../constants/dict';
 	import * as funcs from '../../funcs/getData' 
     export default {
-		mounted(){
-			let articleId = this.$route.params.articleId;
+		created(){
+			let articleId = this.$route.params.id;
 			this.articleId = articleId;
 			funcs.getArticle(this.user.userid, articleId).then(res => {
 				console.info('...getArticle...')

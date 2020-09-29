@@ -4,7 +4,7 @@
  * @Autor: Jann
  * @Date: 2018-09-22 18:32:43
  * @LastEditors: Jann
- * @LastEditTime: 2020-09-29 21:13:48
+ * @LastEditTime: 2020-09-29 21:24:14
  */
 import http from '../utils/http'
 
@@ -29,6 +29,9 @@ export const getBlogCategories = () => http.get("/blogCategories/");
 //发布文章
 export const publishArticle = (article) => http.post("/articles/", article);
 
+//修改文章
+export const modifyArticle = (article) => http.put(`/articles/${article.userid}`, article);
+
 //获取文章列表
 export const getArticles = (userid, orderBy) => http.get(`/articles/${userid}`,{orderBy});
 
@@ -40,3 +43,9 @@ export const getStatsByCategory = (userid) => http.get('/articles/statsByPrivate
 
 //获取按创建年月维度的统计信息
 export const getStatsByDate = (userid) => http.get('/articles/statsByCreateDate/',{userid});
+
+//获取按文章状态维度的统计信息
+export const getStatsByStatus = (userid) => http.get('’/articles/statsByStatus/',{userid});
+
+//获取所有文章列表，可以包含垃圾箱里的文章
+export const getAllArticles = (userid, containTrash) => http.get(`/articles/${userid}/`, {trash: containTrash});

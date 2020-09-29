@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="scss" scoped>
 
     .title-box, .content-intro {
         cursor: pointer;
@@ -64,8 +64,11 @@
     }
     h4 a {
         display: block;
-        padding-left: 36px;
+        padding-left: 5px;
         word-break: break-all;
+        &:hover {
+            color: #ca0c16;
+        }
     }
     span.article-type {
         color: #ca0c16;
@@ -110,9 +113,9 @@
             <span>评论数：{{commentCount}}</span>
         </div>
         <div class="opt-box">
-            <button class="btn-opt" data-type="top" @click.stop="onOptClick('top')">查看</button>
-            <button class="btn-opt" data-type="edit" @click.stop="onOptClick('edit')">禁止评论</button>
-            <button class="btn-opt" data-type="top" @click.stop="onOptClick('edit')">置顶</button>
+            <button class="btn-opt" data-type="top" @click.stop="onOptClick('view')">查看</button>
+            <button class="btn-opt" data-type="edit" @click.stop="onOptClick('forbid')">禁止评论</button>
+            <button class="btn-opt" data-type="top" @click.stop="onOptClick('top')">置顶</button>
             <button class="btn-opt" data-type="delete" @click.stop="onOptClick('delete')">删除</button>
         </div>
     </div>

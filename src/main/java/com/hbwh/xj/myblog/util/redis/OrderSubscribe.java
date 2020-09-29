@@ -1,6 +1,6 @@
-package com.hbwh.xj.myblog.web.configuration;
+package com.hbwh.xj.myblog.util.redis;
 
-import com.hbwh.xj.myblog.util.RedisUtils;
+import com.hbwh.xj.myblog.util.tool.RedisUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import redis.clients.jedis.JedisPubSub;

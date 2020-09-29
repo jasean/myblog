@@ -84,13 +84,6 @@
 	import { mapState } from 'vuex'
 	import * as funcs from '../../funcs/getData'
     export default {
-		created(){
-		},
-
-		data(){
-			return {
-			}
-		},
 
         computed: mapState({ user: state => {
 			return state.user;

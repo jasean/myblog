@@ -45,11 +45,14 @@
 				let {type, listIndex} = data;
 				if(type === 'delete'){
 					listData.splice(listIndex, 1);
+					//TODO 数据库操作
 				}else if(type === 'top'){
 					// TODO 触发置顶操作
-				}else if(type === 'edit'){
-					// TODO 跳转到编辑页面
-					this.$router.push({name: 'editArticle', params: {id: this.listData[listIndex].id}});
+				}else if(type === 'view'){
+					// TODO 跳转到查看页面
+					this.$router.push({name: 'articleDetail', params: {id: this.listData[listIndex].id}});
+				}else if(type === 'forbid'){
+					//TODO 禁止评论
 				}
 			}
 		}
