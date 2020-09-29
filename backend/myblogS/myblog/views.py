@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-09-22 20:45:59
+LastEditTime: 2020-09-29 21:09:26
 '''
 from django.shortcuts import render
 
@@ -14,6 +14,7 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .models import User, Article, BlogCategory, PrivateCategory
 from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
+from django.db.models import Count
 
 class UserViewSet(viewsets.GenericViewSet, 
     mixins.CreateModelMixin, mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
@@ -74,6 +75,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
     # 按文章状态统计
     @action(methods=["get"], detail=False)
     def statsByStatus(self, request):
-       userid = request.query_params.userid
+        userid = request.query_params.userid
         return Response(Article.objects.filter(userid=userid)
                         .values('status').annotate(total=Count('id')))
