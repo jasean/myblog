@@ -4,7 +4,7 @@
  * @Autor: Jann
  * @Date: 2018-09-22 18:32:43
  * @LastEditors: Jann
- * @LastEditTime: 2020-09-29 21:24:14
+ * @LastEditTime: 2020-10-09 06:43:17
  */
 import http from '../utils/http'
 
@@ -30,7 +30,7 @@ export const getBlogCategories = () => http.get("/blogCategories/");
 export const publishArticle = (article) => http.post("/articles/", article);
 
 //修改文章
-export const modifyArticle = (article) => http.put(`/articles/${article.userid}`, article);
+export const modifyArticle = (article) => http.put(`/articles/${article.id}`, article);
 
 //获取文章列表
 export const getArticles = (userid, orderBy) => http.get(`/articles/${userid}`,{orderBy});
