@@ -67,7 +67,7 @@ class ArticleCategory(models.Model):
     class Meta:
         managed = True
         db_table = 't_article_category'
-        unique_together = (('article_id', 'category'),)
+        # unique_together = (('article_id', 'category'),)
 
 
 class ArticleStat(models.Model):

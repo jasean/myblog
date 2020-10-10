@@ -54,8 +54,12 @@ class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mix
         return PrivateCategory.objects.filter(userid=userid)
 
 class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.all()
+    # queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        userid = self.request.userid
+        return Article.objects.filter(userid=userid)
 
     # 按个人分类统计
     @action(methods=["get"], detail=False)

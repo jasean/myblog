@@ -33,7 +33,7 @@ export const publishArticle = (article) => http.post("/articles/", article);
 export const modifyArticle = (article) => http.put(`/articles/${article.id}`, article);
 
 //获取文章列表
-export const getArticles = (userid, orderBy) => http.get(`/articles/${userid}`,{orderBy});
+export const getArticles = (userid, orderBy) => http.get('/articles/',{orderBy,userid});
 
 //获取文章详情
 export const getArticle = (userid, articleid) => http.get(`/articles/${articleid}`,{userid});
@@ -48,4 +48,4 @@ export const getStatsByDate = (userid) => http.get('/articles/statsByCreateDate/
 export const getStatsByStatus = (userid) => http.get('’/articles/statsByStatus/',{userid});
 
 //获取所有文章列表，可以包含垃圾箱里的文章
-export const getAllArticles = (userid, containTrash) => http.get(`/articles/${userid}/`, {trash: containTrash});
+export const getAllArticles = (userid, containTrash) => http.get('/articles/', {trash: containTrash,userid});
