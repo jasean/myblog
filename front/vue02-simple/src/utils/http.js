@@ -1,10 +1,18 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Jann
+ * @Date: 2020-04-02 10:58:13
+ * @LastEditors: Jann
+ * @LastEditTime: 2020-10-10 20:28:33
+ */
 import axios from 'axios'
 import router from '../config/router'
 import {REQ_RESULT_401} from '../constants/constants'
 import qs from 'qs'
 
 const inst = axios.create();
-inst.defaults.baseURL = 'http://localhost:9080/';
+inst.defaults.baseURL = 'http://localhost:8000/';
 inst.defaults.timeout = 5000;
 inst.defaults.withCredentials = true;
 

@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-09-22 19:34:39
+LastEditTime: 2020-10-10 20:04:08
 '''
 """myblogS URL Configuration
 
@@ -48,7 +48,7 @@ router.register(r'users', views.UserViewSet)
 
 
 #article路由
-router.register(r'articles', views.ArticleViewSet)
+router.register(r'articles', views.ArticleViewSet, basename='articles')
 
 #博客分类
 # router.register(r'^categories/', 

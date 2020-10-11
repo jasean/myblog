@@ -4,14 +4,15 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-09-29 21:09:26
+LastEditTime: 2020-10-11 14:10:33
 '''
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, Http404
 
 # Create your views here.
 from rest_framework import viewsets, mixins
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
+from rest_framework import status
 from .models import User, Article, BlogCategory, PrivateCategory
 from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
 from django.db.models import Count
@@ -24,7 +25,12 @@ class UserViewSet(viewsets.GenericViewSet,
     # TODO 登录处理逻辑
     @action(methods=["post"], detail=True)
     def login(self, request, pk):
-        user = User.objects.get(pk=pk)
+        user = None
+        try:
+            user = get_object_or_404(User, pk=pk)
+        except Http404:
+            return Response('用户不存在')
+        
         return Response(user.userid)
 
     # TODO 登出处理逻辑
@@ -50,6 +56,7 @@ class PrivateCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mix
     serializer_class = PrivateCategorySerializer
 
     def get_queryset(self):
+        # query_params
         userid = self.request.userid
         return PrivateCategory.objects.filter(userid=userid)
 
