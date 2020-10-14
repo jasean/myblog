@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-10-11 14:10:33
+LastEditTime: 2020-10-14 21:21:07
 '''
 from django.shortcuts import render, get_object_or_404, Http404
 
@@ -16,6 +16,7 @@ from rest_framework import status
 from .models import User, Article, BlogCategory, PrivateCategory
 from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
 from django.db.models import Count
+from myblogS.util.result import Result, ResultCode
 
 class UserViewSet(viewsets.GenericViewSet, 
     mixins.CreateModelMixin, mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
@@ -29,9 +30,9 @@ class UserViewSet(viewsets.GenericViewSet,
         try:
             user = get_object_or_404(User, pk=pk)
         except Http404:
-            return Response('用户不存在')
+            return Response(Result.get(ResultCode.user_not_exist).build())
         
-        return Response(user.userid)
+        return Response(Result.get(ResultCode.user_not_exist).set_data(user.userid).build())
 
     # TODO 登出处理逻辑
     @action(methods=["delete"], detail=True)
