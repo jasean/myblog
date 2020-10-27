@@ -63,7 +63,7 @@ class Result:
         self.data = data
 
     @classmethod
-    def get(cls, resultcode: ResultCode, *, data=None):
+    def get(cls, resultcode: ResultCode=None, *, data=None):
         ''' 工厂方法 '''
         if resultcode is None:
             return cls(ResultCode.success, data) 

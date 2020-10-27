@@ -56,7 +56,7 @@ class MD5Utils:
             return False
         else:
             return True
-        
+    
 if __name__ == "__main__":
     md5 = MD5Utils()
     pwd='123456'

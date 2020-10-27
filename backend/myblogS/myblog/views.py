@@ -16,10 +16,10 @@ from rest_framework import status
 from .models import User, Article, BlogCategory, PrivateCategory
 from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
 from django.db.models import Count
-from myblogS.util.result import Result, ResultCode
+from myblogS.util.result import Result, ResultCode, MD5Utils
 
 class UserViewSet(viewsets.GenericViewSet, 
-    mixins.CreateModelMixin, mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
+    mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -29,17 +29,31 @@ class UserViewSet(viewsets.GenericViewSet,
         user = None
         try:
             user = get_object_or_404(User, pk=pk)
-            
+            digest_db = user.password
+            password = request.data.passowrd
+            md5 = MD5Utils()
+            result = md5.verify_md5(password, digest_db)
+            if result == False:
+                return Response(Result.get(ResultCode.user_login_error).build())
+
+            request.session['user'] = user
+
         except Http404:
             return Response(Result.get(ResultCode.user_not_exist).build())
         
-        return Response(Result.get(ResultCode.user_not_exist).set_data(user.userid).build())
+        return Response(Result.get().set_data(user.userid).build())
 
     # TODO 登出处理逻辑
     @action(methods=["delete"], detail=True)
     def logout(self, request, pk):
-        user = User.objects.get(pk=pk)
-        return Response(user.userid)
+        user = None
+        try:
+            user = get_object_or_404(User, pk=pk)
+            del request.session['user']
+        except Http404:
+            return Response(Result.get(ResultCode.user_not_exist).build())
+
+        return Response(Result.get().set_data(user.userid).build())
 
 # @api_view(["GET"])
 # def get_blog_categories():
