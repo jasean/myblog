@@ -58,26 +58,29 @@ class Result:
     '''
         后台返回数据结构
     '''
-    def __init__(self, resultcode:ResultCode, data):
+    def __init__(self, resultcode: ResultCode, data):
         self.resultcode = resultcode
         self.data = data
 
     @classmethod
-    def get(cls, resultcode:ResultCode, *, data):
+    def get(cls, resultcode: ResultCode, *, data=None):
+        ''' 工厂方法 '''
         if resultcode is None:
             return cls(ResultCode.success, data) 
-        else:
-            return cls(resultcode , data)
+        return cls(resultcode, data)
 
     def set_code(self, resultcode):
+        ''' 设置返回码 '''
         self.resultcode = resultcode
         return self
 
     def set_data(self, data):
+        ''' 设置返回数据'''
         self.data = data
         return self
     
     def build(self):
+        ''' builder方法'''
         return {
             'code': return_code_dict[self.resultcode.name][0],
             'msg': return_code_dict[self.resultcode.name][1],

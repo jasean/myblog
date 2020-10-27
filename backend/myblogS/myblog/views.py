@@ -29,6 +29,7 @@ class UserViewSet(viewsets.GenericViewSet,
         user = None
         try:
             user = get_object_or_404(User, pk=pk)
+            
         except Http404:
             return Response(Result.get(ResultCode.user_not_exist).build())
         
