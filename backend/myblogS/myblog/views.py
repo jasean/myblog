@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-10-14 21:21:07
+LastEditTime: 2020-10-27 19:16:02
 '''
 from django.shortcuts import render, get_object_or_404, Http404
 
@@ -16,7 +16,8 @@ from rest_framework import status
 from .models import User, Article, BlogCategory, PrivateCategory
 from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializer, PrivateCategorySerializer
 from django.db.models import Count
-from myblogS.util.result import Result, ResultCode, MD5Utils
+from myblogS.util.result import Result, ResultCode
+from myblogS.util.md5util import MD5Utils
 
 class UserViewSet(viewsets.GenericViewSet, 
     mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):

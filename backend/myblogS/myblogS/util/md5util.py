@@ -4,12 +4,12 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-24 21:07:34
 LastEditors: Jann
-LastEditTime: 2020-09-27 06:44:28
+LastEditTime: 2020-10-27 19:16:43
 '''
 
 from random import Random
 import hashlib
-from byteutil import ByteUtils
+from .byteutil import ByteUtils
 
 class MD5Utils:
     '''
