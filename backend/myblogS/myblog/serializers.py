@@ -4,7 +4,7 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 20:29:01
 LastEditors: Jann
-LastEditTime: 2020-09-22 20:10:25
+LastEditTime: 2020-10-28 21:51:42
 '''
 
 from rest_framework import serializers
@@ -14,7 +14,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('url', 'userid', 'password', 'usernm', 'signature', 'image_path', 'level', 
+            'page_view', 'score', 'rank')
 
 class ArticleSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.userid')

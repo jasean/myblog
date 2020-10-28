@@ -4,12 +4,12 @@ Version: 1.0
 Autor: Jann
 Date: 2020-09-21 19:23:53
 LastEditors: Jann
-LastEditTime: 2020-10-27 19:16:02
+LastEditTime: 2020-10-28 21:30:01
 '''
 from django.shortcuts import render, get_object_or_404, Http404
 
 # Create your views here.
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,12 +18,23 @@ from .serializers import UserSerializer, ArticleSerializer, BlogCategorySerializ
 from django.db.models import Count
 from myblogS.util.result import Result, ResultCode
 from myblogS.util.md5util import MD5Utils
+from myblogS.util import mixins
 
 class UserViewSet(viewsets.GenericViewSet, 
     mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def perform_create(self, serializer):
+        '''
+        新增用户时需要写入密文信息
+        '''
+        password = self.request.data.get('password')
+        md5 = MD5Utils()
+        password = md5.md5sum_by_salt(password)
+        
+        serializer.save(password=password)
+    
     # TODO 登录处理逻辑
     @action(methods=["post"], detail=True)
     def login(self, request, pk):
@@ -37,7 +48,7 @@ class UserViewSet(viewsets.GenericViewSet,
             if result == False:
                 return Response(Result.get(ResultCode.user_passwd_error).build())
 
-            request.session['user'] = user
+            request.session['user'] = user.defer('password')
 
         except Http404:
             return Response(Result.get(ResultCode.user_not_exist).build())
