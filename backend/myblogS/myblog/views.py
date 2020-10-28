@@ -31,11 +31,11 @@ class UserViewSet(viewsets.GenericViewSet,
         try:
             user = get_object_or_404(User, pk=pk)
             digest_db = user.password
-            password = request.data.passowrd
+            password = request.data.get('password')
             md5 = MD5Utils()
             result = md5.verify_md5(password, digest_db)
             if result == False:
-                return Response(Result.get(ResultCode.user_login_error).build())
+                return Response(Result.get(ResultCode.user_passwd_error).build())
 
             request.session['user'] = user
 

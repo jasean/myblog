@@ -29,6 +29,7 @@ const routes = [
             {
                 name: 'register',
                 path: 'register', //注册页面
+                meta: { auth: false },
                 component: resolve => require(['../pages/register.vue'], resolve)
             },
             {

@@ -64,7 +64,8 @@
 				this.USER_SIGNIN(this.form).then(() => {
 					this.$router.replace({ path: '/home' })
 				}).catch(e => {
-					alert(JSON.stringify(e))
+					console.error(e)
+					alert(JSON.stringify(e.message))
 				})
 			}
 		}

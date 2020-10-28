@@ -9,13 +9,13 @@
 import http from '../utils/http'
 
 //登陆
-export const login = (user) => http.post('/users/'+user.userid+'/login/');
+export const login = (user) => http.post('/users/'+user.userid+'/login/', user);
 
 //退出登陆
 export const logout = (userid) => http.delete('/users/' + userid+ '/logout/');
 
 //注册
-export const register = (user) => http.post('/users', user);
+export const register = (user) => http.post('/users/', user);
 
 //获取当前用户信息
 export const getCurrentUserInfo = (userid) => http.get(`/users/${userid}/`);

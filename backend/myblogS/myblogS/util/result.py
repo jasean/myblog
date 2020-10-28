@@ -12,7 +12,7 @@ LastEditTime: 2020-10-14 21:17:47
 return_code_dict = {
     'success': [0,'success'],
     'user_not_logged_in': [20001, '用户未登陆'],
-    'user_login_error': [20002, '用户登陆错误'],
+    'user_passwd_error': [20002, '用户密码错误'],
     'user_account_forbidden': [20003, '账户被限制登陆'],
     'user_not_exist': [20004, '用户不存在'],
     'user_has_existed' : [20005, '用户已存在'],
@@ -34,7 +34,7 @@ class ResultCode(Enum):
     
     # 用户错误：20001-29999
     user_not_logged_in = 20001
-    user_login_error = 20002
+    user_passwd_error = 20002
     user_account_forbidden = 20003
     user_not_exist = 20004
     user_has_existed = 20005

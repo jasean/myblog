@@ -53,8 +53,8 @@
 				<input type="text" placeholder="请输入用户签名" v-model="form.signature">
 			</div>
 
-			<button>登录</button>
-			<router-link to="/register" class="register">新用户?</router-link>
+			<button>注册</button>
+			<!-- <router-link to="/register" class="register">新用户?</router-link> -->
 		</form>
 	</div>
 </template>
